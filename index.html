@@ -3,9 +3,18 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>LinkHub</title>
+  <title>LinkHub - Fixed Version</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+  <style>
+    /* Custom styles for better compatibility */
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+    .profile-img {
+      transition: all 0.3s ease;
+    }
+  </style>
 </head>
 <body class="min-h-screen bg-gradient-to-br from-purple-900 via-blue-900 to-pink-900 p-4 flex items-center justify-center">
   <div class="w-full max-w-md">
@@ -13,7 +22,7 @@
     <div class="backdrop-blur-lg bg-white/10 rounded-3xl p-8 mb-6 border border-white/20 shadow-2xl">
       <div class="flex flex-col items-center">
         <div class="relative group mb-4">
-          <div class="w-32 h-32 rounded-full overflow-hidden border-4 border-white/30 shadow-lg" id="profileImageContainer">
+          <div class="w-32 h-32 rounded-full overflow-hidden border-4 border-white/30 shadow-lg profile-img" id="profileImageContainer">
             <div class="w-full h-full bg-gradient-to-br from-purple-400 to-pink-400 flex items-center justify-center text-white text-4xl font-bold" id="profileInitial">
               Y
             </div>
@@ -34,11 +43,11 @@
         </div>
 
         <div id="profileEdit" class="hidden w-full space-y-3">
-          <input type="text" id="editName" class="w-full bg-white/20 text-white px-4 py-2 rounded-lg border border-white/30 focus:outline-none focus:ring-2 focus:ring-purple-400" placeholder="Your Name">
-          <input type="text" id="editBio" class="w-full bg-white/20 text-white px-4 py-2 rounded-lg border border-white/30 focus:outline-none focus:ring-2 focus:ring-purple-400" placeholder="Your Bio">
+          <input type="text" id="editName" class="w-full bg-white/20 text-white px-4 py-2 rounded-lg border border-white/30 focus:outline-none focus:ring-2 focus:ring-purple-400 placeholder-white/50" placeholder="Your Name">
+          <input type="text" id="editBio" class="w-full bg-white/20 text-white px-4 py-2 rounded-lg border border-white/30 focus:outline-none focus:ring-2 focus:ring-purple-400 placeholder-white/50" placeholder="Your Bio">
           <button onclick="saveProfile()" class="w-full bg-gradient-to-r from-purple-500 to-pink-500 text-white py-2 rounded-lg hover:from-purple-600 hover:to-pink-600 transition-all">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline mr-2"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17,21 17,13 7,13 7,21"></polyline><polyline points="7,3 7,8 15,8"></polyline></svg>
-            Save
+            Save Profile
           </button>
         </div>
       </div>
@@ -60,6 +69,8 @@
           <option value="instagram">📷 Instagram</option>
           <option value="twitter">🐦 Twitter</option>
           <option value="youtube">📺 YouTube</option>
+          <option value="github">💻 GitHub</option>
+          <option value="linkedin">💼 LinkedIn</option>
         </select>
         <div class="flex space-x-3">
           <button onclick="addLink()" class="flex-1 bg-gradient-to-r from-purple-500 to-pink-500 text-white py-3 rounded-lg hover:from-purple-600 hover:to-pink-600 transition-all font-medium">Add Link</button>
@@ -74,11 +85,27 @@
       <span class="text-white font-medium ml-2">Add New Link</span>
     </button>
 
+    <!-- Export/Import Buttons -->
+    <div class="flex space-x-2 mt-4">
+      <button onclick="exportData()" class="flex-1 bg-gradient-to-r from-green-500 to-blue-500 text-white py-2 rounded-lg hover:from-green-600 hover:to-blue-600 transition-all font-medium">Export Data</button>
+      <label class="flex-1 bg-gradient-to-r from-blue-500 to-purple-500 text-white py-2 rounded-lg hover:from-blue-600 hover:to-purple-600 transition-all font-medium text-center cursor-pointer">
+        Import Data
+        <input type="file" class="hidden" accept=".json" id="importData">
+      </label>
+    </div>
+
+    <!-- Clear All Button (Admin Only) -->
+    <button onclick="clearAllData()" class="w-full mt-4 bg-red-500 text-white py-2 rounded-lg hover:bg-red-600 transition-all font-medium">Clear All Data (Admin)</button>
+
     <!-- Footer -->
-    <p class="text-center text-white/40 text-sm mt-8">Made with ❤️ using Claude</p>
+    <p class="text-center text-white/40 text-sm mt-8">Made with ❤️ using Claude - Fixed Version</p>
   </div>
 
   <script>
+    // Password untuk akses edit (ganti dengan password kamu sendiri)
+    const ADMIN_PASSWORD = "admin123"; // Ganti ini dengan password yang kamu inginkan
+
+    // Default data
     let profile = {
       name: 'Your Name',
       bio: 'Add your bio here ✨',
@@ -87,63 +114,181 @@
     let links = [];
     let draggedItem = null;
 
-    // Load data from localStorage
-    const saved = localStorage.getItem('linkHubData');
-    if (saved) {
-      const data = JSON.parse(saved);
-      profile = data.profile || profile;
-      links = data.links || [];
+    // Utility functions
+    function log(message) {
+      console.log('[LinkHub]', message);
     }
 
-    // Initialize
-    updateProfileDisplay();
-    renderLinks();
+    function showAlert(message) {
+      alert(message);
+      log(message);
+    }
+
+    // Load data from localStorage
+    function loadData() {
+      try {
+        const saved = localStorage.getItem('linkHubData');
+        if (saved) {
+          const data = JSON.parse(saved);
+          profile = { ...profile, ...data.profile };
+          links = data.links || [];
+          log('Data loaded successfully');
+        } else {
+          log('No saved data found, using defaults');
+        }
+      } catch (e) {
+        log('Error loading data: ' + e.message);
+        showAlert('Error loading saved data. Using defaults.');
+      }
+    }
+
+    // Save data to localStorage
+    function saveData() {
+      try {
+        const data = { profile, links };
+        localStorage.setItem('linkHubData', JSON.stringify(data));
+        log('Data saved successfully');
+      } catch (e) {
+        log('Error saving data: ' + e.message);
+        showAlert('Error saving data! Check console for details.');
+      }
+    }
+
+    // Initialize app
+    function init() {
+      loadData();
+      updateProfileDisplay();
+      renderLinks();
+      setupEventListeners();
+      log('App initialized');
+    }
+
+    // Setup event listeners
+    function setupEventListeners() {
+      // Image upload
+      const imageUpload = document.getElementById('imageUpload');
+      if (imageUpload) {
+        imageUpload.addEventListener('change', handleImageUpload);
+        log('Image upload listener attached');
+      } else {
+        log('Image upload element not found');
+      }
+
+      // Import data
+      const importData = document.getElementById('importData');
+      if (importData) {
+        importData.addEventListener('change', handleImportData);
+        log('Import data listener attached');
+      } else {
+        log('Import data element not found');
+      }
+    }
 
     // Profile functions
     function editProfile() {
+      const password = prompt("Masukkan password untuk edit profil:");
+      if (password !== ADMIN_PASSWORD) {
+        showAlert("Password salah! Akses ditolak.");
+        return;
+      }
       document.getElementById('profileView').classList.add('hidden');
       document.getElementById('profileEdit').classList.remove('hidden');
       document.getElementById('editName').value = profile.name;
       document.getElementById('editBio').value = profile.bio;
+      log('Profile edit mode activated');
     }
 
     function saveProfile() {
-      profile.name = document.getElementById('editName').value;
-      profile.bio = document.getElementById('editBio').value;
+      const newName = document.getElementById('editName').value.trim();
+      const newBio = document.getElementById('editBio').value.trim();
+      
+      if (!newName) {
+        showAlert("Nama tidak boleh kosong!");
+        return;
+      }
+
+      profile.name = newName;
+      profile.bio = newBio;
+      
       updateProfileDisplay();
       document.getElementById('profileView').classList.remove('hidden');
       document.getElementById('profileEdit').classList.add('hidden');
       saveData();
+      showAlert("Profil tersimpan!");
+      log('Profile saved');
     }
 
     function updateProfileDisplay() {
-      document.getElementById('profileName').textContent = profile.name;
-      document.getElementById('profileBio').textContent = profile.bio;
-      document.getElementById('profileInitial').textContent = profile.name[0];
+      const nameElement = document.getElementById('profileName');
+      const bioElement = document.getElementById('profileBio');
+      const initialElement = document.getElementById('profileInitial');
+      const imageContainer = document.getElementById('profileImageContainer');
+
+      if (nameElement) nameElement.textContent = profile.name;
+      if (bioElement) bioElement.textContent = profile.bio;
+      
+      const initial = profile.name.charAt(0).toUpperCase() || 'Y';
+      if (initialElement) initialElement.textContent = initial;
+
       if (profile.image) {
-        document.getElementById('profileImageContainer').innerHTML = `<img src="${profile.image}" alt="Profile" class="w-full h-full object-cover">`;
+        imageContainer.innerHTML = `<img src="${profile.image}" alt="Profile" class="w-full h-full object-cover profile-img">`;
+        log('Profile image displayed');
       } else {
-        document.getElementById('profileImageContainer').innerHTML = `<div class="w-full h-full bg-gradient-to-br from-purple-400 to-pink-400 flex items-center justify-center text-white text-4xl font-bold">${profile.name[0]}</div>`;
+        imageContainer.innerHTML = `<div class="w-full h-full bg-gradient-to-br from-purple-400 to-pink-400 flex items-center justify-center text-white text-4xl font-bold profile-img">${initial}</div>`;
+        log('Profile initial displayed');
       }
     }
 
-    // Image upload
-    document.getElementById('imageUpload').addEventListener('change', function(e) {
-      const file = e.target.files[0];
-      if (file) {
-        const reader = new FileReader();
-        reader.onloadend = () => {
-          profile.image = reader.result;
-          updateProfileDisplay();
-          saveData();
-        };
-        reader.readAsDataURL(file);
+    // Image upload handler
+    function handleImageUpload(e) {
+      const password = prompt("Masukkan password untuk upload foto profil:");
+      if (password !== ADMIN_PASSWORD) {
+        showAlert("Password salah! Akses ditolak.");
+        e.target.value = ''; // Reset input
+        return;
       }
-    });
+
+      const file = e.target.files[0];
+      if (!file) {
+        log('No file selected');
+        return;
+      }
+
+      if (!file.type.startsWith('image/')) {
+        showAlert("File harus berupa gambar!");
+        e.target.value = '';
+        return;
+      }
+
+      if (file.size > 5 * 1024 * 1024) { // 5MB limit
+        showAlert("Ukuran file maksimal 5MB!");
+        e.target.value = '';
+        return;
+      }
+
+      const reader = new FileReader();
+      reader.onload = function(event) {
+        profile.image = event.target.result;
+        updateProfileDisplay();
+        saveData();
+        showAlert("Foto profil tersimpan!");
+        log('Profile image uploaded and saved');
+      };
+      reader.onerror = function() {
+        showAlert("Error membaca file!");
+        log('Error reading file');
+      };
+      reader.readAsDataURL(file);
+    }
 
     // Link functions
     function renderLinks() {
       const container = document.getElementById('linksContainer');
+      if (!container) {
+        log('Links container not found');
+        return;
+      }
+
       container.innerHTML = '';
       links.forEach((link, index) => {
         const linkElement = document.createElement('div');
@@ -166,6 +311,7 @@
         linkElement.addEventListener('drop', (e) => handleDrop(e, index));
         container.appendChild(linkElement);
       });
+      log(`Rendered ${links.length} links`);
     }
 
     function getIcon(iconType) {
@@ -173,67 +319,28 @@
         instagram: '📷',
         twitter: '🐦',
         youtube: '📺',
+        github: '💻',
+        linkedin: '💼',
         link: '🔗'
       };
       return icons[iconType] || icons.link;
     }
 
     function addLink() {
-      const title = document.getElementById('newTitle').value;
-      const url = document.getElementById('newUrl').value;
-      const icon = document.getElementById('newIcon').value;
-      if (title && url) {
-        links.push({ title, url, icon, id: Date.now() });
-        document.getElementById('newTitle').value = '';
-        document.getElementById('newUrl').value = '';
-        document.getElementById('newIcon').value = 'link';
-        renderLinks();
-        cancelAdd();
-        saveData();
+      const password = prompt("Masukkan password untuk tambah link:");
+      if (password !== ADMIN_PASSWORD) {
+        showAlert("Password salah! Akses ditolak.");
+        return;
       }
-    }
 
-    function deleteLink(id) {
-      links = links.filter(link => link.id !== id);
-      renderLinks();
-      saveData();
-    }
+      const title = document.getElementById('newTitle').value.trim();
+      const url = document.getElementById('newUrl').value.trim();
+      const icon = document.getElementById('newIcon').value;
 
-    function showAddForm() {
-      document.getElementById('addButton').classList.add('hidden');
-      document.getElementById('addForm').classList.remove('hidden');
-    }
+      if (!title || !url) {
+        showAlert("Judul dan URL harus diisi!");
+        return;
+      }
 
-    function cancelAdd() {
-      document.getElementById('addForm').classList.add('hidden');
-      document.getElementById('addButton').classList.remove('hidden');
-    }
-
-    // Drag and drop
-    function handleDragStart(e, index) {
-      draggedItem = index;
-    }
-
-    function handleDragOver(e) {
-      e.preventDefault();
-    }
-
-    function handleDrop(e, dropIndex) {
-      e.preventDefault();
-      const newLinks = [...links];
-      const draggedLink = newLinks[draggedItem];
-      newLinks.splice(draggedItem, 1);
-      newLinks.splice(dropIndex, 0, draggedLink);
-      links = newLinks;
-      renderLinks();
-      saveData();
-      draggedItem = null;
-    }
-
-    // Save to localStorage
-    function saveData() {
-      localStorage.setItem('linkHubData', JSON.stringify({ profile, links }));
-    }
-  </script>
-</body>
-</html>
+      if (!url.startsWith('http://') && !url.startsWith('https://')) {
+        showAlert("

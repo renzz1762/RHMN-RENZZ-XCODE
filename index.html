@@ -1,227 +1,239 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hacker Console</title>
-    <style>
-        body {
-            margin: 0;
-            font-family: 'Courier New', monospace;
-            color: #0f0;
-            background: black;
-            overflow: hidden;
-        }
-        #hacker-video {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            z-index: -1;
-            opacity: 0.5;
-        }
-        .terminal {
-            position: relative;
-            z-index: 1;
-            padding: 20px;
-            text-align: center;
-        }
-        .hacker-input {
-            background: #111;
-            color: #0f0;
-            border: 1px solid #0f0;
-            padding: 10px;
-            margin: 10px 0;
-            width: 80%;
-            max-width: 400px;
-        }
-        .login-btn, .hacker-btn, .target-btn {
-            background: red;
-            color: #0f0;
-            border: none;
-            padding: 15px 30px;
-            margin: 10px;
-            cursor: pointer;
-            font-weight: bold;
-            font-size: 16px;
-            transition: background 0.3s;
-            border-radius: 5px;
-        }
-        .login-btn:hover, .hacker-btn:hover, .target-btn:hover {
-            background: darkred;
-        }
-        #command-buttons {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin-top: 20px;
-            overflow-y: auto;
-            max-height: 60vh;
-        }
-        #output {
-            margin-top: 20px;
-            color: #0f0;
-            text-align: left;
-            max-width: 600px;
-            margin: auto;
-        }
-        .typing-animation {
-            display: inline-block;
-            border-right: 2px solid #0f0;
-            white-space: nowrap;
-            overflow: hidden;
-            animation: typing 2s steps(30, end), blink-caret .75s step-end infinite;
-        }
-        @keyframes typing {
-            from { width: 0; }
-            to { width: 100%; }
-        }
-        @keyframes blink-caret {
-            from, to { border-color: transparent; }
-            50% { border-color: #0f0; }
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LinkHub</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
 </head>
-<body>
-    <video autoplay muted loop id="hacker-video">
-        <source src="height.mp4" type="video/mp4">
-        Your browser does not support the video tag.
-    </video>
-
-    <div class="terminal" id="login-section">
-        <h1>𝚂𝙸𝙻𝙰𝙷𝙺𝙰𝙽 𝙼𝙰𝚂𝚄𝙺𝙰𝙽 𝙿𝙰𝚂𝚆𝙾𝚁𝙳 𝚈𝙰𝙽𝙶 𝙳𝙸 𝙱𝙴𝚁𝙸 𝙾𝙻𝙴𝙷 𝚁𝙰𝙷𝙼𝙰𝙽 𝚁𝙴𝙽𝚉𝚉</h1>
-        <input type="text" id="username" class="hacker-input" placeholder="Username">
-        <input type="password" id="password" class="hacker-input" placeholder="Password">
-        <button type="submit" class="login-btn">LOGIN</button>
-    </div>
-
-    <div class="terminal" id="dashboard" style="display:none;">
-        <h1>𝚁𝙷𝙼𝙽-𝚁𝙴𝙽𝚉𝚉 𝙸𝚂𝙱𝙰𝙲𝙺 𝚅𝙸𝚁𝚄𝚂 𝚇 𝚁𝙰𝙽𝚂𝙾𝙼𝚆𝙰𝚁𝙴</h1>
-        <input type="text" id="target-number" class="hacker-input" placeholder="Masukkan Nomor Target">
-        <button class="target-btn">SET TARGET</button>
-        <div id="command-buttons"></div>
-        <div id="output"></div>
-    </div>
-
-    <script>
-        document.querySelector('.login-btn').addEventListener('click', function() {
-            const username = document.getElementById('username').value;
-            const password = document.getElementById('password').value;
-            
-            if(username === 'Renzz-X' && password === 'Renzz-x-code') {
-                document.getElementById('login-section').style.display = 'none';
-                document.getElementById('dashboard').style.display = 'block';
-                initDashboard();
-            } else {
-                alert('Access Denied! Incorrect credentials.');
-            }
-        });
-
-        function initDashboard() {
-            const buttons = [
-                'ddos-website', 'crash', 'crash-permanen', 'delay-hard', 'delaypermanen',
-                'force', 'force-permanen', 'force-invisible', 'invis-hard',
-                'invisible', 'spam-code', 'spam-call', 'spam-sticker', 'spam-link'
-            ];
-            
-            const buttonContainer = document.getElementById('command-buttons');
-            
-            buttons.forEach(btn => {
-                const button = document.createElement('button');
-                button.className = 'hacker-btn';
-                button.textContent = btn.toUpperCase();
-                button.addEventListener('click', () => {
-                    const output = document.getElementById('output');
-                    output.innerHTML = `<div class="typing-animation">> Command ${btn} executed (demo only - no actual effect)</div>` + output.innerHTML;
-                });
-                buttonContainer.appendChild(button);
-            });
-        }
-    </script>
-</body>
-</html>
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Secure Hacker Theme</title>
-    <style>
-        body {
-            background-color: #000;
-            color: #0f0;
-            font-family: 'Courier New', monospace;
-            margin: 0;
-            padding: 20px;
-        }
-        .terminal {
-            border: 1px solid #0f0;
-            padding: 20px;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-        .prompt {
-            color: #0f0;
-        }
-        .cursor {
-            animation: blink 1s infinite;
-        }
-        @keyframes blink {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0; }
-        }
-        .glitch {
-            position: relative;
-        }
-        .glitch:hover {
-            text-shadow: 2px 0 #0f0, -2px 0 #0f0;
-            animation: glitch 0.5s infinite;
-        }
-        @keyframes glitch {
-            0% { transform: translate(0); }
-            20% { transform: translate(-2px, 2px); }
-            40% { transform: translate(2px, -2px); }
-            60% { transform: translate(-2px, 2px); }
-            80% { transform: translate(2px, -2px); }
-            100% { transform: translate(0); }
-        }
-    </style>
-</head>
-<body>
-    <div class="terminal">
-        <h1 class="glitch">SYSTEM CONSOLE</h1>
-        <div id="typewriter">
-            <span class="prompt">></span>
-            <span id="text"></span>
-            <span class="cursor">█</span>
+<body class="min-h-screen bg-gradient-to-br from-purple-900 via-blue-900 to-pink-900 p-4 flex items-center justify-center">
+  <div class="w-full max-w-md">
+    <!-- Profile Section -->
+    <div class="backdrop-blur-lg bg-white/10 rounded-3xl p-8 mb-6 border border-white/20 shadow-2xl">
+      <div class="flex flex-col items-center">
+        <div class="relative group mb-4">
+          <div class="w-32 h-32 rounded-full overflow-hidden border-4 border-white/30 shadow-lg" id="profileImageContainer">
+            <div class="w-full h-full bg-gradient-to-br from-purple-400 to-pink-400 flex items-center justify-center text-white text-4xl font-bold" id="profileInitial">
+              Y
+            </div>
+          </div>
+          <label class="absolute bottom-0 right-0 bg-white/90 p-2 rounded-full cursor-pointer hover:bg-white transition-all shadow-lg">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-purple-900"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7,10 12,15 17,10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+            <input type="file" class="hidden" accept="image/*" id="imageUpload">
+          </label>
         </div>
-        <p>Secure access only. All activities are logged.</p>
+
+        <div id="profileView">
+          <h1 class="text-3xl font-bold text-white mb-2" id="profileName">Your Name</h1>
+          <p class="text-white/80 mb-4" id="profileBio">Add your bio here ✨</p>
+          <button onclick="editProfile()" class="text-white/60 hover:text-white transition-colors text-sm">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline mr-1"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+            Edit Profile
+          </button>
+        </div>
+
+        <div id="profileEdit" class="hidden w-full space-y-3">
+          <input type="text" id="editName" class="w-full bg-white/20 text-white px-4 py-2 rounded-lg border border-white/30 focus:outline-none focus:ring-2 focus:ring-purple-400" placeholder="Your Name">
+          <input type="text" id="editBio" class="w-full bg-white/20 text-white px-4 py-2 rounded-lg border border-white/30 focus:outline-none focus:ring-2 focus:ring-purple-400" placeholder="Your Bio">
+          <button onclick="saveProfile()" class="w-full bg-gradient-to-r from-purple-500 to-pink-500 text-white py-2 rounded-lg hover:from-purple-600 hover:to-pink-600 transition-all">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline mr-2"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17,21 17,13 7,13 7,21"></polyline><polyline points="7,3 7,8 15,8"></polyline></svg>
+            Save
+          </button>
+        </div>
+      </div>
     </div>
 
-    <script>
-        // Simulasi efek mengetik
-        const text = "Initializing safe system...";
-        let i = 0;
-        const speed = 100;
-        
-        function typeWriter() {
-            if (i < text.length) {
-                document.getElementById("text").innerHTML += text.charAt(i);
-                i++;
-                setTimeout(typeWriter, speed);
-            }
-        }
-        
-        document.addEventListener('DOMContentLoaded', typeWriter);
-        
-        // Text encryption simulator
-        function encryptText() {
-            const input = prompt("Enter text to encrypt (demo only - no real encryption)");
-            if (input) {
-                alert(`Text encoded: ${btoa(input)}`);
-            }
-        }
-    </script>
+    <!-- Links Section -->
+    <div class="space-y-3" id="linksContainer">
+      <!-- Links will be added here dynamically -->
+    </div>
+
+    <!-- Add Link Form -->
+    <div id="addForm" class="hidden backdrop-blur-lg bg-white/10 rounded-2xl p-6 mt-4 border border-white/20 shadow-lg">
+      <h3 class="text-white font-semibold mb-4">Add New Link</h3>
+      <div class="space-y-3">
+        <input type="text" id="newTitle" placeholder="Link Title" class="w-full bg-white/20 text-white px-4 py-3 rounded-lg border border-white/30 focus:outline-none focus:ring-2 focus:ring-purple-400 placeholder-white/50">
+        <input type="url" id="newUrl" placeholder="https://..." class="w-full bg-white/20 text-white px-4 py-3 rounded-lg border border-white/30 focus:outline-none focus:ring-2 focus:ring-purple-400 placeholder-white/50">
+        <select id="newIcon" class="w-full bg-white/20 text-white px-4 py-3 rounded-lg border border-white/30 focus:outline-none focus:ring-2 focus:ring-purple-400">
+          <option value="link">🔗 Link</option>
+          <option value="instagram">📷 Instagram</option>
+          <option value="twitter">🐦 Twitter</option>
+          <option value="youtube">📺 YouTube</option>
+        </select>
+        <div class="flex space-x-3">
+          <button onclick="addLink()" class="flex-1 bg-gradient-to-r from-purple-500 to-pink-500 text-white py-3 rounded-lg hover:from-purple-600 hover:to-pink-600 transition-all font-medium">Add Link</button>
+          <button onclick="cancelAdd()" class="px-6 bg-white/20 text-white py-3 rounded-lg hover:bg-white/30 transition-all">Cancel</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Add Button -->
+    <button id="addButton" onclick="showAddForm()" class="w-full mt-4 backdrop-blur-lg bg-white/10 rounded-2xl p-4 border border-white/20 shadow-lg hover:bg-white/20 transition-all group">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline text-white group-hover:scale-110 transition-transform"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+      <span class="text-white font-medium ml-2">Add New Link</span>
+    </button>
+
+    <!-- Footer -->
+    <p class="text-center text-white/40 text-sm mt-8">Made with ❤️ using Claude</p>
+  </div>
+
+  <script>
+    let profile = {
+      name: 'Your Name',
+      bio: 'Add your bio here ✨',
+      image: null
+    };
+    let links = [];
+    let draggedItem = null;
+
+    // Load data from localStorage
+    const saved = localStorage.getItem('linkHubData');
+    if (saved) {
+      const data = JSON.parse(saved);
+      profile = data.profile || profile;
+      links = data.links || [];
+    }
+
+    // Initialize
+    updateProfileDisplay();
+    renderLinks();
+
+    // Profile functions
+    function editProfile() {
+      document.getElementById('profileView').classList.add('hidden');
+      document.getElementById('profileEdit').classList.remove('hidden');
+      document.getElementById('editName').value = profile.name;
+      document.getElementById('editBio').value = profile.bio;
+    }
+
+    function saveProfile() {
+      profile.name = document.getElementById('editName').value;
+      profile.bio = document.getElementById('editBio').value;
+      updateProfileDisplay();
+      document.getElementById('profileView').classList.remove('hidden');
+      document.getElementById('profileEdit').classList.add('hidden');
+      saveData();
+    }
+
+    function updateProfileDisplay() {
+      document.getElementById('profileName').textContent = profile.name;
+      document.getElementById('profileBio').textContent = profile.bio;
+      document.getElementById('profileInitial').textContent = profile.name[0];
+      if (profile.image) {
+        document.getElementById('profileImageContainer').innerHTML = `<img src="${profile.image}" alt="Profile" class="w-full h-full object-cover">`;
+      } else {
+        document.getElementById('profileImageContainer').innerHTML = `<div class="w-full h-full bg-gradient-to-br from-purple-400 to-pink-400 flex items-center justify-center text-white text-4xl font-bold">${profile.name[0]}</div>`;
+      }
+    }
+
+    // Image upload
+    document.getElementById('imageUpload').addEventListener('change', function(e) {
+      const file = e.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onloadend = () => {
+          profile.image = reader.result;
+          updateProfileDisplay();
+          saveData();
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+
+    // Link functions
+    function renderLinks() {
+      const container = document.getElementById('linksContainer');
+      container.innerHTML = '';
+      links.forEach((link, index) => {
+        const linkElement = document.createElement('div');
+        linkElement.draggable = true;
+        linkElement.className = 'backdrop-blur-lg bg-white/10 rounded-2xl p-4 border border-white/20 shadow-lg hover:bg-white/20 transition-all cursor-move group';
+        linkElement.innerHTML = `
+          <div class="flex items-center justify-between">
+            <div class="flex items-center space-x-3 flex-1">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-white/40 group-hover:text-white/60"><circle cx="9" cy="12" r="1"></circle><circle cx="9" cy="5" r="1"></circle><circle cx="9" cy="19" r="1"></circle><circle cx="15" cy="12" r="1"></circle><circle cx="15" cy="5" r="1"></circle><circle cx="15" cy="19" r="1"></circle></svg>
+              <div class="text-white/90">${getIcon(link.icon)}</div>
+              <a href="${link.url}" target="_blank" rel="noopener noreferrer" class="flex-1 text-white font-medium hover:text-purple-300 transition-colors">${link.title}</a>
+            </div>
+            <button onclick="deleteLink(${link.id})" class="text-white/60 hover:text-red-400 transition-colors">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+            </button>
+          </div>
+        `;
+        linkElement.addEventListener('dragstart', (e) => handleDragStart(e, index));
+        linkElement.addEventListener('dragover', handleDragOver);
+        linkElement.addEventListener('drop', (e) => handleDrop(e, index));
+        container.appendChild(linkElement);
+      });
+    }
+
+    function getIcon(iconType) {
+      const icons = {
+        instagram: '📷',
+        twitter: '🐦',
+        youtube: '📺',
+        link: '🔗'
+      };
+      return icons[iconType] || icons.link;
+    }
+
+    function addLink() {
+      const title = document.getElementById('newTitle').value;
+      const url = document.getElementById('newUrl').value;
+      const icon = document.getElementById('newIcon').value;
+      if (title && url) {
+        links.push({ title, url, icon, id: Date.now() });
+        document.getElementById('newTitle').value = '';
+        document.getElementById('newUrl').value = '';
+        document.getElementById('newIcon').value = 'link';
+        renderLinks();
+        cancelAdd();
+        saveData();
+      }
+    }
+
+    function deleteLink(id) {
+      links = links.filter(link => link.id !== id);
+      renderLinks();
+      saveData();
+    }
+
+    function showAddForm() {
+      document.getElementById('addButton').classList.add('hidden');
+      document.getElementById('addForm').classList.remove('hidden');
+    }
+
+    function cancelAdd() {
+      document.getElementById('addForm').classList.add('hidden');
+      document.getElementById('addButton').classList.remove('hidden');
+    }
+
+    // Drag and drop
+    function handleDragStart(e, index) {
+      draggedItem = index;
+    }
+
+    function handleDragOver(e) {
+      e.preventDefault();
+    }
+
+    function handleDrop(e, dropIndex) {
+      e.preventDefault();
+      const newLinks = [...links];
+      const draggedLink = newLinks[draggedItem];
+      newLinks.splice(draggedItem, 1);
+      newLinks.splice(dropIndex, 0, draggedLink);
+      links = newLinks;
+      renderLinks();
+      saveData();
+      draggedItem = null;
+    }
+
+    // Save to localStorage
+    function saveData() {
+      localStorage.setItem('linkHubData', JSON.stringify({ profile, links }));
+    }
+  </script>
 </body>
 </html>
-

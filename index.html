@@ -88,11 +88,21 @@
   </div>
 
   <script>
-    let userId = window.location.hash.substring(1); // Ambil userId dari hash URL
-    if (!userId) {
-      // Jika tidak ada hash, generate userId baru
-      userId = Math.random().toString(36).substr(2, 9);
-      window.location.hash = userId; // Set hash baru
+    // Inisialisasi userId dengan prioritas: hash URL > localStorage > generate baru
+    let userId = window.location.hash.substring(1);
+    if (userId) {
+      // Jika ada hash di URL, gunakan itu dan simpan di localStorage
+      localStorage.setItem('userId', userId);
+    } else {
+      // Jika tidak ada hash, cek localStorage
+      userId = localStorage.getItem('userId');
+      if (!userId) {
+        // Jika tidak ada di localStorage, generate baru dan simpan
+        userId = Math.random().toString(36).substr(2, 9);
+        localStorage.setItem('userId', userId);
+      }
+      // Set hash di URL
+      window.location.hash = userId;
     }
 
     let profile = {

@@ -18,8 +18,8 @@
               Y
             </div>
           </div>
-          <!-- Label upload hanya muncul untuk admin -->
-          <label id="imageUploadLabel" class="hidden absolute bottom-0 right-0 bg-white/90 p-2 rounded-full cursor-pointer hover:bg-white transition-all shadow-lg" title="Upload foto profil (khusus admin)">
+          <!-- Label upload untuk semua pengguna -->
+          <label class="absolute bottom-0 right-0 bg-white/90 p-2 rounded-full cursor-pointer hover:bg-white transition-all shadow-lg" title="Upload foto profil">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-purple-900"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7,10 12,15 17,10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
             <input type="file" class="hidden" accept="image/*" id="imageUpload">
           </label>
@@ -28,8 +28,8 @@
         <div id="profileView">
           <h1 class="text-3xl font-bold text-white mb-2" id="profileName">Your Name</h1>
           <p class="text-white/80 mb-4" id="profileBio">Add your bio here ✨</p>
-          <button id="editProfileBtn" onclick="editProfile()" class="hidden text-white/60 hover:text-white transition-colors text-sm">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline mr-1"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+          <button id="editProfileBtn" onclick="editProfile()" class="text-white/60 hover:text-white transition-colors text-sm">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline mr-1"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
             Edit Profile
           </button>
         </div>
@@ -70,25 +70,31 @@
     </div>
 
     <!-- Add Button -->
-    <button id="addButton" onclick="showAddForm()" class="hidden w-full mt-4 backdrop-blur-lg bg-white/10 rounded-2xl p-4 border border-white/20 shadow-lg hover:bg-white/20 transition-all group">
+    <button id="addButton" onclick="showAddForm()" class="w-full mt-4 backdrop-blur-lg bg-white/10 rounded-2xl p-4 border border-white/20 shadow-lg hover:bg-white/20 transition-all group">
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline text-white group-hover:scale-110 transition-transform"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
       <span class="text-white font-medium ml-2">Add New Link</span>
     </button>
 
+    <!-- Copy Link Button -->
+    <button onclick="copyProfileLink()" class="w-full mt-4 backdrop-blur-lg bg-white/10 rounded-2xl p-4 border border-white/20 shadow-lg hover:bg-white/20 transition-all group">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline text-white group-hover:scale-110 transition-transform"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+      <span class="text-white font-medium ml-2">Copy Profile Link</span>
+    </button>
+
     <!-- Footer -->
     <div class="text-center mt-8">
-      <button id="adminLoginBtn" onclick="adminLogin()" class="text-white/40 hover:text-white/60 transition-colors text-sm mb-2">
-        Admin Login
-      </button>
       <p class="text-white/40 text-sm">WEBSITE BY : RENZZ</p>
     </div>
   </div>
 
   <script>
-    // Password untuk akses edit (ganti dengan password kamu sendiri)
-    const ADMIN_PASSWORD = "Renzz98772887Rnoms988"; // Ganti ini dengan password yang kamu inginkan
+    let userId = window.location.hash.substring(1); // Ambil userId dari hash URL
+    if (!userId) {
+      // Jika tidak ada hash, generate userId baru
+      userId = Math.random().toString(36).substr(2, 9);
+      window.location.hash = userId; // Set hash baru
+    }
 
-    let isAdmin = false; // Flag untuk menentukan apakah user adalah admin
     let profile = {
       name: 'Your Name',
       bio: 'Add your bio here ✨',
@@ -97,8 +103,8 @@
     let links = [];
     let draggedItem = null;
 
-    // Load data from localStorage
-    const saved = localStorage.getItem('linkHubData');
+    // Load data from localStorage berdasarkan userId
+    const saved = localStorage.getItem('linkHubData_' + userId);
     if (saved) {
       const data = JSON.parse(saved);
       profile = data.profile || profile;
@@ -109,46 +115,8 @@
     updateProfileDisplay();
     renderLinks();
 
-    // Admin login function
-    function adminLogin() {
-      const password = prompt("Masukkan password admin:");
-      if (password === ADMIN_PASSWORD) {
-        isAdmin = true;
-        alert("Login berhasil! Anda sekarang dapat mengedit.");
-        updateAdminUI();
-      } else {
-        alert("Password salah!");
-      }
-    }
-
-    // Update UI berdasarkan status admin
-    function updateAdminUI() {
-      const editBtn = document.getElementById('editProfileBtn');
-      const addBtn = document.getElementById('addButton');
-      const uploadLabel = document.getElementById('imageUploadLabel');
-      const loginBtn = document.getElementById('adminLoginBtn');
-
-      if (isAdmin) {
-        editBtn.classList.remove('hidden');
-        addBtn.classList.remove('hidden');
-        uploadLabel.classList.remove('hidden'); // Tampilkan label upload untuk admin
-        loginBtn.classList.add('hidden'); // Sembunyikan tombol login setelah login
-        renderLinks(); // Re-render links untuk menampilkan tombol delete
-      } else {
-        editBtn.classList.add('hidden');
-        addBtn.classList.add('hidden');
-        uploadLabel.classList.add('hidden'); // Sembunyikan label upload untuk non-admin
-        loginBtn.classList.remove('hidden');
-        renderLinks(); // Re-render links untuk menyembunyikan tombol delete
-      }
-    }
-
     // Profile functions
     function editProfile() {
-      if (!isAdmin) {
-        alert("Akses ditolak. Login sebagai admin terlebih dahulu.");
-        return;
-      }
       document.getElementById('profileView').classList.add('hidden');
       document.getElementById('profileEdit').classList.remove('hidden');
       document.getElementById('editName').value = profile.name;
@@ -175,13 +143,8 @@
       }
     }
 
-    // Image upload (khusus admin saja)
+    // Image upload
     document.getElementById('imageUpload').addEventListener('change', function(e) {
-      if (!isAdmin) {
-        alert("Akses ditolak. Login sebagai admin terlebih dahulu.");
-        e.target.value = ''; // Reset input
-        return;
-      }
       const file = e.target.files[0];
       if (file) {
         const reader = new FileReader();
@@ -201,8 +164,8 @@
       container.innerHTML = '';
       links.forEach((link, index) => {
         const linkElement = document.createElement('div');
-        linkElement.draggable = isAdmin; // Hanya bisa drag jika admin
-        linkElement.className = `backdrop-blur-lg bg-white/10 rounded-2xl p-4 border border-white/20 shadow-lg hover:bg-white/20 transition-all ${isAdmin ? 'cursor-move' : 'cursor-pointer'} group`;
+        linkElement.draggable = true; // Semua pengguna bisa drag
+        linkElement.className = `backdrop-blur-lg bg-white/10 rounded-2xl p-4 border border-white/20 shadow-lg hover:bg-white/20 transition-all cursor-move group`;
         linkElement.innerHTML = `
           <div class="flex items-center justify-between">
             <div class="flex items-center space-x-3 flex-1">
@@ -210,16 +173,14 @@
               <div class="text-white/90">${getIcon(link.icon)}</div>
               <a href="${link.url}" target="_blank" rel="noopener noreferrer" class="flex-1 text-white font-medium hover:text-purple-300 transition-colors">${link.title}</a>
             </div>
-            ${isAdmin ? `<button onclick="deleteLink(${link.id})" class="text-white/60 hover:text-red-400 transition-colors">
+            <button onclick="deleteLink(${link.id})" class="text-white/60 hover:text-red-400 transition-colors">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
-            </button>` : ''}
+            </button>
           </div>
         `;
-        if (isAdmin) {
-          linkElement.addEventListener('dragstart', (e) => handleDragStart(e, index));
-          linkElement.addEventListener('dragover', handleDragOver);
-          linkElement.addEventListener('drop', (e) => handleDrop(e, index));
-        }
+        linkElement.addEventListener('dragstart', (e) => handleDragStart(e, index));
+        linkElement.addEventListener('dragover', handleDragOver);
+        linkElement.addEventListener('drop', (e) => handleDrop(e, index));
         container.appendChild(linkElement);
       });
     }
@@ -235,10 +196,6 @@
     }
 
     function addLink() {
-      if (!isAdmin) {
-        alert("Akses ditolak. Login sebagai admin terlebih dahulu.");
-        return;
-      }
       const title = document.getElementById('newTitle').value.trim();
       const url = document.getElementById('newUrl').value.trim();
       const icon = document.getElementById('newIcon').value;
@@ -256,20 +213,12 @@
     }
 
     function deleteLink(id) {
-      if (!isAdmin) {
-        alert("Akses ditolak. Login sebagai admin terlebih dahulu.");
-        return;
-      }
       links = links.filter(link => link.id !== id);
       renderLinks();
       saveData();
     }
 
     function showAddForm() {
-      if (!isAdmin) {
-        alert("Akses ditolak. Login sebagai admin terlebih dahulu.");
-        return;
-      }
       document.getElementById('addButton').classList.add('hidden');
       document.getElementById('addForm').classList.remove('hidden');
     }
@@ -279,12 +228,8 @@
       document.getElementById('addButton').classList.remove('hidden');
     }
 
-    // Drag and drop (hanya untuk admin)
+    // Drag and drop
     function handleDragStart(e, index) {
-      if (!isAdmin) {
-        e.preventDefault();
-        return;
-      }
       draggedItem = index;
     }
 
@@ -294,7 +239,6 @@
 
     function handleDrop(e, dropIndex) {
       e.preventDefault();
-      if (!isAdmin) return;
       const newLinks = [...links];
       const draggedLink = newLinks[draggedItem];
       newLinks.splice(draggedItem, 1);
@@ -305,9 +249,20 @@
       draggedItem = null;
     }
 
-    // Save to localStorage
+    // Copy Profile Link
+    function copyProfileLink() {
+      const link = window.location.href;
+      navigator.clipboard.writeText(link).then(() => {
+        alert("Link profile berhasil disalin!");
+      }).catch(err => {
+        console.error('Gagal menyalin link: ', err);
+        alert("Gagal menyalin link. Silakan salin manual: " + link);
+      });
+    }
+
+    // Save to localStorage berdasarkan userId
     function saveData() {
-      localStorage.setItem('linkHubData', JSON.stringify({ profile, links }));
+      localStorage.setItem('linkHubData_' + userId, JSON.stringify({ profile, links }));
     }
   </script>
 </body>

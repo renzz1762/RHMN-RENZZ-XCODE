@@ -3,21 +3,613 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RenzzzWebsite V1.0</title>
+    <title>RenzzzWebsite V2.0</title>
     <style>
-        *{margin:0;padding:0;box-sizing:border-box}body{font-family:'Segoe UI',sans-serif;background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);min-height:100vh;overflow-x:hidden}.navbar{background:rgba(255,255,255,.95);backdrop-filter:blur(10px);padding:1.5rem 5%;display:flex;justify-content:space-between;align-items:center;box-shadow:0 4px 20px rgba(0,0,0,.1);position:sticky;top:0;z-index:100}.logo{font-size:1.8rem;font-weight:bold;background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent}.search-bar{flex:0 0 40%}.search-bar input{width:100%;padding:.8rem 1.5rem;border:2px solid #e0e0e0;border-radius:50px;font-size:1rem;transition:all .3s}.search-bar input:focus{outline:0;border-color:#667eea;box-shadow:0 0 15px rgba(102,126,234,.2)}.nav-icons{display:flex;gap:1.5rem;align-items:center}.nav-icons button{background:0 0;border:none;font-size:1.5rem;cursor:pointer;transition:transform .3s;position:relative}.nav-icons button:hover{transform:scale(1.1)}.cart-count{position:absolute;top:-8px;right:-8px;background:#f5576c;color:#fff;border-radius:50%;width:20px;height:20px;display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:bold}.hero{padding:4rem 5%;text-align:center;color:#fff}.hero h1{font-size:3.5rem;margin-bottom:1rem;text-shadow:2px 2px 10px rgba(0,0,0,.3)}.hero p{font-size:1.3rem;opacity:.95;margin-bottom:1rem}.social-buttons{display:flex;justify-content:center;gap:1rem;margin-top:2rem}.social-btn{padding:.8rem 1.5rem;background:rgba(255,255,255,.2);color:#fff;border:2px solid rgba(255,255,255,.5);border-radius:25px;font-size:1rem;font-weight:600;cursor:pointer;transition:all .3s;text-decoration:none;display:inline-block}.social-btn:hover{background:rgba(255,255,255,.3);transform:scale(1.05)}.categories{padding:3rem 5%;display:flex;gap:2rem;overflow-x:auto;scrollbar-width:none}.categories::-webkit-scrollbar{display:none}.category-card{min-width:200px;height:120px;background:#fff;border-radius:20px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;font-weight:600;cursor:pointer;transition:all .3s;box-shadow:0 4px 15px rgba(0,0,0,.1)}.category-card:hover,.category-card.active{transform:translateY(-5px);box-shadow:0 8px 25px rgba(0,0,0,.15);background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);color:#fff}.products{padding:2rem 5%;background:rgba(255,255,255,.1);backdrop-filter:blur(10px);border-radius:30px 30px 0 0}.section-title{color:#fff;font-size:2rem;margin-bottom:2rem;text-align:center}.product-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:2rem}.product-card{background:#fff;border-radius:20px;overflow:hidden;transition:all .3s;cursor:pointer;box-shadow:0 4px 15px rgba(0,0,0,.1);position:relative}.product-card:hover{transform:translateY(-10px);box-shadow:0 10px 30px rgba(0,0,0,.2)}.product-image{width:100%;height:300px;display:flex;align-items:center;justify-content:center;font-size:4rem;position:relative;overflow:hidden}.product-image::before{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:radial-gradient(circle,rgba(255,255,255,.3) 0%,transparent 70%);animation:shimmer 3s infinite}@keyframes shimmer{0%,100%{transform:translate(-50%,-50%)}50%{transform:translate(0,0)}}.product-info{padding:1.5rem}.product-name{font-size:1.2rem;font-weight:600;margin-bottom:.5rem;color:#333}.product-price{font-size:1.5rem;color:#667eea;font-weight:bold;margin-bottom:1rem}.product-stock{font-size:.9rem;color:#888;margin-bottom:1rem}.stock-available{color:#27ae60}.stock-out{color:#e74c3c}.button-group{display:flex;gap:.5rem}.btn-cart,.btn-buy,.btn-love{flex:1;padding:.8rem;border:none;border-radius:10px;font-size:.95rem;font-weight:600;cursor:pointer;transition:all .3s}.btn-cart{background:#fff;color:#667eea;border:2px solid #667eea}.btn-cart:hover{background:#667eea;color:#fff}.btn-buy{background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);color:#fff}.btn-buy:hover{transform:scale(1.05);box-shadow:0 5px 15px rgba(102,126,234,.4)}.btn-love{background:#fff;color:#f5576c;border:2px solid #f5576c}.btn-love:hover,.btn-love.loved{background:#f5576c;color:#fff}.btn-disabled{background:#ccc!important;color:#666!important;cursor:not-allowed!important;border:none!important}.btn-disabled:hover{transform:none!important;box-shadow:none!important}.badge{position:absolute;top:10px;right:10px;background:rgba(255,255,255,.9);padding:.3rem .8rem;border-radius:20px;font-size:.8rem;font-weight:600}.badge-sold-out{background:rgba(231,76,60,.9);color:#fff}.modal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.7);z-index:1000;justify-content:center;align-items:center;animation:fadeIn .3s}@keyframes fadeIn{from{opacity:0}to{opacity:1}}.modal.show{display:flex}.modal-content{background:#fff;padding:2.5rem;border-radius:20px;max-width:500px;width:90%;max-height:90vh;overflow-y:auto;animation:slideIn .3s;box-shadow:0 10px 30px rgba(0,0,0,.3);text-align:center}@keyframes slideIn{from{transform:translateY(-50px);opacity:0}to{transform:translateY(0);opacity:1}}.modal-title{font-size:1.8rem;font-weight:bold;margin-bottom:1rem;color:#333}.modal-product{font-size:1.1rem;color:#667eea;font-weight:600;margin-bottom:2rem}.aesthetic-decoration{font-size:3rem;margin:1rem 0;animation:pulse 2s infinite}@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.1)}}.modal-buttons{display:flex;gap:1rem;margin-top:2rem}.modal-button{flex:1;padding:1rem;border:none;border-radius:10px;font-size:1rem;font-weight:600;cursor:pointer;transition:all .3s}.btn-confirm{background:linear-gradient(135deg,#28a745,#20c997);color:#fff}.btn-confirm:hover{transform:scale(1.05);box-shadow:0 5px 15px rgba(40,167,69,.4)}.btn-cancel{background:#fff;color:#e74c3c;border:2px solid #e74c3c}.btn-cancel:hover{background:#e74c3c;color:#fff}.download-section{margin-top:2rem;padding:1.5rem;background:linear-gradient(135deg,#d4fc79 0%,#96e6a1 100%);border-radius:15px;text-align:center}.download-section p{color:#2d5016;font-weight:600;margin-bottom:1rem}.download-link{display:inline-block;padding:1rem 2rem;background:#fff;color:#28a745;text-decoration:none;border-radius:10px;font-weight:600;transition:all .3s}.download-link:hover{transform:scale(1.05);box-shadow:0 5px 15px rgba(40,167,69,.3)}.success-icon{font-size:5rem;margin-bottom:1rem}.social-links{display:flex;flex-direction:column;gap:1rem;margin-top:2rem}.social-link{display:inline-block;padding:1rem 2rem;background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);color:#fff;text-decoration:none;border-radius:10px;font-weight:600;transition:all .3s}.social-link:hover{transform:scale(1.05);box-shadow:0 5px 15px rgba(102,126,234,.4)}.list-modal .modal-content{max-width:600px}.item-list{margin-top:1.5rem;text-align:left}.item-card{background:#f8f9fa;padding:1rem;border-radius:10px;margin-bottom:1rem;display:flex;justify-content:space-between;align-items:center}.item-info{flex:1}.item-name{font-weight:600;color:#333;margin-bottom:.3rem}.item-price{color:#667eea;font-weight:bold}.item-actions{display:flex;gap:.5rem}.btn-remove{background:#e74c3c;color:#fff;border:none;padding:.5rem 1rem;border-radius:5px;cursor:pointer;font-size:.9rem;transition:all .3s}.btn-remove:hover{background:#c0392b}.btn-download{background:#28a745;color:#fff;border:none;padding:.5rem 1rem;border-radius:5px;cursor:pointer;font-size:.9rem;transition:all .3s;text-decoration:none;display:inline-block}.btn-download:hover{background:#218838}.empty-state{padding:3rem 1rem;color:#999;font-size:1.1rem}.empty-icon{font-size:4rem;margin-bottom:1rem}@media (max-width:768px){.hero h1{font-size:2rem}.search-bar{flex:0 0 100%;order:3;margin-top:1rem}.navbar{flex-wrap:wrap}.modal-buttons,.social-buttons{flex-direction:column}.social-buttons{align-items:center}.item-card{flex-direction:column;gap:1rem;align-items:flex-start}.item-actions{width:100%}.item-actions button,.item-actions a{flex:1}}
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .navbar {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .search-bar {
+            flex: 0 0 40%;
+        }
+
+        .search-bar input {
+            width: 100%;
+            padding: 0.7rem 1.2rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 50px;
+            font-size: 0.95rem;
+            transition: all 0.3s;
+        }
+
+        .search-bar input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 15px rgba(102, 126, 234, 0.2);
+        }
+
+        .nav-icons {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .nav-icons button {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: transform 0.3s;
+            position: relative;
+        }
+
+        .nav-icons button:hover {
+            transform: scale(1.1);
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: #f5576c;
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            font-weight: bold;
+        }
+
+        .hero {
+            padding: 3rem 5%;
+            text-align: center;
+            color: white;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.8rem;
+            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            opacity: 0.95;
+            margin-bottom: 0.8rem;
+        }
+
+        .social-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .social-btn {
+            padding: 0.7rem 1.3rem;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 2px solid rgba(255, 255, 255, 0.5);
+            border-radius: 25px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+        }
+
+        .social-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(1.05);
+        }
+
+        .categories {
+            padding: 2rem 5%;
+            display: flex;
+            gap: 1.5rem;
+            overflow-x: auto;
+            scrollbar-width: none;
+        }
+
+        .categories::-webkit-scrollbar {
+            display: none;
+        }
+
+        .category-card {
+            min-width: 150px;
+            height: 100px;
+            background: white;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .category-card:hover,
+        .category-card.active {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .products {
+            padding: 2rem 5%;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 30px 30px 0 0;
+        }
+
+        .section-title {
+            color: white;
+            font-size: 1.8rem;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.3s;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 250px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3.5rem;
+            position: relative;
+        }
+
+        .product-info {
+            padding: 1.5rem;
+        }
+
+        .product-name {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #333;
+            line-height: 1.4;
+        }
+
+        .product-price {
+            font-size: 1.4rem;
+            color: #667eea;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        .product-stock {
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .stock-available {
+            color: #27ae60;
+        }
+
+        .stock-out {
+            color: #e74c3c;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .btn-cart,
+        .btn-buy,
+        .btn-love {
+            flex: 1;
+            padding: 0.7rem;
+            border: none;
+            border-radius: 10px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-cart {
+            background: white;
+            color: #667eea;
+            border: 2px solid #667eea;
+        }
+
+        .btn-cart:hover {
+            background: #667eea;
+            color: white;
+        }
+
+        .btn-buy {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .btn-buy:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-love {
+            background: white;
+            color: #f5576c;
+            border: 2px solid #f5576c;
+            flex: 0 0 auto;
+            width: 50px;
+        }
+
+        .btn-love:hover,
+        .btn-love.loved {
+            background: #f5576c;
+            color: white;
+        }
+
+        .btn-disabled {
+            background: #ccc !important;
+            color: #666 !important;
+            cursor: not-allowed !important;
+            border: none !important;
+        }
+
+        .btn-disabled:hover {
+            transform: none !important;
+            box-shadow: none !important;
+        }
+
+        .badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .badge-sold-out {
+            background: rgba(231, 76, 60, 0.9);
+            color: white;
+        }
+
+        .badge-unlimited {
+            background: rgba(102, 126, 234, 0.9);
+            color: white;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal.show {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 20px;
+            max-width: 500px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            text-align: center;
+        }
+
+        .modal-title {
+            font-size: 1.8rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            color: #333;
+        }
+
+        .modal-product {
+            font-size: 1.1rem;
+            color: #667eea;
+            font-weight: 600;
+            margin-bottom: 2rem;
+        }
+
+        .file-list {
+            margin: 1.5rem 0;
+            text-align: left;
+        }
+
+        .file-item {
+            background: #f8f9fa;
+            padding: 1rem;
+            border-radius: 10px;
+            margin-bottom: 0.8rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .file-info {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .file-icon {
+            font-size: 2rem;
+        }
+
+        .file-details h4 {
+            color: #333;
+            font-size: 1rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .file-details p {
+            color: #888;
+            font-size: 0.85rem;
+        }
+
+        .btn-download-file {
+            background: linear-gradient(135deg, #28a745, #20c997);
+            color: white;
+            border: none;
+            padding: 0.6rem 1.2rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .btn-download-file:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(40, 167, 69, 0.4);
+        }
+
+        .modal-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .modal-button {
+            flex: 1;
+            padding: 1rem;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-confirm {
+            background: linear-gradient(135deg, #28a745, #20c997);
+            color: white;
+        }
+
+        .btn-confirm:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(40, 167, 69, 0.4);
+        }
+
+        .btn-cancel {
+            background: white;
+            color: #e74c3c;
+            border: 2px solid #e74c3c;
+        }
+
+        .btn-cancel:hover {
+            background: #e74c3c;
+            color: white;
+        }
+
+        .list-modal .modal-content {
+            max-width: 600px;
+        }
+
+        .item-list {
+            margin-top: 1.5rem;
+            text-align: left;
+        }
+
+        .item-card {
+            background: #f8f9fa;
+            padding: 1rem;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .item-info {
+            flex: 1;
+        }
+
+        .item-name {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 0.3rem;
+        }
+
+        .item-price {
+            color: #667eea;
+            font-weight: bold;
+        }
+
+        .item-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .btn-remove {
+            background: #e74c3c;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+        }
+
+        .btn-remove:hover {
+            background: #c0392b;
+        }
+
+        .empty-state {
+            padding: 3rem 1rem;
+            color: #999;
+            font-size: 1.1rem;
+        }
+
+        .btn-tutorial {
+            background: linear-gradient(135deg, #FF0050, #00D9FF);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 15px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+            width: 100%;
+            margin-top: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            box-shadow: 0 5px 20px rgba(255, 0, 80, 0.3);
+        }
+
+        .btn-tutorial:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 8px 25px rgba(255, 0, 80, 0.5);
+        }
+
+        .tutorial-icon {
+            font-size: 1.5rem;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-5px);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+
+            .search-bar {
+                flex: 0 0 100%;
+                order: 3;
+                margin-top: 1rem;
+            }
+
+            .navbar {
+                flex-wrap: wrap;
+            }
+
+            .item-card {
+                flex-direction: column;
+                gap: 1rem;
+                align-items: flex-start;
+            }
+
+            .item-actions {
+                width: 100%;
+            }
+
+            .product-grid {
+                grid-template-columns: 1fr;
+            }
+        }
     </style>
 </head>
 <body>
     <nav class="navbar">
-        <div class="logo">✨ RenzzzWebsite V1.0</div>
-        <div class="search-bar"><input type="text" id="searchInput" placeholder="Cari produk impianmu..."></div>
+        <div class="logo">✨ RenzzzWebsite BETA</div>
+        <div class="search-bar">
+            <input type="text" id="searchInput" placeholder="Cari produk impianmu...">
+        </div>
         <div class="nav-icons">
             <button onclick="openCartModal()">🛒<span class="cart-count" id="cartCount">0</span></button>
             <button onclick="openWishlistModal()">❤️</button>
-            <button onclick="openSocialModal()">👤</button>
+            <button onclick="openSocialModal()">‼️</button>
         </div>
     </nav>
+
     <div class="hero">
         <h1>Temukan Produk Script Favoritmu</h1>
         <p>Pilih script yang bermanfaat hanya di sini, untukmu semua ada</p>
@@ -25,22 +617,454 @@
         <div class="social-buttons">
             <a href="https://whatsapp.com/channel/0029Vb5aoKwEwEjpsmaQol3A" class="social-btn" target="_blank">🪀 SALURAN WHATSAPP</a>
             <a href="https://discord.gg/eY9ArqBjMm" class="social-btn" target="_blank">🔮 DISCORD COMMUNITY</a>
-            <a href="https://vm.tiktok.com/ZSHEnKAhyrGwU-dxm18/" class="social-btn" target="_blank">🎵 ACCOUNT TIKTOK</a>
+            <a href="https://vm.tiktok.com/ZSHEnKAhyrGwU-dxm18/" class="social-btn" target="_blank">🎵 ACCOUNT TIKTOK REAL</a>
         </div>
     </div>
+
     <div class="categories">
         <div class="category-card active" data-category="all">✨ Semua</div>
         <div class="category-card" data-category="Unlimited">Unlimited ∞</div>
         <div class="category-card" data-category="Limited">Limited ⏳</div>
     </div>
-    <div class="products"><h2 class="section-title">✨ Produk Populer</h2><div class="product-grid" id="productGrid"></div></div>
-    <div class="modal" id="purchaseModal"><div class="modal-content"><div class="modal-title">Berhasil! 🎉</div><div class="modal-product" id="modalProduct"></div><div class="aesthetic-decoration">✨ 🌟 ✨</div><p style="color:#666;margin:1rem 0">Klik tombol di bawah untuk membuka script:</p><div class="download-section"><p>🎉 Berhasil! Klik kotak di bawah untuk membuka script:</p><a href="#" class="download-link" id="downloadLink" target="_blank">📥 Download Produk</a></div><div class="modal-buttons"><button class="modal-button btn-confirm" onclick="closePurchaseModal()" style="width:100%">✅ OK</button></div></div></div>
-    <div class="modal success-modal" id="successModal"><div class="modal-content"><div class="success-icon">✅</div><div class="modal-title" id="successTitle"></div><p id="successMessage" style="color:#666;margin:1rem 0"></p><button class="modal-button btn-confirm" onclick="closeSuccessModal()">OK</button></div></div>
-    <div class="modal list-modal" id="cartModal"><div class="modal-content"><div class="modal-title">🛒 Keranjang Belanja</div><div id="cartItems" class="item-list"></div><button class="modal-button btn-cancel" onclick="closeCartModal()" style="margin-top:1rem;width:100%">Tutup</button></div></div>
-    <div class="modal list-modal" id="wishlistModal"><div class="modal-content"><div class="modal-title">❤️ Wishlist Saya</div><div id="wishlistItems" class="item-list"></div><button class="modal-button btn-cancel" onclick="closeWishlistModal()" style="margin-top:1rem;width:100%">Tutup</button></div></div>
-    <div class="modal social-modal" id="socialModal"><div class="modal-content"><div class="modal-title">🌟 Ikuti Kami</div><p style="color:#666;margin:1rem 0">Dapatkan update produk terbaru!</p><div class="social-links"><a href="https://whatsapp.com/channel/0029Vb5aoKwEwEjpsmaQol3A" class="social-link" target="_blank">🪀 SALURAN WHATSAPP</a><a href="https://vm.tiktok.com/ZSHEnKorRgTn5-7a9OJ/" class="social-link" target="_blank">🎵 Account TikTok</a><a href="https://discord.gg/eY9ArqBjMm" class="social-link" target="_blank">🔮 DISCORD COMMUNITY</a></div><button class="modal-button btn-cancel" onclick="closeSocialModal()" style="margin-top:1rem;width:100%">Tutup</button></div></div>
+
+    <div class="products">
+        <h2 class="section-title">✨ Produk Populer</h2>
+        <div class="product-grid" id="productGrid"></div>
+    </div>
+
+    <div class="modal" id="purchaseModal">
+        <div class="modal-content">
+            <div class="modal-title">Berhasil! 🎉</div>
+            <div class="modal-product" id="modalProduct"></div>
+            <div style="font-size: 3rem; margin: 1rem 0;">✨ 🌟 ✨</div>
+            <p style="color: #666; margin: 1rem 0;">Pilih file yang ingin kamu download:</p>
+            <div class="file-list" id="fileList"></div>
+            <div class="modal-buttons">
+                <button class="modal-button btn-confirm" onclick="closePurchaseModal()" style="width: 100%;">✅ Tutup</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal list-modal" id="cartModal">
+        <div class="modal-content">
+            <div class="modal-title">🛒 Keranjang Belanja</div>
+            <div id="cartItems" class="item-list"></div>
+            <button class="modal-button btn-cancel" onclick="closeCartModal()" style="margin-top: 1rem; width: 100%;">Tutup</button>
+        </div>
+    </div>
+
+    <div class="modal list-modal" id="wishlistModal">
+        <div class="modal-content">
+            <div class="modal-title">❤️ Wishlist Saya</div>
+            <div id="wishlistItems" class="item-list"></div>
+            <button class="modal-button btn-cancel" onclick="closeWishlistModal()" style="margin-top: 1rem; width: 100%;">Tutup</button>
+        </div>
+    </div>
+
+    <div class="modal social-modal" id="socialModal">
+        <div class="modal-content">
+            <div class="modal-title">🌟 Ikuti Kami</div>
+            <p style="color: #666; margin: 1rem 0;">Dapatkan update produk terbaru!</p>
+            <div style="display: flex; flex-direction: column; gap: 1rem; margin-top: 2rem;">
+                <a href="https://whatsapp.com/channel/0029Vb5aoKwEwEjpsmaQol3A" style="display: inline-block; padding: 1rem 2rem; background: linear-gradient(135deg, #25D366, #128C7E); color: white; text-decoration: none; border-radius: 10px; font-weight: 600;" target="_blank">🪀 SALURAN WHATSAPP</a>
+                <a href="https://vm.tiktok.com/ZSHEnKorRgTn5-7a9OJ/" style="display: inline-block; padding: 1rem 2rem; background: linear-gradient(135deg, #000000, #EE1D52); color: white; text-decoration: none; border-radius: 10px; font-weight: 600;" target="_blank">🎵 Account TikTok</a>
+                <a href="https://discord.gg/eY9ArqBjMm" style="display: inline-block; padding: 1rem 2rem; background: linear-gradient(135deg, #5865F2, #7289DA); color: white; text-decoration: none; border-radius: 10px; font-weight: 600;" target="_blank">🔮 DISCORD COMMUNITY</a>
+            </div>
+            <button class="modal-button btn-cancel" onclick="closeSocialModal()" style="margin-top: 1rem; width: 100%;">Tutup</button>
+        </div>
+    </div>
+
     <script>
-const products=[{name:'SCRIPT P BALAP',price:'GRATIS',icon:'📄',gradient:'linear-gradient(135deg,#f093fb 0%,#f5576c 100%)',badge:'Terlaris',stock:0,category:'Limited',downloadLink:'https://example.com/download/tote-bag.zip'},{name:'SCRIPT MUSIC ( BISA ANTRI MUSIC )',price:'GRATIS',icon:'📄 | 🎵',gradient:'linear-gradient(135deg,#4facfe 0%,#00f2fe 100%)',badge:'New',stock:0,category:'Limited',downloadLink:'https://example.com/download/speaker.zip'},{name:'SCRIPT TERRAIN BISA GANTI WARNA ( MAX 1 WARNA )',price:'GRATIS',icon:'📄 | 🌱',gradient:'linear-gradient(135deg,#667eea 0%,#764ba2 100%)',badge:'Unlimited',stock:Infinity,category:'Unlimited',downloadLink:'https://pastebin.com/m2JjcirN'},{name:'SCRIPT PART KALO DI INJECT BISA BERUBAH WARNA ( SCRIPT TARO DI DALAM PART )',price:'GRATIS',icon:'📄 | 🟦',gradient:'linear-gradient(135deg,#667eea 0%,#764ba2 100%)',badge:'Unlimited',stock:Infinity,category:'Unlimited',downloadLink:'https://pastebin.com/55d5jn5S'},{name:'SCRIPT TOOLS KHUSUS OWNER & ADMIN ( TARO DI SERVER SCRIPT SERVICE )',price:'GRATIS',icon:'📄 | 🛠️',gradient:'linear-gradient(135deg,#667eea 0%,#764ba2 100%)',badge:'Unlimited',stock:Infinity,category:'Unlimited',downloadLink:'https://pastebin.com/raw/example'},{name:'SCRIPT OWNER DAN & ADMNIN )',price:'COMINGSON',icon:'📄 | 🛠️',gradient:'linear-gradient(135deg,#667eea 0%,#764ba2 100%)',badge:'Unlimited',stock:Infinity,category:'Unlimited',downloadLink:'https://pastebin.com/raw/example'}];let cart=[],wishlist=[],currentCategory='all';function renderProducts(c='all',s=''){const g=document.getElementById('productGrid'),f=products.filter(p=>(c==='all'||p.category===c)&&p.name.toLowerCase().includes(s.toLowerCase()));g.innerHTML=f.map((p,i)=>{const ri=products.indexOf(p);return`<div class="product-card"><div class="product-image" style="background:${p.gradient}">${p.icon}${p.stock===0?'<div class="badge badge-sold-out">COMING SOON</div>':(p.badge?`<div class="badge">${p.badge}</div>`:'')}</div><div class="product-info"><div class="product-name">${p.name}</div><div class="product-price">${p.price}</div><div class="product-stock ${p.stock>0?'stock-available':'stock-out'}">${p.stock===Infinity?'✓ Stok: Unlimited ∞':(p.stock>0?`✓ Stok: ${p.stock}`:'COMING SOON')}</div><div class="button-group"><button class="btn-cart ${p.stock===0?'btn-disabled':''}" onclick="addToCart(${ri});event.stopPropagation();" ${p.stock===0?'disabled':''}>🛒</button><button class="btn-buy ${p.stock===0?'btn-disabled':''}" onclick="buyNow(${ri});event.stopPropagation();" ${p.stock===0?'disabled':''}>${p.stock===0?'Habis':'DAPATKAN'}</button><button class="btn-love ${wishlist.includes(ri)?'loved':''}" onclick="toggleWishlist(${ri});event.stopPropagation();">❤️</button></div></div></div>`}).join('')}function addToCart(i){if(products[i].stock===0)return;if(!cart.includes(i)){cart.push(i);updateCartCount();renderProducts(currentCategory,document.getElementById('searchInput').value);showSuccessModal('✅ Ditambahkan ke Keranjang!',`${products[i].name} berhasil ditambahkan ke keranjang`)}else showSuccessModal('ℹ️ Sudah Ada di Keranjang',`${products[i].name} sudah ada di keranjang kamu`)}function buyNow(i){if(products[i].stock===0)return;const p=products[i];document.getElementById('modalProduct').textContent=p.name+' - '+p.price;document.getElementById('downloadLink').href=p.downloadLink;document.getElementById('downloadLink').textContent=`📥 Buka: ${p.name}`;document.getElementById('purchaseModal').classList.add('show')}function closePurchaseModal(){document.getElementById('purchaseModal').classList.remove('show')}function toggleWishlist(i){const pos=wishlist.indexOf(i);if(pos===-1){wishlist.push(i);renderProducts(currentCategory,document.getElementById('searchInput').value);showSuccessModal('❤️ Ditambahkan ke Wishlist!',`${products[i].name} berhasil ditambahkan ke wishlist`)}else{wishlist.splice(pos,1);renderProducts(currentCategory,document.getElementById('searchInput').value);showSuccessModal('💔 Dihapus dari Wishlist',`${products[i].name} dihapus dari wishlist`)}}function removeFromCart(i){const pos=cart.indexOf(i);if(pos!==-1){cart.splice(pos,1);updateCartCount();renderCartItems();showSuccessModal('🗑️ Dihapus dari Keranjang',`${products[i].name} dihapus dari keranjang`)}}function removeFromWishlist(i){const pos=wishlist.indexOf(i);if(pos!==-1){wishlist.splice(pos,1);renderWishlistItems();renderProducts(currentCategory,document.getElementById('searchInput').value);showSuccessModal('💔 Dihapus dari Wishlist',`${products[i].name} dihapus dari wishlist`)}}function renderCartItems(){const c=document.getElementById('cartItems');if(cart.length===0){c.innerHTML='<div class="empty-state"><div class="empty-icon">🛒</div><p>Keranjang kamu masih kosong</p><p style="font-size:.9rem;color:#ccc">Yuk belanja sekarang!</p></div>';return}c.innerHTML=cart.map(i=>{const p=products[i];return`<div class="item-card"><div class="item-info"><div class="item-name">${p.icon} ${p.name}</div><div class="item-price">${p.price}</div></div><div class="item-actions"><a href="${p.downloadLink}" class="btn-download" target="_blank" onclick="event.stopPropagation()">📥 Download</a><button class="btn-remove" onclick="removeFromCart(${i});event.stopPropagation()">🗑️ Hapus</button></div></div>`}).join('')}function renderWishlistItems(){const c=document.getElementById('wishlistItems');if(wishlist.length===0){c.innerHTML='<div class="empty-state"><div class="empty-icon">❤️</div><p>Wishlist kamu masih kosong</p><p style="font-size:.9rem;color:#ccc">Tambahkan produk favorit kamu!</p></div>';return}c.innerHTML=wishlist.map(i=>{const p=products[i];return`<div class="item-card"><div class="item-info"><div class="item-name">${p.icon} ${p.name}</div><div class="item-price">${p.price}</div></div><div class="item-actions">${p.stock>0?`<button class="btn-download" onclick="addToCart(${i});event.stopPropagation()">🛒 Tambah ke Keranjang</button>`:'<button class="btn-download" disabled style="background:#ccc;cursor:not-allowed">Habis</button>'}<button class="btn-remove" onclick="removeFromWishlist(${i});event.stopPropagation()">🗑️ Hapus</button></div></div>`}).join('')}function openCartModal(){renderCartItems();document.getElementById('cartModal').classList.add('show')}function closeCartModal(){document.getElementById('cartModal').classList.remove('show')}function openWishlistModal(){renderWishlistItems();document.getElementById('wishlistModal').classList.add('show')}function closeWishlistModal(){document.getElementById('wishlistModal').classList.remove('show')}function showSuccessModal(t,m){document.getElementById('successTitle').textContent=t;document.getElementById('successMessage').textContent=m;document.getElementById('successModal').classList.add('show')}function closeSuccessModal(){document.getElementById('successModal').classList.remove('show')}function openSocialModal(){document.getElementById('socialModal').classList.add('show')}function closeSocialModal(){document.getElementById('socialModal').classList.remove('show')}function updateCartCount(){document.getElementById('cartCount').textContent=cart.length}document.querySelectorAll('.category-card').forEach(c=>c.addEventListener('click',function(){document.querySelectorAll('.category-card').forEach(x=>x.classList.remove('active'));this.classList.add('active');currentCategory=this.dataset.category;renderProducts(currentCategory,document.getElementById('searchInput').value)}));document.getElementById('searchInput').addEventListener('input',e=>renderProducts(currentCategory,e.target.value));window.onclick=e=>{if(e.target.classList.contains('modal'))e.target.classList.remove('show')};renderProducts();
+const products = [
+    {
+        name: 'SCRIPT P BALAP ( DI ASET MODEL INI KALIAN TAMBAHIN SCRIPT DI SERVER SCRIPT SERVICE )',
+        price: 'GRATIS',
+        icon: '📄',
+        gradient: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
+        badge: 'Terlaris',
+        stock: 0,
+        category: 'Limited',
+        files: [],
+        tutorialVideo: ''
+    },
+    {
+        name: 'SCRIPT MUSIC ( BISA ANTRI MUSIC )',
+        price: 'GRATIS',
+        icon: '📄 | 🎵',
+        gradient: 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)',
+        badge: 'New',
+        stock: 0,
+        category: 'Limited',
+        files: [],
+        tutorialVideo: ''
+    },
+    {
+        name: 'SCRIPT TERRAIN BISA GANTI WARNA ( MAX 1 WARNA )',
+        price: 'GRATIS',
+        icon: '📄 | 🌱',
+        gradient: 'linear-gradient(135deg, #f5576c 0%, #764ba2 100%)',
+        badge: 'Unlimited',
+        stock: Infinity,
+        category: 'Unlimited',
+        tutorialVideo: 'https://vm.tiktok.com/ZSHEnKAhyrGwU-dxm18/',
+        files: [
+            {
+                name: 'terrain_color.lua',
+                size: '2.5 KB',
+                content: `-- Script Terrain Warna
+local Terrain = workspace.Terrain
+local ColorValue = script.Parent:WaitForChild("ColorValue")
+
+local function changeTerrainColor()
+    for _, v in pairs(Terrain:GetChildren()) do
+        if v:IsA("TerrainRegion") then
+            v.Color = ColorValue.Value
+        end
+    end
+end
+
+ColorValue.Changed:Connect(changeTerrainColor)
+changeTerrainColor()`
+            }
+        ]
+    },
+    {
+        name: 'SCRIPT PART KALO DI INJECT BISA BERUBAH WARNA ( SCRIPT TARO DI DALAM PART )',
+        price: 'GRATIS',
+        icon: '📄 | 🟦',
+        gradient: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+        badge: 'Unlimited',
+        stock: Infinity,
+        category: 'Unlimited',
+        tutorialVideo: 'https://vm.tiktok.com/ZSHEnKAhyrGwU-dxm18/',
+        files: [
+            {
+                name: 'color_changer.lua',
+                size: '1.8 KB',
+                content: `-- Script Part Color Changer
+local part = script.Parent
+local colors = {
+    Color3.fromRGB(255, 0, 0),
+    Color3.fromRGB(0, 255, 0),
+    Color3.fromRGB(0, 0, 255),
+    Color3.fromRGB(255, 255, 0),
+    Color3.fromRGB(255, 0, 255)
+}
+
+while wait(1) do
+    part.Color = colors[math.random(1, #colors)]
+end`
+            }
+        ]
+    },
+    {
+        name: 'SCRIPT TOOLS KHUSUS OWNER & ADMIN ( TARO DI SERVER SCRIPT SERVICE )',
+        price: 'GRATIS',
+        icon: '📄 | 🛠️',
+        gradient: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+        badge: 'Unlimited',
+        stock: Infinity,
+        category: 'Unlimited',
+        tutorialVideo: 'https://vm.tiktok.com/ZSHEnKAhyrGwU-dxm18/',
+        files: [
+            {
+                name: 'admin_tools.lua',
+                size: '5.2 KB',
+                content: `-- Admin Tools Script
+local admins = {123456789, 987654321}
+
+game.Players.PlayerAdded:Connect(function(player)
+    if table.find(admins, player.UserId) then
+        print(player.Name .. " is an admin!")
+        -- Add admin commands here
+    end
+end)`
+            },
+            {
+                name: 'owner_commands.lua',
+                size: '3.7 KB',
+                content: `-- Owner Commands
+local owner = 123456789
+
+game.Players.PlayerAdded:Connect(function(player)
+    if player.UserId == owner then
+        print("Owner " .. player.Name .. " joined!")
+        -- Owner-only features
+    end
+end)`
+            }
+        ]
+    }
+];
+
+let cart = [];
+let wishlist = [];
+let currentCategory = 'all';
+
+function downloadFile(fileName, content) {
+    const blob = new Blob([content], { type: 'text/plain' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = fileName;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+}
+
+function renderProducts(category = 'all', search = '') {
+    const grid = document.getElementById('productGrid');
+    const filtered = products.filter(p => 
+        (category === 'all' || p.category === category) &&
+        p.name.toLowerCase().includes(search.toLowerCase())
+    );
+
+    grid.innerHTML = filtered.map((p, i) => {
+        const realIndex = products.indexOf(p);
+        return `
+            <div class="product-card">
+                <div class="product-image" style="background: ${p.gradient}">
+                    ${p.icon}
+                    ${p.stock === 0 ? 
+                        '<div class="badge badge-sold-out">COMING SOON</div>' : 
+                        (p.badge ? `<div class="badge ${p.badge === 'Unlimited' ? 'badge-unlimited' : ''}">${p.badge}</div>` : '')
+                    }
+                </div>
+                <div class="product-info">
+                    <div class="product-name">${p.name}</div>
+                    <div class="product-price">${p.price}</div>
+                    <div class="product-stock ${p.stock > 0 ? 'stock-available' : 'stock-out'}">
+                        ${p.stock === Infinity ? '✓ Stok: Unlimited ∞' : 
+                          (p.stock > 0 ? `✓ Stok: ${p.stock}` : 'COMING SOON')}
+                    </div>
+                    <div class="button-group">
+                        <button class="btn-cart ${p.stock === 0 ? 'btn-disabled' : ''}" 
+                                onclick="addToCart(${realIndex}); event.stopPropagation();" 
+                                ${p.stock === 0 ? 'disabled' : ''}>
+                            🛒
+                        </button>
+                        <button class="btn-buy ${p.stock === 0 ? 'btn-disabled' : ''}" 
+                                onclick="buyNow(${realIndex}); event.stopPropagation();" 
+                                ${p.stock === 0 ? 'disabled' : ''}>
+                            ${p.stock === 0 ? 'TERBATAS' : 'DAPATKAN'}
+                        </button>
+                        <button class="btn-love ${wishlist.includes(realIndex) ? 'loved' : ''}" 
+                                onclick="toggleWishlist(${realIndex}); event.stopPropagation();">
+                            ❤️
+                        </button>
+                    </div>
+                </div>
+            </div>
+        `;
+    }).join('');
+}
+
+function buyNow(index) {
+    if (products[index].stock === 0) return;
+    
+    const product = products[index];
+    document.getElementById('modalProduct').textContent = product.name + ' - ' + product.price;
+    
+    const fileListHTML = product.files.map((file, i) => `
+        <div class="file-item">
+            <div class="file-info">
+                <div class="file-icon">📄</div>
+                <div class="file-details">
+                    <h4>${file.name}</h4>
+                    <p>${file.size}</p>
+                </div>
+            </div>
+            <button class="btn-download-file" onclick="downloadFile('${file.name}', \`${file.content}\`)">
+                📥 Download
+            </button>
+        </div>
+    `).join('');
+    
+    const tutorialButton = product.tutorialVideo ? `
+        <a href="${product.tutorialVideo}" target="_blank" style="text-decoration: none;">
+            <button class="btn-tutorial">
+                <span class="tutorial-icon">🎬</span>
+                <span>Tonton Tutorial TikTok</span>
+            </button>
+        </a>
+    ` : '';
+    
+    document.getElementById('fileList').innerHTML = (fileListHTML || '<p style="color: #999;">Tidak ada file tersedia</p>') + tutorialButton;
+    document.getElementById('purchaseModal').classList.add('show');
+}
+
+function closePurchaseModal() {
+    document.getElementById('purchaseModal').classList.remove('show');
+}
+
+function addToCart(index) {
+    if (products[index].stock === 0) return;
+    
+    if (!cart.includes(index)) {
+        cart.push(index);
+        updateCartCount();
+        renderProducts(currentCategory, document.getElementById('searchInput').value);
+        alert('✅ ' + products[index].name + ' ditambahkan ke keranjang!');
+    } else {
+        alert('ℹ️ Produk sudah ada di keranjang');
+    }
+}
+
+function toggleWishlist(index) {
+const pos = wishlist.indexOf(index);
+    if (pos === -1) {
+        wishlist.push(index);
+        renderProducts(currentCategory, document.getElementById('searchInput').value);
+        alert('❤️ ' + products[index].name + ' ditambahkan ke wishlist!');
+    } else {
+        wishlist.splice(pos, 1);
+        renderProducts(currentCategory, document.getElementById('searchInput').value);
+        alert('💔 ' + products[index].name + ' dihapus dari wishlist');
+    }
+}
+
+function removeFromCart(index) {
+    const pos = cart.indexOf(index);
+    if (pos !== -1) {
+        cart.splice(pos, 1);
+        updateCartCount();
+        renderCartItems();
+        alert('🗑️ ' + products[index].name + ' dihapus dari keranjang');
+    }
+}
+
+function removeFromWishlist(index) {
+    const pos = wishlist.indexOf(index);
+    if (pos !== -1) {
+        wishlist.splice(pos, 1);
+        renderWishlistItems();
+        renderProducts(currentCategory, document.getElementById('searchInput').value);
+        alert('💔 ' + products[index].name + ' dihapus dari wishlist');
+    }
+}
+
+function renderCartItems() {
+    const container = document.getElementById('cartItems');
+    if (cart.length === 0) {
+        container.innerHTML = `
+            <div class="empty-state">
+                <div class="empty-icon">🛒</div>
+                <p>Keranjang kamu masih kosong</p>
+                <p style="font-size: 0.9rem; color: #ccc;">Yuk belanja sekarang!</p>
+            </div>
+        `;
+        return;
+    }
+
+    container.innerHTML = cart.map(index => {
+        const p = products[index];
+        return `
+            <div class="item-card">
+                <div class="item-info">
+                    <div class="item-name">${p.icon} ${p.name}</div>
+                    <div class="item-price">${p.price}</div>
+                </div>
+                <div class="item-actions">
+                    <button class="btn-download-file" onclick="buyNow(${index}); event.stopPropagation();">
+                        📥 Buka
+                    </button>
+                    <button class="btn-remove" onclick="removeFromCart(${index}); event.stopPropagation();">
+                        🗑️ Hapus
+                    </button>
+                </div>
+            </div>
+        `;
+    }).join('');
+}
+
+function renderWishlistItems() {
+    const container = document.getElementById('wishlistItems');
+    if (wishlist.length === 0) {
+        container.innerHTML = `
+            <div class="empty-state">
+                <div class="empty-icon">❤️</div>
+                <p>Wishlist kamu masih kosong</p>
+                <p style="font-size: 0.9rem; color: #ccc;">Tambahkan produk favorit kamu!</p>
+            </div>
+        `;
+        return;
+    }
+
+    container.innerHTML = wishlist.map(index => {
+        const p = products[index];
+        return `
+            <div class="item-card">
+                <div class="item-info">
+                    <div class="item-name">${p.icon} ${p.name}</div>
+                    <div class="item-price">${p.price}</div>
+                </div>
+                <div class="item-actions">
+                    ${p.stock > 0 ? 
+                        `<button class="btn-download-file" onclick="addToCart(${index}); event.stopPropagation();">
+                            🛒 Tambah ke Keranjang
+                        </button>` : 
+                        '<button class="btn-download-file" disabled style="background: #ccc; cursor: not-allowed;">Habis</button>'
+                    }
+                    <button class="btn-remove" onclick="removeFromWishlist(${index}); event.stopPropagation();">
+                        🗑️ Hapus
+                    </button>
+                </div>
+            </div>
+        `;
+    }).join('');
+}
+
+function openCartModal() {
+    renderCartItems();
+    document.getElementById('cartModal').classList.add('show');
+}
+
+function closeCartModal() {
+    document.getElementById('cartModal').classList.remove('show');
+}
+
+function openWishlistModal() {
+    renderWishlistItems();
+    document.getElementById('wishlistModal').classList.add('show');
+}
+
+function closeWishlistModal() {
+    document.getElementById('wishlistModal').classList.remove('show');
+}
+
+function openSocialModal() {
+    document.getElementById('socialModal').classList.add('show');
+}
+
+function closeSocialModal() {
+    document.getElementById('socialModal').classList.remove('show');
+}
+
+function updateCartCount() {
+    document.getElementById('cartCount').textContent = cart.length;
+}
+
+document.querySelectorAll('.category-card').forEach(card => {
+    card.addEventListener('click', function() {
+        document.querySelectorAll('.category-card').forEach(c => c.classList.remove('active'));
+        this.classList.add('active');
+        currentCategory = this.dataset.category;
+        renderProducts(currentCategory, document.getElementById('searchInput').value);
+    });
+});
+
+document.getElementById('searchInput').addEventListener('input', (e) => {
+    renderProducts(currentCategory, e.target.value);
+});
+
+window.onclick = (e) => {
+    if (e.target.classList.contains('modal')) {
+        e.target.classList.remove('show');
+    }
+};
+
+renderProducts();
     </script>
 </body>
 </html>

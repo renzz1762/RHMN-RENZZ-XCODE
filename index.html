@@ -19,7 +19,7 @@
         }
 
         .navbar {
-            background: rgba(255, 255, 255, 0.95);
+            background: rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(10px);
             padding: 1rem 5%;
             display: flex;
@@ -99,26 +99,17 @@
             color: white;
         }
 
-.hero {
-    padding: 3rem 5%;
-    text-align: center;
-    color: white;
-    background-image: url('https://files.catbox.moe/6fdh1s.png'); /* ganti ini dengan link foto dede */
-    background-size: cover;       /* biar menutupi seluruh area hero */
-    background-position: center;  /* biar foto di tengah */
-    background-repeat: no-repeat;
+body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+    background: 
+        linear-gradient(rgba(0,2,0,0.5), rgba(0, 2, 0, 0.5)), /* overlay ungu */
+        url('https://skinny-tomato-nk9l1dgijq.edgeone.app/IMG_20260114_122857.png') no-repeat center center fixed;
+    background-size: cover;
     position: relative;
-}
-
-.hero::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(102, 126, 234, 0.7); /* Overlay transparan */
-    z-index: 1;
+    color: black;
 }
 
 .hero > * {
@@ -712,6 +703,17 @@
     gap: 0.3rem;
 }
 
+.develover-badge {
+    background: #7289;
+    color: white;
+    padding: 0.2rem 0.8rem;
+    border-radius: 15px;
+    font-size: 0.75rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+}
+
 .comment-email {
     color: #a0b4c3;
     font-size: 0.9rem;
@@ -814,14 +816,14 @@
 <body>
 <!-- Musik Background -->
 <audio id="backgroundMusic" loop>
-    <source src="https://files.catbox.moe/ux6knl.mp3" type="audio/mpeg">
+    <source src="https://honest-emerald-beyexinfsu.edgeone.app/ssstik.io_1768302504217.mp3" type="audio/mpeg">
     Browsermu nggak support audio.
 </audio>
 
 <!-- Tombol Play Musik -->
 <button id="musicToggle" 
         style="position: fixed; bottom: 20px; right: 20px; z-index: 9999; 
-               background: rgba(288, 255, 234, 0.8); color: white; border: none; 
+               background: rgba(288, 200, 234, 0.8); color: white; border: none; 
                padding: 0.8rem 1.2rem; border-radius: 50px; cursor: pointer; 
                font-size: 1rem; font-weight: bold;">
     ▶️ Play Music
@@ -901,7 +903,7 @@ music.addEventListener('pause', updateButton);
                     <div class="comment-card">
                         <div class="comment-user">
                             <div class="user-avatar">
-                                <img src="https://files.catbox.moe/bkwell.png" alt="RenzzzOFC">
+                                <img src="https://shocked-lime-dxbb16fllv.edgeone.app/SHOBA%20_%20intro%20watermark%20[B26C7C5].png" alt="RenzzzOFC">
                             </div>
                             <div class="user-info">
                                 <div class="user-name">
@@ -909,7 +911,7 @@ music.addEventListener('pause', updateButton);
                                     <span class="developer-badge"><span>✓</span> Developer</span>
                                 </div>
                                 <div class="comment-email">renzzz******18@Renzz,.cloud</div>
-                                <div class="comment-date">tanggal -14 - januari 2025 pukul 07.17</div>
+                                <div class="comment-date">tanggal - 14 - januari 2026 pukul 14.01</div>
                                 <div class="comment-rating">
                                     <span class="star">★</span>
                                     <span class="star">★</span>
@@ -919,7 +921,7 @@ music.addEventListener('pause', updateButton);
                                 </div>
                             </div>
                         </div>
-                        <div class="comment-text">TES!</div>
+                        <div class="comment-text">banggalah pada dirimu sendiri,karena tidak ada seseorang pun yang tau bagaimana rasanya menjadi dirimu setiap hari !!</div>
                         <div class="comment-stats">
                             <div class="stat-item">
                                 <span class="icon">👍</span>
@@ -938,11 +940,14 @@ music.addEventListener('pause', updateButton);
                     <div class="comment-card">
                         <div class="comment-user">
                             <div class="user-avatar">
-                                <img src="https://i.pravatar.cc/150?img=2" alt="John Doe">
+                                <img src="https://shocked-lime-dxbb16fllv.edgeone.app/SHOBA%20_%20intro%20watermark%20[B26C7C5].png" alt="Renzzz OFC18">
                             </div>
                             <div class="user-info">
-                                <div class="user-name">John Doe</div>
-                                <div class="comment-email">j***e@example.com</div>
+                                <div class="user-name">
+                                    Renzzz OFC18
+                                    <span class="developer-badge"><span>✓</span> Developer</span>
+                                </div>
+                                <div class="comment-email">renzzz******18@Renzz,.cloud</div>
                                 <div class="comment-date">19 September 2025 pukul 15.30</div>
                                 <div class="comment-rating">
                                     <span class="star">★</span>
@@ -953,15 +958,15 @@ music.addEventListener('pause', updateButton);
                                 </div>
                             </div>
                         </div>
-                        <div class="comment-text">Script nya mantap banget, sangat membantu!</div>
+                        <div class="comment-text">mungkin kamu ngga seberuntung yang lain,tapi orang lain belum tentu bisa sekuat kamu,you should be pround of yourself !</div>
                         <div class="comment-stats">
                             <div class="stat-item">
                                 <span class="icon">👍</span>
-                                <span>234</span>
+                                <span>10,8k</span>
                             </div>
                             <div class="stat-item">
                                 <span class="icon">👎</span>
-                                <span>5</span>
+                                <span>1,3k</span>
                             </div>
                         </div>
                     </div>
@@ -970,12 +975,15 @@ music.addEventListener('pause', updateButton);
                     <div class="comment-card">
                         <div class="comment-user">
                             <div class="user-avatar">
-                                <img src="https://i.pravatar.cc/150?img=2" alt="John Doe">
+                                <img src="https://i.pravatar.cc/150?img=2" alt="Zeeen !">
                             </div>
                             <div class="user-info">
-                                <div class="user-name">John Doe</div>
-                                <div class="comment-email">j***e@example.com</div>
-                                <div class="comment-date">19 September 2025 pukul 15.30</div>
+                                <div class="user-name">
+                                    Zeeen !
+                                    <span class="develover-badge"><span>✓</span> admin</span>
+                                </div>
+                                <div class="comment-email">Zeen*****02@Zeen,.cloud</div>
+                                <div class="comment-date">14 Januari 2026 pukul 21.06</div>
                                 <div class="comment-rating">
                                     <span class="star">★</span>
                                     <span class="star">★</span>
@@ -985,15 +993,15 @@ music.addEventListener('pause', updateButton);
                                 </div>
                             </div>
                         </div>
-                        <div class="comment-text">Script nya mantap banget, sangat membantu!</div>
+                        <div class="comment-text">tidak ada yang mengerti perasaan mu, kecuali dirimu sendiri !!</div>
                         <div class="comment-stats">
                             <div class="stat-item">
                                 <span class="icon">👍</span>
-                                <span>234</span>
+                                <span>5.1k</span>
                             </div>
                             <div class="stat-item">
                                 <span class="icon">👎</span>
-                                <span>5</span>
+                                <span>1,2k</span>
                             </div>
                         </div>
                     </div>
@@ -1064,8 +1072,8 @@ const products = [
     {
         name: 'SCRIPT P BALAP ( DI ASET MODEL INI KALIAN TAMBAHIN SCRIPT DI SERVER SCRIPT SERVICE )',
         price: 'GRATIS',
-        icon: '📄', // Bisa emoji atau URL gambar
-        iconType: 'emoji', // 'emoji' atau 'image'
+        icon: 'https://asleep-bronze-qwa9c3zmt6.edgeone.app/IMG_20260114_153803.jpg', // Bisa emoji atau URL gambar
+        iconType: 'image', // 'emoji' atau 'image'
         gradient: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
         badge: 'Terlaris',
         stock: 0,
@@ -1076,7 +1084,7 @@ const products = [
     {
         name: 'SCRIPT MUSIC ( BISA ANTRI MUSIC )',
         price: 'GRATIS',
-        icon: 'https://files.catbox.moe/bkwell.png', // CONTOH PAKE GAMBAR
+        icon: 'https://fond-indigo-zu9php5xei.edgeone.app/IMG_20260114_153733.jpg', // CONTOH PAKE GAMBAR
         iconType: 'image', // Set 'image' kalau pake foto
         gradient: 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)',
         badge: 'New',
@@ -1088,61 +1096,43 @@ const products = [
     {
         name: 'SCRIPT TERRAIN BISA GANTI WARNA ( MAX 1 WARNA )',
         price: 'GRATIS',
-        icon: '📄 | 🌱',
-        iconType: 'emoji',
+        icon: 'https://head-lavender-63fx8otcpy.edgeone.app/IMG_20260114_153846.jpg',
+        iconType: 'image',
         gradient: 'linear-gradient(135deg, #f5576c 0%, #764ba2 100%)',
-        badge: 'Unlimited',
+        badge: 'New | Unlimited',
         stock: Infinity,
         category: 'Unlimited',
-        tutorialVideo: 'https://vm.tiktok.com/ZSHEnKAhyrGwU-dxm18/',
+        tutorialVideo: 'https://vt.tiktok.com/ZS5cFbwNB/',
         files: [
             {
-                name: 'terrain_color.lua',
+                name: 'terrain_color.txt',
                 size: '2.5 KB',
                 content: `-- Script Terrain Warna
-local Terrain = workspace.Terrain
-local ColorValue = script.Parent:WaitForChild("ColorValue")
-
-local function changeTerrainColor()
-    for _, v in pairs(Terrain:GetChildren()) do
-        if v:IsA("TerrainRegion") then
-            v.Color = ColorValue.Value
-        end
-    end
-end
-
-ColorValue.Changed:Connect(changeTerrainColor)
-changeTerrainColor()`
-            }
-        ],
-        comments: []
-    },
-    {
-        name: 'SCRIPT PART KALO DI INJECT BISA BERUBAH WARNA ( SCRIPT TARO DI DALAM PART )',
-        price: 'GRATIS',
-        icon: '📄 | 🟦',
-        iconType: 'emoji',
-        gradient: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-        badge: 'Unlimited',
-        stock: Infinity,
-        category: 'Unlimited',
-        tutorialVideo: 'https://vm.tiktok.com/ZSHEnKAhyrGwU-dxm18/',
-        files: [
-            {
-                name: 'color_changer.lua',
-                size: '1.8 KB',
-                content: `-- Script Part Color Changer
 local part = script.Parent
 local terrain = workspace.Terrain
+
+-- GANTI WARNA DI SINI (RGB 0-255)
 local warnaR = 0
 local warnaG = 255  
 local warnaB = 255
+
+-- Material (tetap akan mengikuti texture asli material)
 local mat = Enum.Material.Grass
 
+-- Buat terrain
 if part.Shape == Enum.PartType.Block then
+    terrain:FillBlock(part.CFrame, part.Size, mat)
+elseif part.Shape == Enum.PartType.Ball then
+    terrain:FillBall(part.Position, part.Size.X/2, mat)
+elseif part.Shape == Enum.PartType.Cylinder then
+    pcall(function()
+        terrain:FillCylinder(part.CFrame, part.Size, mat)
+    end)
+else
     terrain:FillBlock(part.CFrame, part.Size, mat)
 end
 
+-- Coba set MaterialColors (fitur Roblox terbaru)
 pcall(function()
     terrain:SetMaterialColor(mat, Color3.fromRGB(warnaR, warnaG, warnaB))
 end)
@@ -1154,18 +1144,83 @@ part:Destroy()`
         comments: []
     },
     {
+        name: 'SCRIPT PART KALO DI INJECT BISA BERUBAH WARNA ( SCRIPT TARO DI DALAM PART )',
+        price: 'GRATIS',
+        icon: 'https://visible-yellow-veqkwmmmqy.edgeone.app/IMG_20260114_155457.jpg',
+        iconType: 'image',
+        gradient: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+        badge: 'New | Unlimited',
+        stock: Infinity,
+        category: 'Unlimited',
+        tutorialVideo: 'https://vt.tiktok.com/ZS5cFHA2T/',
+        files: [
+            {
+                name: 'color_changer.txt',
+                size: '1.8 KB',
+                content: `-- Script Part Color Changer
+-- Script untuk blok yang berubah warna pink ketika diinjak
+-- Warna pink bertahan selama masih ada pemain di atas blok
+-- Letakkan script ini di dalam Part yang ingin diberi efek
+
+local part = script.Parent -- Part yang akan berubah warna
+local originalColor = part.Color -- Simpan warna asli
+local originalMaterial = part.Material -- Simpan material asli
+local playersOnPart = 0 -- Hitung berapa pemain di atas blok
+
+-- Fungsi ketika ada yang mulai menyentuh part
+local function onTouchBegan(hit)
+    local humanoid = hit.Parent:FindFirstChild("Humanoid")
+    
+    if humanoid then
+        playersOnPart = playersOnPart + 1
+        
+        -- Ubah warna menjadi pink
+        part.Color = Color3.fromRGB(255, 105, 180) -- Warna pink
+        part.Material = Enum.Material.Neon -- Efek neon
+        
+        print("Pemain naik ke blok! Total di atas blok: " .. playersOnPart)
+    end
+end
+
+-- Fungsi ketika ada yang berhenti menyentuh part
+local function onTouchEnded(hit)
+    local humanoid = hit.Parent:FindFirstChild("Humanoid")
+    
+    if humanoid then
+        playersOnPart = playersOnPart - 1
+        
+        print("Pemain turun dari blok! Total di atas blok: " .. playersOnPart)
+        
+        -- Kembalikan warna asli HANYA jika tidak ada pemain lagi
+        if playersOnPart <= 0 then
+            playersOnPart = 0 -- Reset jika negatif
+            part.Color = originalColor
+            part.Material = originalMaterial
+            print("Blok kembali ke warna asli!")
+        end
+    end
+end
+
+-- Hubungkan fungsi ke event
+part.Touched:Connect(onTouchBegan)
+part.TouchEnded:Connect(onTouchEnded)`
+            }
+        ],
+        comments: []
+    },
+    {
         name: 'SCRIPT TOOLS KHUSUS OWNER & ADMIN ( TARO DI SERVER SCRIPT SERVICE )',
         price: 'GRATIS',
         icon: '📄 | 🛠️',
         iconType: 'emoji',
         gradient: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-        badge: 'Unlimited',
+        badge: 'New | Unlimited',
         stock: Infinity,
         category: 'Unlimited',
-        tutorialVideo: 'https://vm.tiktok.com/ZSHEnKAhyrGwU-dxm18/',
+        tutorialVideo: 'https://vt.tiktok.com/ZS5cFjKYD/',
         files: [
             {
-                name: 'owner_tools.lua',
+                name: 'owner_tools.txt',
                 size: '5.2 KB',
                 content: `-- Admin Tools Script
 local playersList = {"username"}
@@ -1219,45 +1274,613 @@ end)`
             }
         ]
     },
-    {
-        name: 'SCRIPT PART KALO DI INJECT BISA BERUBAH WARNA ( SCRIPT TARO DI DALAM PART )',
+      {
+        name: 'SCRIPT ZONA MUSIC V1.0 ( SCRIPT TARO DI DALAM PART )',
         price: 'GRATIS',
-        icon: '📄 | 🟦',
+        icon: 'https://marked-lime-avqommux4r.edgeone.app/IMG_20260114_200301.jpg',
+        iconType: 'image',
         gradient: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+        badge: 'New | Unlimited',
+        stock: Infinity,
+        category: 'Unlimited',
+        tutorialVideo: 'https://vt.tiktok.com/ZS5cSfwQm/',
+        files: [
+            {
+                name: 'zona_music.txt',
+                size: '1.8 KB',
+                content: `-- Script Zona Music
+local part = script.Parent
+
+-- List 5 musik yang akan bergantian
+local musicList = {
+"rbxassetid://1234567891",  -- Ganti dengan Sound ID musik 1
+"rbxassetid://1234567891",  -- Ganti dengan Sound ID musik 2
+"rbxassetid://1234567892",  -- Ganti dengan Sound ID musik 3
+"rbxassetid://1234567893",  -- Ganti dengan Sound ID musik 4
+"rbxassetid://1234567894"   -- Ganti dengan Sound ID musik 5
+}
+
+local currentMusicIndex = 1
+
+-- Buat Sound object
+local sound = Instance.new("Sound")
+sound.Parent = part
+sound.SoundId = musicList[currentMusicIndex]
+sound.Volume = 1
+sound.Looped = false  -- Set false agar bisa bergantian
+sound.RollOffMode = Enum.RollOffMode.Linear
+sound.RollOffMinDistance = 10
+sound.RollOffMaxDistance = 150  -- Area musik terdengar sampai 150 studs
+
+-- Function untuk memutar musik berikutnya
+local function playNextMusic()
+    currentMusicIndex = currentMusicIndex + 1
+    if currentMusicIndex > #musicList then
+        currentMusicIndex = 1  -- Kembali ke musik pertama
+    end
+    
+    sound.SoundId = musicList[currentMusicIndex]
+    sound:Play()
+end
+
+-- Mulai memutar musik pertama
+sound:Play()
+
+-- Connect event ketika musik selesai untuk memutar musik berikutnya
+sound.Ended:Connect(playNextMusic)`
+            }
+        ],
+        comments: []
+    },  
+    {
+        name: 'SCRIPT SETTING LOW GRAFICK GUI ( VERSI FIX BY : RENZZZ )',
+        price: 'GRATIS',
+        icon: 'https://muddy-sapphire-pkjan7n7vu.edgeone.app/IMG_20260114_191347.jpg',
+        iconType: 'image',
+        gradient: 'linear-gradient(135deg, #f5576c 0%, #764ba2 100%)',
         badge: 'Unlimited',
         stock: Infinity,
         category: 'Unlimited',
-        tutorialVideo: 'https://vm.tiktok.com/ZSHEnKAhyrGwU-dxm18/',
+        tutorialVideo: 'https://vt.tiktok.com/ZS5cjfeeT/',
         files: [
             {
-                name: 'color_changer.lua',
-                size: '1.8 KB',
-                content: `-- Script Part Color Changer
-local part = script.Parent
-local terrain = workspace.Terrain
-local warnaR = 0
-local warnaG = 255  
-local warnaB = 255
-local mat = Enum.Material.Grass
+                name: 'low_grafick.txt',
+                size: '2.5 KB',
+                content: `-- Script Terrain Warna
+local TweenService = game:GetService("TweenService")
+local Players = game:GetService("Players")
+local player = Players.LocalPlayer
+local playerGui = player:WaitForChild("PlayerGui")
 
-if part.Shape == Enum.PartType.Block then
-    terrain:FillBlock(part.CFrame, part.Size, mat)
+-- Settings state
+local lowGraphicsEnabled = false
+local noAudioEnabled = false
+
+-- Create ScreenGui
+local screenGui = Instance.new("ScreenGui")
+screenGui.Name = "SettingsGui"
+screenGui.ResetOnSpawn = false
+screenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+screenGui.Parent = playerGui
+
+-- Settings Button (Top Right) - DIKECILKAN
+local settingsButton = Instance.new("ImageButton")
+settingsButton.Name = "SettingsButton"
+settingsButton.Size = UDim2.new(0, 40, 0, 40)  -- dari 60x60 jadi 40x40
+settingsButton.Position = UDim2.new(1, -55, 0, 15)  -- disesuaikan posisi
+settingsButton.BackgroundColor3 = Color3.fromRGB(127, 127, 127)
+settingsButton.BorderSizePixel = 0
+settingsButton.Parent = screenGui
+
+local buttonCorner = Instance.new("UICorner")
+buttonCorner.CornerRadius = UDim.new(1, 0)
+buttonCorner.Parent = settingsButton
+
+local buttonGradient = Instance.new("UIGradient")
+buttonGradient.Color = ColorSequence.new{
+ColorSequenceKeypoint.new(0, Color3.fromRGB(127, 127, 127)),
+ColorSequenceKeypoint.new(1, Color3.fromRGB(127, 127, 127))
+}
+buttonGradient.Rotation = 45
+buttonGradient.Parent = settingsButton
+
+-- Settings Icon - DIKECILKAN
+local settingsIcon = Instance.new("TextLabel")
+settingsIcon.Size = UDim2.new(1, 0, 1, 0)
+settingsIcon.BackgroundTransparency = 1
+settingsIcon.Text = "⚙️"
+settingsIcon.TextSize = 20  -- dari 32 jadi 20
+settingsIcon.TextColor3 = Color3.fromRGB(127, 127, 127)
+settingsIcon.Font = Enum.Font.GothamBold
+settingsIcon.Parent = settingsButton
+
+-- Settings Panel Frame - DIKECILKAN
+local settingsPanel = Instance.new("Frame")
+settingsPanel.Name = "SettingsPanel"
+settingsPanel.Size = UDim2.new(0, 260, 1, 0)  -- dari 350 jadi 260
+settingsPanel.Position = UDim2.new(1, 0, 0, 0)
+settingsPanel.BackgroundColor3 = Color3.fromRGB(127, 127, 127)
+settingsPanel.BorderSizePixel = 0
+settingsPanel.Parent = screenGui
+
+local panelGradient = Instance.new("UIGradient")
+panelGradient.Color = ColorSequence.new{
+ColorSequenceKeypoint.new(0, Color3.fromRGB(30, 41, 59)),
+ColorSequenceKeypoint.new(1, Color3.fromRGB(15, 23, 42))
+}
+panelGradient.Rotation = 90
+panelGradient.Parent = settingsPanel
+
+-- Overlay
+local overlay = Instance.new("Frame")
+overlay.Name = "Overlay"
+overlay.Size = UDim2.new(1, 0, 1, 0)
+overlay.Position = UDim2.new(0, 0, 0, 0)
+overlay.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+overlay.BackgroundTransparency = 1
+overlay.BorderSizePixel = 0
+overlay.Visible = false
+overlay.ZIndex = 1
+overlay.Parent = screenGui
+
+settingsPanel.ZIndex = 2
+settingsButton.ZIndex = 3
+
+-- Panel Header - DIKECILKAN
+local header = Instance.new("Frame")
+header.Size = UDim2.new(1, 0, 0, 50)  -- dari 70 jadi 50
+header.BackgroundColor3 = Color3.fromRGB(147, 51, 234)
+header.BorderSizePixel = 0
+header.Parent = settingsPanel
+
+local headerGradient = Instance.new("UIGradient")
+headerGradient.Color = ColorSequence.new{
+ColorSequenceKeypoint.new(0, Color3.fromRGB(147, 51, 234, 0.2)),
+ColorSequenceKeypoint.new(1, Color3.fromRGB(219, 39, 119, 0.2))
+}
+headerGradient.Rotation = 90
+headerGradient.Transparency = NumberSequence.new(0.8)
+headerGradient.Parent = header
+
+local headerTitle = Instance.new("TextLabel")
+headerTitle.Size = UDim2.new(1, -60, 1, 0)
+headerTitle.Position = UDim2.new(0, 15, 0, 0)  -- dari 20 jadi 15
+headerTitle.BackgroundTransparency = 1
+headerTitle.Text = "⚙️ Settings"
+headerTitle.TextSize = 18  -- dari 24 jadi 18
+headerTitle.TextColor3 = Color3.fromRGB(255, 255, 255)
+headerTitle.Font = Enum.Font.GothamBold
+headerTitle.TextXAlignment = Enum.TextXAlignment.Left
+headerTitle.Parent = header
+
+-- Close Button - DIKECILKAN
+local closeButton = Instance.new("TextButton")
+closeButton.Size = UDim2.new(0, 30, 0, 30)  -- dari 40x40 jadi 30x30
+closeButton.Position = UDim2.new(1, -40, 0, 10)
+closeButton.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+closeButton.BackgroundTransparency = 0.9
+closeButton.Text = "✕"
+closeButton.TextSize = 16  -- dari 20 jadi 16
+closeButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+closeButton.Font = Enum.Font.GothamBold
+closeButton.BorderSizePixel = 0
+closeButton.Parent = header
+
+local closeCorner = Instance.new("UICorner")
+closeCorner.CornerRadius = UDim.new(0, 6)  -- dari 8 jadi 6
+closeCorner.Parent = closeButton
+
+-- Options Container - DIKECILKAN
+local optionsContainer = Instance.new("ScrollingFrame")
+optionsContainer.Size = UDim2.new(1, -30, 1, -120)  -- dari -40 dan -150 jadi -30 dan -120
+optionsContainer.Position = UDim2.new(0, 15, 0, 65)  -- dari 20 dan 90 jadi 15 dan 65
+optionsContainer.BackgroundTransparency = 1
+optionsContainer.BorderSizePixel = 0
+optionsContainer.ScrollBarThickness = 4  -- dari 6 jadi 4
+optionsContainer.CanvasSize = UDim2.new(0, 0, 0, 350)  -- dari 400 jadi 350
+optionsContainer.Parent = settingsPanel
+
+-- Low Graphics Option - DIKECILKAN
+local lowGraphicsFrame = Instance.new("Frame")
+lowGraphicsFrame.Size = UDim2.new(1, 0, 0, 75)  -- dari 100 jadi 75
+lowGraphicsFrame.BackgroundColor3 = Color3.fromRGB(51, 65, 85)
+lowGraphicsFrame.BorderSizePixel = 0
+lowGraphicsFrame.Parent = optionsContainer
+
+local lowGraphicsCorner = Instance.new("UICorner")
+lowGraphicsCorner.CornerRadius = UDim.new(0, 8)  -- dari 12 jadi 8
+lowGraphicsCorner.Parent = lowGraphicsFrame
+
+local lowGraphicsStroke = Instance.new("UIStroke")
+lowGraphicsStroke.Color = Color3.fromRGB(100, 116, 139)
+lowGraphicsStroke.Thickness = 1.5  -- dari 2 jadi 1.5
+lowGraphicsStroke.Parent = lowGraphicsFrame
+
+local lowGraphicsButton = Instance.new("TextButton")
+lowGraphicsButton.Size = UDim2.new(1, 0, 1, 0)
+lowGraphicsButton.BackgroundTransparency = 1
+lowGraphicsButton.Text = ""
+lowGraphicsButton.Parent = lowGraphicsFrame
+
+local lowGraphicsIcon = Instance.new("TextLabel")
+lowGraphicsIcon.Size = UDim2.new(0, 38, 0, 38)  -- dari 50x50 jadi 38x38
+lowGraphicsIcon.Position = UDim2.new(0, 10, 0, 18)  -- dari 15 dan 25 jadi 10 dan 18
+lowGraphicsIcon.BackgroundColor3 = Color3.fromRGB(71, 85, 105)
+lowGraphicsIcon.Text = "🎮"
+lowGraphicsIcon.TextSize = 20  -- dari 28 jadi 20
+lowGraphicsIcon.Font = Enum.Font.GothamBold
+lowGraphicsIcon.BorderSizePixel = 0
+lowGraphicsIcon.Parent = lowGraphicsFrame
+
+local lowGraphicsIconCorner = Instance.new("UICorner")
+lowGraphicsIconCorner.CornerRadius = UDim.new(0, 6)  -- dari 8 jadi 6
+lowGraphicsIconCorner.Parent = lowGraphicsIcon
+
+local lowGraphicsTitle = Instance.new("TextLabel")
+lowGraphicsTitle.Size = UDim2.new(0, 120, 0, 20)  -- dari 150 dan 25 jadi 120 dan 20
+lowGraphicsTitle.Position = UDim2.new(0, 55, 0, 18)  -- dari 75 dan 25 jadi 55 dan 18
+lowGraphicsTitle.BackgroundTransparency = 1
+lowGraphicsTitle.Text = "Low Graphics"
+lowGraphicsTitle.TextSize = 14  -- dari 18 jadi 14
+lowGraphicsTitle.TextColor3 = Color3.fromRGB(255, 255, 255)
+lowGraphicsTitle.Font = Enum.Font.GothamBold
+lowGraphicsTitle.TextXAlignment = Enum.TextXAlignment.Left
+lowGraphicsTitle.Parent = lowGraphicsFrame
+
+local lowGraphicsDesc = Instance.new("TextLabel")
+lowGraphicsDesc.Size = UDim2.new(0, 120, 0, 16)  -- dari 150 dan 20 jadi 120 dan 16
+lowGraphicsDesc.Position = UDim2.new(0, 55, 0, 38)  -- dari 75 dan 50 jadi 55 dan 38
+lowGraphicsDesc.BackgroundTransparency = 1
+lowGraphicsDesc.Text = "Reduce visual quality"
+lowGraphicsDesc.TextSize = 10  -- dari 12 jadi 10
+lowGraphicsDesc.TextColor3 = Color3.fromRGB(148, 163, 184)
+lowGraphicsDesc.Font = Enum.Font.Gotham
+lowGraphicsDesc.TextXAlignment = Enum.TextXAlignment.Left
+lowGraphicsDesc.Parent = lowGraphicsFrame
+
+-- Toggle Switch for Low Graphics - DIKECILKAN
+local lowGraphicsToggle = Instance.new("Frame")
+lowGraphicsToggle.Size = UDim2.new(0, 40, 0, 20)  -- dari 50 dan 26 jadi 40 dan 20
+lowGraphicsToggle.Position = UDim2.new(1, -50, 0, 27)  -- dari -65 dan 37 jadi -50 dan 27
+lowGraphicsToggle.BackgroundColor3 = Color3.fromRGB(71, 85, 105)
+lowGraphicsToggle.BorderSizePixel = 0
+lowGraphicsToggle.Parent = lowGraphicsFrame
+
+local lowGraphicsToggleCorner = Instance.new("UICorner")
+lowGraphicsToggleCorner.CornerRadius = UDim.new(1, 0)
+lowGraphicsToggleCorner.Parent = lowGraphicsToggle
+
+local lowGraphicsToggleCircle = Instance.new("Frame")
+lowGraphicsToggleCircle.Size = UDim2.new(0, 16, 0, 16)  -- dari 20x20 jadi 16x16
+lowGraphicsToggleCircle.Position = UDim2.new(0, 2, 0, 2)  -- dari 3 jadi 2
+lowGraphicsToggleCircle.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+lowGraphicsToggleCircle.BorderSizePixel = 0
+lowGraphicsToggleCircle.Parent = lowGraphicsToggle
+
+local lowGraphicsToggleCircleCorner = Instance.new("UICorner")
+lowGraphicsToggleCircleCorner.CornerRadius = UDim.new(1, 0)
+lowGraphicsToggleCircleCorner.Parent = lowGraphicsToggleCircle
+
+-- No Audio Option - DIKECILKAN
+local noAudioFrame = Instance.new("Frame")
+noAudioFrame.Size = UDim2.new(1, 0, 0, 75)  -- dari 100 jadi 75
+noAudioFrame.Position = UDim2.new(0, 0, 0, 90)  -- dari 120 jadi 90
+noAudioFrame.BackgroundColor3 = Color3.fromRGB(51, 65, 85)
+noAudioFrame.BorderSizePixel = 0
+noAudioFrame.Parent = optionsContainer
+
+local noAudioCorner = Instance.new("UICorner")
+noAudioCorner.CornerRadius = UDim.new(0, 8)  -- dari 12 jadi 8
+noAudioCorner.Parent = noAudioFrame
+
+local noAudioStroke = Instance.new("UIStroke")
+noAudioStroke.Color = Color3.fromRGB(100, 116, 139)
+noAudioStroke.Thickness = 1.5  -- dari 2 jadi 1.5
+noAudioStroke.Parent = noAudioFrame
+
+local noAudioButton = Instance.new("TextButton")
+noAudioButton.Size = UDim2.new(1, 0, 1, 0)
+noAudioButton.BackgroundTransparency = 1
+noAudioButton.Text = ""
+noAudioButton.Parent = noAudioFrame
+
+local noAudioIcon = Instance.new("TextLabel")
+noAudioIcon.Size = UDim2.new(0, 38, 0, 38)  -- dari 50x50 jadi 38x38
+noAudioIcon.Position = UDim2.new(0, 10, 0, 18)  -- dari 15 dan 25 jadi 10 dan 18
+noAudioIcon.BackgroundColor3 = Color3.fromRGB(71, 85, 105)
+noAudioIcon.Text = "🔊"
+noAudioIcon.TextSize = 20  -- dari 28 jadi 20
+noAudioIcon.Font = Enum.Font.GothamBold
+noAudioIcon.BorderSizePixel = 0
+noAudioIcon.Parent = noAudioFrame
+
+local noAudioIconCorner = Instance.new("UICorner")
+noAudioIconCorner.CornerRadius = UDim.new(0, 6)  -- dari 8 jadi 6
+noAudioIconCorner.Parent = noAudioIcon
+
+local noAudioTitle = Instance.new("TextLabel")
+noAudioTitle.Size = UDim2.new(0, 120, 0, 20)  -- dari 150 dan 25 jadi 120 dan 20
+noAudioTitle.Position = UDim2.new(0, 55, 0, 18)  -- dari 75 dan 25 jadi 55 dan 18
+noAudioTitle.BackgroundTransparency = 1
+noAudioTitle.Text = "No Audio"
+noAudioTitle.TextSize = 14  -- dari 18 jadi 14
+noAudioTitle.TextColor3 = Color3.fromRGB(255, 255, 255)
+noAudioTitle.Font = Enum.Font.GothamBold
+noAudioTitle.TextXAlignment = Enum.TextXAlignment.Left
+noAudioTitle.Parent = noAudioFrame
+
+local noAudioDesc = Instance.new("TextLabel")
+noAudioDesc.Size = UDim2.new(0, 120, 0, 16)  -- dari 150 dan 20 jadi 120 dan 16
+noAudioDesc.Position = UDim2.new(0, 55, 0, 38)  -- dari 75 dan 50 jadi 55 dan 38
+noAudioDesc.BackgroundTransparency = 1
+noAudioDesc.Text = "Mute all sounds"
+noAudioDesc.TextSize = 10  -- dari 12 jadi 10
+noAudioDesc.TextColor3 = Color3.fromRGB(148, 163, 184)
+noAudioDesc.Font = Enum.Font.Gotham
+noAudioDesc.TextXAlignment = Enum.TextXAlignment.Left
+noAudioDesc.Parent = noAudioFrame
+
+-- Toggle Switch for No Audio - DIKECILKAN
+local noAudioToggle = Instance.new("Frame")
+noAudioToggle.Size = UDim2.new(0, 40, 0, 20)  -- dari 50 dan 26 jadi 40 dan 20
+noAudioToggle.Position = UDim2.new(1, -50, 0, 27)  -- dari -65 dan 37 jadi -50 dan 27
+noAudioToggle.BackgroundColor3 = Color3.fromRGB(71, 85, 105)
+noAudioToggle.BorderSizePixel = 0
+noAudioToggle.Parent = noAudioFrame
+
+local noAudioToggleCorner = Instance.new("UICorner")
+noAudioToggleCorner.CornerRadius = UDim.new(1, 0)
+noAudioToggleCorner.Parent = noAudioToggle
+
+local noAudioToggleCircle = Instance.new("Frame")
+noAudioToggleCircle.Size = UDim2.new(0, 16, 0, 16)  -- dari 20x20 jadi 16x16
+noAudioToggleCircle.Position = UDim2.new(0, 2, 0, 2)  -- dari 3 jadi 2
+noAudioToggleCircle.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+noAudioToggleCircle.BorderSizePixel = 0
+noAudioToggleCircle.Parent = noAudioToggle
+
+local noAudioToggleCircleCorner = Instance.new("UICorner")
+noAudioToggleCircleCorner.CornerRadius = UDim.new(1, 0)
+noAudioToggleCircleCorner.Parent = noAudioToggleCircle
+
+-- Info Box - DIKECILKAN
+local infoBox = Instance.new("Frame")
+infoBox.Size = UDim2.new(1, 0, 0, 65)  -- dari 80 jadi 65
+infoBox.Position = UDim2.new(0, 0, 0, 180)  -- dari 240 jadi 180
+infoBox.BackgroundColor3 = Color3.fromRGB(147, 51, 234)
+infoBox.BackgroundTransparency = 0.9
+infoBox.BorderSizePixel = 0
+infoBox.Parent = optionsContainer
+
+local infoBoxCorner = Instance.new("UICorner")
+infoBoxCorner.CornerRadius = UDim.new(0, 8)  -- dari 12 jadi 8
+infoBoxCorner.Parent = infoBox
+
+local infoBoxStroke = Instance.new("UIStroke")
+infoBoxStroke.Color = Color3.fromRGB(147, 51, 234)
+infoBoxStroke.Thickness = 1
+infoBoxStroke.Transparency = 0.7
+infoBoxStroke.Parent = infoBox
+
+local infoText = Instance.new("TextLabel")
+infoText.Size = UDim2.new(1, -16, 1, -16)  -- dari -20 jadi -16
+infoText.Position = UDim2.new(0, 8, 0, 8)  -- dari 10 jadi 8
+infoText.BackgroundTransparency = 1
+infoText.Text = "💡LOW GRAFIK COCOK BUAT HP YANG NGELAG, PAKE LOW GRAFIK AJA BIAR MENGURANGI LAG."
+infoText.TextSize = 10  -- dari 12 jadi 10
+infoText.TextColor3 = Color3.fromRGB(229, 231, 235)
+infoText.Font = Enum.Font.Gotham
+infoText.TextWrapped = true
+infoText.TextXAlignment = Enum.TextXAlignment.Left
+infoText.TextYAlignment = Enum.TextYAlignment.Top
+infoText.Parent = infoBox
+
+-- Animation functions
+local panelOpen = false
+
+local function togglePanel()
+    panelOpen = not panelOpen
+    
+    local tweenInfo = TweenInfo.new(0.5, Enum.EasingStyle.Quart, Enum.EasingDirection.Out)
+    
+    if panelOpen then
+        overlay.Visible = false
+        local overlayTween = TweenService:Create(overlay, TweenInfo.new(0.3), {BackgroundTransparency = 0.4})
+        overlayTween:Play()
+        
+        local panelTween = TweenService:Create(settingsPanel, tweenInfo, {Position = UDim2.new(1, -260, 0, 0)})  -- dari -350 jadi -260
+        panelTween:Play()
+        
+        local buttonTween = TweenService:Create(settingsButton, TweenInfo.new(0.3), {Rotation = 90})
+        buttonTween:Play()
+    else
+        local overlayTween = TweenService:Create(overlay, TweenInfo.new(0.3), {BackgroundTransparency = 1})
+        overlayTween:Play()
+        overlayTween.Completed:Connect(function()
+            overlay.Visible = false
+        end)
+        
+        local panelTween = TweenService:Create(settingsPanel, tweenInfo, {Position = UDim2.new(1, 0, 0, 0)})
+        panelTween:Play()
+        
+        local buttonTween = TweenService:Create(settingsButton, TweenInfo.new(0.3), {Rotation = 0})
+        buttonTween:Play()
+    end
 end
 
-pcall(function()
-    terrain:SetMaterialColor(mat, Color3.fromRGB(warnaR, warnaG, warnaB))
-end)
-
-wait()
-part:Destroy()`
+local function toggleLowGraphics()
+    lowGraphicsEnabled = not lowGraphicsEnabled
+    
+    local tweenInfo = TweenInfo.new(0.3, Enum.EasingStyle.Quart)
+    
+    if lowGraphicsEnabled then
+        TweenService:Create(lowGraphicsToggle, tweenInfo, {BackgroundColor3 = Color3.fromRGB(34, 197, 94)}):Play()
+        TweenService:Create(lowGraphicsToggleCircle, tweenInfo, {Position = UDim2.new(0, 22, 0, 2)}):Play()  -- dari 27 jadi 22
+        TweenService:Create(lowGraphicsFrame, tweenInfo, {BackgroundColor3 = Color3.fromRGB(34, 197, 94)}):Play()
+        TweenService:Create(lowGraphicsStroke, tweenInfo, {Color = Color3.fromRGB(34, 197, 94)}):Play()
+        TweenService:Create(lowGraphicsIcon, tweenInfo, {BackgroundColor3 = Color3.fromRGB(34, 197, 94)}):Play()
+        
+        local success, err = pcall(function()
+            local Lighting = game:GetService("Lighting")
+            Lighting.GlobalShadows = false
+            Lighting.Outlines = false
+            
+            pcall(function() Lighting.EnvironmentDiffuseScale = 0 end)
+                pcall(function() Lighting.EnvironmentSpecularScale = 0 end)
+                    
+                    for _, effect in pairs(Lighting:GetChildren()) do
+                        if effect:IsA("PostEffect") then
+                            effect.Enabled = false
+                        end
+                    end
+                    
+                    for _, obj in pairs(workspace:GetDescendants()) do
+                        if obj:IsA("ParticleEmitter") or obj:IsA("Trail") or obj:IsA("Beam") then
+                            obj.Enabled = false
+                        elseif obj:IsA("Fire") or obj:IsA("Smoke") or obj:IsA("Sparkles") then
+                            obj.Enabled = false
+                        end
+                    end
+                    
+                    print("✓ Low Graphics ENABLED")
+                end)
+                
+                if not success then
+                    warn("Failed to apply some low graphics settings: " .. tostring(err))
+                end
+                
+            else
+                TweenService:Create(lowGraphicsToggle, tweenInfo, {BackgroundColor3 = Color3.fromRGB(71, 85, 105)}):Play()
+                TweenService:Create(lowGraphicsToggleCircle, tweenInfo, {Position = UDim2.new(0, 2, 0, 2)}):Play()
+                TweenService:Create(lowGraphicsFrame, tweenInfo, {BackgroundColor3 = Color3.fromRGB(51, 65, 85)}):Play()
+                TweenService:Create(lowGraphicsStroke, tweenInfo, {Color = Color3.fromRGB(100, 116, 139)}):Play()
+                TweenService:Create(lowGraphicsIcon, tweenInfo, {BackgroundColor3 = Color3.fromRGB(71, 85, 105)}):Play()
+                
+                local success, err = pcall(function()
+                    local Lighting = game:GetService("Lighting")
+                    Lighting.GlobalShadows = true
+                    Lighting.Outlines = false
+                    
+                    pcall(function() Lighting.EnvironmentDiffuseScale = 1 end)
+                        pcall(function() Lighting.EnvironmentSpecularScale = 1 end)
+                            
+                            for _, effect in pairs(Lighting:GetChildren()) do
+                                if effect:IsA("PostEffect") then
+                                    effect.Enabled = true
+                                end
+                            end
+                            
+                            for _, obj in pairs(workspace:GetDescendants()) do
+                                if obj:IsA("ParticleEmitter") or obj:IsA("Trail") or obj:IsA("Beam") then
+                                    obj.Enabled = true
+                                elseif obj:IsA("Fire") or obj:IsA("Smoke") or obj:IsA("Sparkles") then
+                                    obj.Enabled = true
+                                end
+                            end
+                            
+                            print("✓ Low Graphics DISABLED")
+                        end)
+                        
+                        if not success then
+                            warn("Failed to restore some graphics settings: " .. tostring(err))
+                        end
+                    end
+                end
+                
+                local function toggleNoAudio()
+                    noAudioEnabled = not noAudioEnabled
+                    
+                    local tweenInfo = TweenInfo.new(0.3, Enum.EasingStyle.Quart)
+                    
+                    if noAudioEnabled then
+                        TweenService:Create(noAudioToggle, tweenInfo, {BackgroundColor3 = Color3.fromRGB(239, 68, 68)}):Play()
+                        TweenService:Create(noAudioToggleCircle, tweenInfo, {Position = UDim2.new(0, 22, 0, 2)}):Play()  -- dari 27 jadi 22
+                        TweenService:Create(noAudioFrame, tweenInfo, {BackgroundColor3 = Color3.fromRGB(239, 68, 68)}):Play()
+                        TweenService:Create(noAudioStroke, tweenInfo, {Color = Color3.fromRGB(239, 68, 68)}):Play()
+                        TweenService:Create(noAudioIcon, tweenInfo, {BackgroundColor3 = Color3.fromRGB(239, 68, 68)}):Play()
+                        noAudioIcon.Text = "🔇"
+                        
+                        for _, sound in pairs(game:GetDescendants()) do
+                            if sound:IsA("Sound") then
+                                sound.Volume = 0
+                            end
+                        end
+                        
+                        print("✓ Audio MUTED")
+                        
+                    else
+                        TweenService:Create(noAudioToggle, tweenInfo, {BackgroundColor3 = Color3.fromRGB(71, 85, 105)}):Play()
+                        TweenService:Create(noAudioToggleCircle, tweenInfo, {Position = UDim2.new(0, 2, 0, 2)}):Play()
+                        TweenService:Create(noAudioFrame, tweenInfo, {BackgroundColor3 = Color3.fromRGB(51, 65, 85)}):Play()
+                        TweenService:Create(noAudioStroke, tweenInfo, {Color = Color3.fromRGB(100, 116, 139)}):Play()
+                        TweenService:Create(noAudioIcon, tweenInfo, {BackgroundColor3 = Color3.fromRGB(71, 85, 105)}):Play()
+                        noAudioIcon.Text = "🔊"
+                        
+                        for _, sound in pairs(game:GetDescendants()) do
+                            if sound:IsA("Sound") then
+                                sound.Volume = 0.5
+                            end
+                        end
+                        
+                        print("✓ Audio ENABLED")
+                    end
+                end
+                
+                -- Connect events
+                settingsButton.MouseButton1Click:Connect(togglePanel)
+                closeButton.MouseButton1Click:Connect(togglePanel)
+                overlay.InputBegan:Connect(function(input)
+                    if input.UserInputType == Enum.UserInputType.MouseButton1 then
+                        togglePanel()
+                    end
+                end)
+                
+                lowGraphicsButton.MouseButton1Click:Connect(toggleLowGraphics)
+                noAudioButton.MouseButton1Click:Connect(toggleNoAudio)
+                
+                -- Hover effects - DISESUAIKAN
+                settingsButton.MouseEnter:Connect(function()
+                    TweenService:Create(settingsButton, TweenInfo.new(0.2), {Size = UDim2.new(0, 44, 0, 44)}):Play()  -- dari 65 jadi 44
+                end)
+                
+                settingsButton.MouseLeave:Connect(function()
+                    TweenService:Create(settingsButton, TweenInfo.new(0.2), {Size = UDim2.new(0, 40, 0, 40)}):Play()
+                end)
+                
+                closeButton.MouseEnter:Connect(function()
+                    TweenService:Create(closeButton, TweenInfo.new(0.2), {BackgroundTransparency = 0.7, Rotation = 90}):Play()
+                end)
+                
+                closeButton.MouseLeave:Connect(function()
+                    TweenService:Create(closeButton, TweenInfo.new(0.2), {BackgroundTransparency = 0.9, Rotation = 0}):Play()
+                end)
+                
+                lowGraphicsButton.MouseEnter:Connect(function()
+                    TweenService:Create(lowGraphicsFrame, TweenInfo.new(0.2), {Size = UDim2.new(1, 4, 0, 78)}):Play()  -- dari 5 dan 105 jadi 4 dan 78
+                end)
+                
+                lowGraphicsButton.MouseLeave:Connect(function()
+                    TweenService:Create(lowGraphicsFrame, TweenInfo.new(0.2), {Size = UDim2.new(1, 0, 0, 75)}):Play()
+                end)
+                
+                noAudioButton.MouseEnter:Connect(function()
+                    TweenService:Create(noAudioFrame, TweenInfo.new(0.2), {Size = UDim2.new(1, 4, 0, 78)}):Play()  -- dari 5 dan 105 jadi 4 dan 78
+                end)
+                
+                noAudioButton.MouseLeave:Connect(function()
+                    TweenService:Create(noAudioFrame, TweenInfo.new(0.2), {Size = UDim2.new(1, 0, 0, 75)}):Play()
+                end)
+                
+                print("Settings Panel loaded successfully!")`
             }
         ],
         comments: []
     },
     {
-        name: 'SCRIPT TOOLS KHUSUS OWNER & ADMIN ( TARO DI SERVER SCRIPT SERVICE )',
+        name: 'SCRIPT ADMIN ABUSE VERSI SIMPLE ( V2.0 )',
         price: 'GRATIS',
-        icon: '📄 | 🛠️',
+        icon: 'https://friendly-maroon-dsgizaad0l.edgeone.app/IMG_20260114_153827.jpg',
+        iconType:'image',
         gradient: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
         badge: 'Unlimited',
         stock: Infinity,
@@ -1265,22 +1888,908 @@ part:Destroy()`
         tutorialVideo: 'https://vm.tiktok.com/ZSHEnKAhyrGwU-dxm18/',
         files: [
             {
-                name: 'owner_tools.lua',
-                size: '5.2 KB',
-                content: `-- Admin Tools Script
-local playersList = {"username"}
-local gear = game.ServerStorage:WaitForChild("nama tools")
- 
-game.Players.PlayerAdded:Connect(function(plr)
-    plr.CharacterAdded:Connect(function(char)
-        for i = 1, #playersList do
-            if playersList[i] == plr.Name then
-                local clonedGear = gear:Clone()
-                clonedGear.Parent = plr:WaitForChild("Backpack")
+                name: 'adminabuse(ServerScriptService).txt',
+                size: '1.8 KB',
+                content: `-- Script admin abuse v2.0
+-- ADMIN PANEL SERVER (WITH DISCO & BLACKHOLE)
+-- Letakkan di ServerScriptService
+
+local Players = game:GetService("Players")
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local TweenService = game:GetService("TweenService")
+local RunService = game:GetService("RunService")
+local Lighting = game:GetService("Lighting")
+
+-- ============================================
+-- KONFIGURASI OWNER (GANTI USER ID ANDA!)
+-- ============================================
+local OWNER_IDS = {
+    8240994644, -- Ganti dengan User ID Anda
+    987654321, -- Tambahkan owner lain jika perlu
+}
+
+-- ============================================
+-- DATA EVENTS
+-- ============================================
+local EVENTS = {
+    {name = "Taco Rain", icon = "🌮", description = "Taco rain all around"},
+    {name = "Colorful World", icon = "🌈", description = "Rainbow-colored lighting"},
+    {name = "Block Shower", icon = "🟦", description = "Blocks rain down"},
+    {name = "Fireworks Festival", icon = "🎆", description = "Fireworks show"},
+    {name = "Meteor Shower", icon = "☄️", description = "Meteors from space"},
+    {name = "Dino Party", icon = "🦕", description = "Dinosaurs appear"},
+    {name = "Aurora Skies", icon = "✨", description = "Northern lights sky"},
+    {name = "Disco Party", icon = "🕺", description = "Epic disco event"},
+    {name = "Blackhole", icon = "🌌", description = "Space blackhole event"}
+}
+
+local activeEvents = {}
+local eventData = {}
+
+-- ============================================
+-- STARRY SKYBOX CONFIG
+-- ============================================
+local STARRY_SKYBOX = {
+    SkyboxBk = "rbxassetid://1012894",
+    SkyboxDn = "rbxassetid://1012895",
+    SkyboxFt = "rbxassetid://1012892",
+    SkyboxLf = "rbxassetid://1012893",
+    SkyboxRt = "rbxassetid://1012890",
+    SkyboxUp = "rbxassetid://1012891"
+}
+
+-- ============================================
+-- REMOTE EVENTS
+-- ============================================
+local remoteEvent = Instance.new("RemoteEvent")
+remoteEvent.Name = "AdminPanelRemote"
+remoteEvent.Parent = ReplicatedStorage
+
+-- ============================================
+-- FUNGSI CEK OWNER
+-- ============================================
+local function isOwner(player)
+    for _, id in pairs(OWNER_IDS) do
+        if player.UserId == id then
+            return true
+        end
+    end
+    return false
+end
+
+-- ============================================
+-- FUNGSI EVENT HANDLERS
+-- ============================================
+local function startEvent(eventName)
+    if activeEvents[eventName] then return end
+    activeEvents[eventName] = true
+    eventData[eventName] = {}
+    
+    if eventName == "Taco Rain" then
+        spawn(function()
+            while activeEvents[eventName] do
+                for i = 1, 5 do
+                    local part = Instance.new("Part")
+                    part.Size = Vector3.new(2, 2, 2)
+                    part.BrickColor = BrickColor.new("Bright yellow")
+                    part.Position = Vector3.new(math.random(-50, 50), 100, math.random(-50, 50))
+                    part.Parent = workspace
+                    game:GetService("Debris"):AddItem(part, 5)
+                end
+                wait(1)
+            end
+        end)
+        
+    elseif eventName == "Colorful World" then
+        spawn(function()
+            while activeEvents[eventName] do
+                game.Lighting.Ambient = Color3.fromRGB(math.random(100, 255), math.random(100, 255), math.random(100, 255))
+                game.Lighting.OutdoorAmbient = Color3.fromRGB(math.random(100, 255), math.random(100, 255), math.random(100, 255))
+                wait(0.5)
+            end
+        end)
+        
+    elseif eventName == "Block Shower" then
+        spawn(function()
+            while activeEvents[eventName] do
+                for i = 1, 10 do
+                    local part = Instance.new("Part")
+                    part.Size = Vector3.new(4, 4, 4)
+                    part.BrickColor = BrickColor.Random()
+                    part.Position = Vector3.new(math.random(-100, 100), 150, math.random(-100, 100))
+                    part.Parent = workspace
+                    game:GetService("Debris"):AddItem(part, 8)
+                end
+                wait(2)
+            end
+        end)
+        
+    elseif eventName == "Fireworks Festival" then
+        spawn(function()
+            while activeEvents[eventName] do
+                local explosion = Instance.new("Explosion")
+                explosion.Position = Vector3.new(math.random(-50, 50), 100, math.random(-50, 50))
+                explosion.BlastRadius = 0
+                explosion.BlastPressure = 0
+                explosion.Parent = workspace
+                wait(1)
+            end
+        end)
+        
+    elseif eventName == "Meteor Shower" then
+        spawn(function()
+            while activeEvents[eventName] do
+                local part = Instance.new("Part")
+                part.Size = Vector3.new(6, 6, 6)
+                part.Shape = Enum.PartType.Ball
+                part.BrickColor = BrickColor.new("Really red")
+                part.Material = Enum.Material.Neon
+                part.Position = Vector3.new(math.random(-100, 100), 200, math.random(-100, 100))
+                part.Parent = workspace
+                
+                local fire = Instance.new("Fire")
+                fire.Parent = part
+                
+                game:GetService("Debris"):AddItem(part, 10)
+                wait(2)
+            end
+        end)
+        
+    elseif eventName == "Dino Party" then
+        spawn(function()
+            while activeEvents[eventName] do
+                local part = Instance.new("Part")
+                part.Size = Vector3.new(8, 8, 8)
+                part.BrickColor = BrickColor.new("Lime green")
+                part.Position = Vector3.new(math.random(-50, 50), 5, math.random(-50, 50))
+                part.Parent = workspace
+                game:GetService("Debris"):AddItem(part, 10)
+                wait(3)
+            end
+        end)
+        
+    elseif eventName == "Aurora Skies" then
+        spawn(function()
+            local sky = Instance.new("Sky")
+            sky.Parent = game.Lighting
+            eventData[eventName].sky = sky
+            while activeEvents[eventName] do
+                sky.SkyboxBk = "rbxassetid://12064107"
+                sky.SkyboxDn = "rbxassetid://12064152"
+                sky.SkyboxFt = "rbxassetid://12064121"
+                sky.SkyboxLf = "rbxassetid://12063984"
+                sky.SkyboxRt = "rbxassetid://12063994"
+                sky.SkyboxUp = "rbxassetid://12064159"
+                wait(1)
+            end
+            sky:Destroy()
+        end)
+        
+    elseif eventName == "Disco Party" then
+        -- Save original settings
+        eventData[eventName].originalAmbient = Lighting.Ambient
+        eventData[eventName].originalBrightness = Lighting.Brightness
+        eventData[eventName].animTracks = {}
+        
+        -- Sound
+        local sound = Instance.new("Sound")
+        sound.Name = "DiscoSound"
+        sound.SoundId = "rbxassetid://142376088"
+        sound.Volume = 0
+        sound.Parent = workspace
+        sound:Play()
+        eventData[eventName].sound = sound
+        
+        local fadeInTween = TweenService:Create(sound, TweenInfo.new(2), {Volume = 0.75})
+        fadeInTween:Play()
+        
+        -- Disco lights
+        local discoConnection = RunService.Heartbeat:Connect(function()
+            local hue = (tick() * 1) % 1
+            Lighting.Ambient = Color3.fromHSV(hue, 1, 1)
+            Lighting.Brightness = 2
+        end)
+        eventData[eventName].connection = discoConnection
+        
+        -- Dance animations for all players
+        for _, player in ipairs(Players:GetPlayers()) do
+            local character = player.Character
+            local humanoid = character and character:FindFirstChildOfClass("Humanoid")
+            if humanoid then
+                local animId = "rbxassetid://507771955" -- R15 dance
+                local animationObj = Instance.new("Animation")
+                animationObj.AnimationId = animId
+                local animTrack = humanoid:LoadAnimation(animationObj)
+                animTrack.Looped = true
+                animTrack.Priority = Enum.AnimationPriority.Action
+                animTrack:Play()
+                table.insert(eventData[eventName].animTracks, {track = animTrack, obj = animationObj})
             end
         end
+        
+    elseif eventName == "Blackhole" then
+        -- Save original settings
+        eventData[eventName].originalGravity = workspace.Gravity
+        eventData[eventName].originalAmbient = Lighting.Ambient
+        eventData[eventName].originalBrightness = Lighting.Brightness
+        eventData[eventName].originalSky = Lighting:FindFirstChildOfClass("Sky")
+        
+        -- Color correction
+        local colorCorrection = Instance.new("ColorCorrectionEffect")
+        colorCorrection.Parent = Lighting
+        eventData[eventName].colorCorrection = colorCorrection
+        
+        local nightTween = TweenService:Create(colorCorrection, TweenInfo.new(2), {
+            TintColor = Color3.fromRGB(30, 50, 90),
+            Saturation = 0.4,
+            Contrast = 0.2,
+            Brightness = -0.1
+        })
+        nightTween:Play()
+        
+        -- Change to starry sky
+        spawn(function()
+            wait(1)
+            if eventData[eventName].originalSky then
+                eventData[eventName].originalSky:Destroy()
+            end
+            local newSky = Instance.new("Sky")
+            for prop, id in pairs(STARRY_SKYBOX) do
+                newSky[prop] = id
+            end
+            newSky.CelestialBodiesShown = false
+            newSky.StarCount = 1000
+            newSky.Parent = Lighting
+            eventData[eventName].newSky = newSky
+        end)
+        
+        Lighting.Ambient = Color3.fromRGB(20, 30, 50)
+        Lighting.Brightness = 0.8
+        
+        -- Low gravity
+        local gravityTween = TweenService:Create(workspace, TweenInfo.new(2), {Gravity = 75})
+        gravityTween:Play()
+        
+        -- Blackhole visual
+        local center = Instance.new("Part")
+        center.Name = "BlackholeCenter"
+        center.Size = Vector3.new(1, 1, 1)
+        center.Position = Vector3.new(0, 1000, 0)
+        center.Shape = Enum.PartType.Ball
+        center.Material = Enum.Material.Neon
+        center.Color = Color3.fromRGB(0, 0, 50)
+        center.Transparency = 1
+        center.CanCollide = false
+        center.Anchored = true
+        center.Parent = workspace
+        eventData[eventName].center = center
+        
+        local clone = center:Clone()
+        clone.Name = "BlackholeClone"
+        clone.Position = Vector3.new(0, 1200, 0)
+        clone.Color = Color3.fromRGB(0, 64, 128)
+        clone.Parent = workspace
+        eventData[eventName].clone = clone
+        
+        -- First sound
+        local firstSound = Instance.new("Sound")
+        firstSound.SoundId = "rbxassetid://9041785975"
+        firstSound.Volume = 0
+        firstSound.Parent = workspace
+        firstSound:Play()
+        eventData[eventName].firstSound = firstSound
+        
+        local appearTween1 = TweenService:Create(center, TweenInfo.new(2), {
+            Size = Vector3.new(1000, 1000, 1000),
+            Transparency = 0
+        })
+        local appearTween2 = TweenService:Create(clone, TweenInfo.new(2), {
+            Size = Vector3.new(1300, 1300, 1300),
+            Transparency = 0.1
+        })
+        local soundFadeIn = TweenService:Create(firstSound, TweenInfo.new(2), {Volume = 0.7})
+        
+        appearTween1:Play()
+        appearTween2:Play()
+        soundFadeIn:Play()
+        
+        -- Second sound after first appears
+        appearTween1.Completed:Connect(function()
+            local soundFadeOut = TweenService:Create(firstSound, TweenInfo.new(2), {Volume = 0})
+            soundFadeOut:Play()
+            soundFadeOut.Completed:Connect(function()
+                firstSound:Destroy()
+            end)
+            
+            wait(2)
+            local secondSound = Instance.new("Sound")
+            secondSound.SoundId = "rbxassetid://1837835120"
+            secondSound.Volume = 0
+            secondSound.Parent = workspace
+            secondSound:Play()
+            eventData[eventName].secondSound = secondSound
+            
+            local secondFadeIn = TweenService:Create(secondSound, TweenInfo.new(2), {Volume = 0.65})
+            secondFadeIn:Play()
+        end)
+    end
+    
+    print("✅ " .. eventName .. " started!")
+end
+
+local function stopEvent(eventName)
+    if not activeEvents[eventName] then return end
+    activeEvents[eventName] = false
+    
+    local data = eventData[eventName]
+    
+    if eventName == "Colorful World" then
+        game.Lighting.Ambient = Color3.fromRGB(138, 138, 138)
+        game.Lighting.OutdoorAmbient = Color3.fromRGB(138, 138, 138)
+        
+    elseif eventName == "Aurora Skies" then
+        if data.sky then
+            data.sky:Destroy()
+        end
+        
+    elseif eventName == "Disco Party" then
+        -- Stop sound
+        if data.sound then
+            local fadeOut = TweenService:Create(data.sound, TweenInfo.new(2), {Volume = 0})
+            fadeOut:Play()
+            fadeOut.Completed:Connect(function()
+                data.sound:Stop()
+                data.sound:Destroy()
+            end)
+        end
+        
+        -- Stop disco lights
+        if data.connection then
+            data.connection:Disconnect()
+        end
+        
+        -- Stop animations
+        if data.animTracks then
+            for _, animData in ipairs(data.animTracks) do
+                animData.track:Stop(0)
+                animData.obj:Destroy()
+            end
+        end
+        
+        -- Restore lighting
+        if data.originalAmbient then
+            Lighting.Ambient = data.originalAmbient
+        end
+        if data.originalBrightness then
+            Lighting.Brightness = data.originalBrightness
+        end
+        
+    elseif eventName == "Blackhole" then
+        -- Restore gravity
+        if data.originalGravity then
+            local gravityTween = TweenService:Create(workspace, TweenInfo.new(2), {Gravity = data.originalGravity})
+            gravityTween:Play()
+        end
+        
+        -- Restore lighting
+        local dayTween = TweenService:Create(data.colorCorrection, TweenInfo.new(2), {
+            TintColor = Color3.new(1, 1, 1),
+            Saturation = 0,
+            Contrast = 0,
+            Brightness = 0
+        })
+        dayTween:Play()
+        
+        -- Restore sky
+        spawn(function()
+            wait(2)
+            if data.newSky then
+                data.newSky:Destroy()
+            end
+            if data.originalSky then
+                local restoredSky = data.originalSky:Clone()
+                restoredSky.Parent = Lighting
+            else
+                local defaultSky = Instance.new("Sky")
+                defaultSky.Parent = Lighting
+            end
+        end)
+        
+        -- Remove blackhole visuals
+        if data.center then
+            local disappear1 = TweenService:Create(data.center, TweenInfo.new(1), {Transparency = 1, Size = Vector3.new(1, 1, 1)})
+            disappear1:Play()
+            disappear1.Completed:Connect(function()
+                data.center:Destroy()
+            end)
+        end
+        
+        if data.clone then
+            local disappear2 = TweenService:Create(data.clone, TweenInfo.new(1), {Transparency = 1, Size = Vector3.new(1, 1, 1)})
+            disappear2:Play()
+            disappear2.Completed:Connect(function()
+                data.clone:Destroy()
+            end)
+        end
+        
+        -- Stop sounds
+        if data.secondSound then
+            local fadeOut = TweenService:Create(data.secondSound, TweenInfo.new(1), {Volume = 0})
+            fadeOut:Play()
+            fadeOut.Completed:Connect(function()
+                data.secondSound:Destroy()
+            end)
+        end
+        
+        -- Restore lighting values
+        spawn(function()
+            wait(1)
+            if data.originalAmbient then
+                Lighting.Ambient = data.originalAmbient
+            end
+            if data.originalBrightness then
+                Lighting.Brightness = data.originalBrightness
+            end
+            if data.colorCorrection then
+                data.colorCorrection:Destroy()
+            end
+        end)
+    end
+    
+    eventData[eventName] = {}
+    print("⛔ " .. eventName .. " stopped!")
+end
+
+-- ============================================
+-- HANDLE REMOTE EVENTS
+-- ============================================
+remoteEvent.OnServerEvent:Connect(function(player, action, data)
+    if not isOwner(player) then
+        player:Kick("⚠️ Unauthorized access!")
+        return
+    end
+    
+    if action == "StartEvent" then
+        startEvent(data.eventName)
+        
+    elseif action == "StopEvent" then
+        stopEvent(data.eventName)
+        
+    elseif action == "StartAll" then
+        for _, event in ipairs(EVENTS) do
+            if not activeEvents[event.name] then
+                startEvent(event.name)
+            end
+        end
+        
+    elseif action == "StopAll" then
+        for _, event in ipairs(EVENTS) do
+            if activeEvents[event.name] then
+                stopEvent(event.name)
+            end
+        end
+    end
+end)
+
+-- ============================================
+-- PLAYER JOIN - KIRIM DATA KE CLIENT
+-- ============================================
+Players.PlayerAdded:Connect(function(player)
+    if isOwner(player) then
+        remoteEvent:FireClient(player, "LoadPanel", EVENTS)
+    end
+end)
+
+-- Load untuk player yang sudah ada
+for _, player in pairs(Players:GetPlayers()) do
+    if isOwner(player) then
+        spawn(function()
+            wait(1)
+            remoteEvent:FireClient(player, "LoadPanel", EVENTS)
+        end)
+    end
+end
+
+print("✅ Admin Panel Server Loaded!")`
+            },
+            {
+                name: 'staterplayerscript.txt',
+                size: '3.7 KB',
+                content: `-- Owner Commands
+-- ADMIN PANEL CLIENT (SIMPLE - RECREATE ON RESPAWN)
+-- Letakkan di local Players = game:GetService("Players")
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local player = Players.LocalPlayer
+
+-- Tunggu remote event
+local remoteEvent = ReplicatedStorage:WaitForChild("AdminPanelRemote")
+
+-- Data events dari server
+local EVENTS = {}
+local activeEventsClient = {}
+
+-- ============================================
+-- FUNGSI BUAT GUI
+-- ============================================
+local function createAdminGUI()
+    -- Hapus GUI lama kalau ada
+    local oldGui = player.PlayerGui:FindFirstChild("AdminPanel")
+    if oldGui then
+        oldGui:Destroy()
+    end
+    
+    -- Buat ScreenGui BARU
+    local screenGui = Instance.new("ScreenGui")
+    screenGui.Name = "AdminPanel"
+    screenGui.ResetOnSpawn = false
+    screenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+    screenGui.Parent = player:WaitForChild("PlayerGui")
+    
+    -- Toggle Button
+    local toggleBtn = Instance.new("TextButton")
+    toggleBtn.Size = UDim2.new(0, 50, 0, 50)
+    toggleBtn.Position = UDim2.new(1, -60, 0, 10)
+    toggleBtn.BackgroundColor3 = Color3.fromRGB(70, 75, 110)
+    toggleBtn.Text = "👑"
+    toggleBtn.TextSize = 25
+    toggleBtn.Font = Enum.Font.GothamBold
+    toggleBtn.Parent = screenGui
+    
+    local toggleCorner = Instance.new("UICorner")
+    toggleCorner.CornerRadius = UDim.new(0, 10)
+    toggleCorner.Parent = toggleBtn
+    
+    -- Main Frame
+    local mainFrame = Instance.new("Frame")
+    mainFrame.Size = UDim2.new(0, 480, 0, 360)
+    mainFrame.Position = UDim2.new(0.5, -240, 0.5, -180)
+    mainFrame.BackgroundColor3 = Color3.fromRGB(25, 28, 45)
+    mainFrame.BorderSizePixel = 0
+    mainFrame.Visible = false
+    mainFrame.Parent = screenGui
+    
+    local corner = Instance.new("UICorner")
+    corner.CornerRadius = UDim.new(0, 12)
+    corner.Parent = mainFrame
+    
+    -- Title Bar
+    local titleBar = Instance.new("Frame")
+    titleBar.Size = UDim2.new(1, 0, 0, 40)
+    titleBar.BackgroundColor3 = Color3.fromRGB(20, 23, 38)
+    titleBar.BorderSizePixel = 0
+    titleBar.Parent = mainFrame
+    
+    local titleCorner = Instance.new("UICorner")
+    titleCorner.CornerRadius = UDim.new(0, 12)
+    titleCorner.Parent = titleBar
+    
+    local title = Instance.new("TextLabel")
+    title.Size = UDim2.new(0, 200, 1, 0)
+    title.Position = UDim2.new(0, 15, 0, 0)
+    title.BackgroundTransparency = 1
+    title.Text = "Admin Control"
+    title.TextColor3 = Color3.new(1, 1, 1)
+    title.Font = Enum.Font.GothamBold
+    title.TextSize = 16
+    title.TextXAlignment = Enum.TextXAlignment.Left
+    title.Parent = titleBar
+    
+    -- Close Button
+    local closeBtn = Instance.new("TextButton")
+    closeBtn.Size = UDim2.new(0, 35, 0, 35)
+    closeBtn.Position = UDim2.new(1, -38, 0, 3)
+    closeBtn.BackgroundColor3 = Color3.fromRGB(220, 50, 50)
+    closeBtn.Text = "X"
+    closeBtn.TextColor3 = Color3.new(1, 1, 1)
+    closeBtn.Font = Enum.Font.GothamBold
+    closeBtn.TextSize = 16
+    closeBtn.Parent = titleBar
+    
+    local closeBtnCorner = Instance.new("UICorner")
+    closeBtnCorner.CornerRadius = UDim.new(0, 8)
+    closeBtnCorner.Parent = closeBtn
+    
+    -- Tab Container
+    local tabContainer = Instance.new("Frame")
+    tabContainer.Size = UDim2.new(1, -30, 0, 35)
+    tabContainer.Position = UDim2.new(0, 15, 0, 50)
+    tabContainer.BackgroundTransparency = 1
+    tabContainer.Parent = mainFrame
+    
+    local eventsTab = Instance.new("TextButton")
+    eventsTab.Size = UDim2.new(0, 80, 0, 35)
+    eventsTab.BackgroundColor3 = Color3.fromRGB(70, 75, 110)
+    eventsTab.Text = "Events"
+    eventsTab.TextColor3 = Color3.new(1, 1, 1)
+    eventsTab.Font = Enum.Font.GothamBold
+    eventsTab.TextSize = 13
+    eventsTab.Parent = tabContainer
+    
+    local eventsTabCorner = Instance.new("UICorner")
+    eventsTabCorner.CornerRadius = UDim.new(0, 6)
+    eventsTabCorner.Parent = eventsTab
+    
+    -- Control Buttons
+    local controlContainer = Instance.new("Frame")
+    controlContainer.Size = UDim2.new(1, -30, 0, 35)
+    controlContainer.Position = UDim2.new(0, 15, 0, 95)
+    controlContainer.BackgroundTransparency = 1
+    controlContainer.Parent = mainFrame
+    
+    local startAllBtn = Instance.new("TextButton")
+    startAllBtn.Size = UDim2.new(0, 100, 0, 35)
+    startAllBtn.Position = UDim2.new(1, -210, 0, 0)
+    startAllBtn.BackgroundColor3 = Color3.fromRGB(50, 180, 100)
+    startAllBtn.Text = "Start All"
+    startAllBtn.TextColor3 = Color3.new(1, 1, 1)
+    startAllBtn.Font = Enum.Font.GothamBold
+    startAllBtn.TextSize = 13
+    startAllBtn.Parent = controlContainer
+    
+    local startAllCorner = Instance.new("UICorner")
+    startAllCorner.CornerRadius = UDim.new(0, 6)
+    startAllCorner.Parent = startAllBtn
+    
+    local stopAllBtn = Instance.new("TextButton")
+    stopAllBtn.Size = UDim2.new(0, 100, 0, 35)
+    stopAllBtn.Position = UDim2.new(1, -100, 0, 0)
+    stopAllBtn.BackgroundColor3 = Color3.fromRGB(220, 50, 50)
+    stopAllBtn.Text = "Stop All"
+    stopAllBtn.TextColor3 = Color3.new(1, 1, 1)
+    stopAllBtn.Font = Enum.Font.GothamBold
+    stopAllBtn.TextSize = 13
+    stopAllBtn.Parent = controlContainer
+    
+    local stopAllCorner = Instance.new("UICorner")
+    stopAllCorner.CornerRadius = UDim.new(0, 6)
+    stopAllCorner.Parent = stopAllBtn
+    
+    -- Events Scroll
+    local eventsScroll = Instance.new("ScrollingFrame")
+    eventsScroll.Size = UDim2.new(1, -30, 1, -145)
+    eventsScroll.Position = UDim2.new(0, 15, 0, 140)
+    eventsScroll.BackgroundTransparency = 1
+    eventsScroll.BorderSizePixel = 0
+    eventsScroll.ScrollBarThickness = 6
+    eventsScroll.Parent = mainFrame
+    
+    local eventsLayout = Instance.new("UIGridLayout")
+    eventsLayout.CellSize = UDim2.new(0, 140, 0, 75)
+    eventsLayout.CellPadding = UDim2.new(0, 8, 0, 8)
+    eventsLayout.Parent = eventsScroll
+    
+    -- Create Event Buttons
+    for i, event in ipairs(EVENTS) do
+        local eventBtn = Instance.new("TextButton")
+        eventBtn.Name = event.name
+        eventBtn.BackgroundColor3 = Color3.fromRGB(40, 45, 70)
+        eventBtn.BorderSizePixel = 0
+        eventBtn.Text = ""
+        eventBtn.AutoButtonColor = false
+        eventBtn.Parent = eventsScroll
+        
+        local eventCorner = Instance.new("UICorner")
+        eventCorner.CornerRadius = UDim.new(0, 8)
+        eventCorner.Parent = eventBtn
+        
+        local icon = Instance.new("TextLabel")
+        icon.Size = UDim2.new(0, 35, 0, 35)
+        icon.Position = UDim2.new(0, 8, 0, 8)
+        icon.BackgroundTransparency = 1
+        icon.Text = event.icon
+        icon.TextSize = 25
+        icon.Parent = eventBtn
+        
+        local nameLabel = Instance.new("TextLabel")
+        nameLabel.Size = UDim2.new(1, -50, 0, 20)
+        nameLabel.Position = UDim2.new(0, 45, 0, 8)
+        nameLabel.BackgroundTransparency = 1
+        nameLabel.Text = event.name
+        nameLabel.TextColor3 = Color3.new(1, 1, 1)
+        nameLabel.Font = Enum.Font.GothamBold
+        nameLabel.TextSize = 11
+        nameLabel.TextXAlignment = Enum.TextXAlignment.Left
+        nameLabel.Parent = eventBtn
+        
+        local descLabel = Instance.new("TextLabel")
+        descLabel.Size = UDim2.new(1, -50, 0, 35)
+        descLabel.Position = UDim2.new(0, 45, 0, 28)
+        descLabel.BackgroundTransparency = 1
+        descLabel.Text = event.description
+        descLabel.TextColor3 = Color3.fromRGB(150, 150, 150)
+        descLabel.Font = Enum.Font.Gotham
+        descLabel.TextSize = 9
+        descLabel.TextXAlignment = Enum.TextXAlignment.Left
+        descLabel.TextYAlignment = Enum.TextYAlignment.Top
+        descLabel.TextWrapped = true
+        descLabel.Parent = eventBtn
+        
+        local statusDot = Instance.new("Frame")
+        statusDot.Name = "StatusDot"
+        statusDot.Size = UDim2.new(0, 8, 0, 8)
+        statusDot.Position = UDim2.new(1, -12, 0, 8)
+        statusDot.BackgroundColor3 = Color3.fromRGB(100, 100, 100)
+        statusDot.BorderSizePixel = 0
+        statusDot.Parent = eventBtn
+        
+        local dotCorner = Instance.new("UICorner")
+        dotCorner.CornerRadius = UDim.new(1, 0)
+        dotCorner.Parent = statusDot
+        
+        -- Restore status dari activeEventsClient
+        if activeEventsClient[event.name] then
+            eventBtn.BackgroundColor3 = Color3.fromRGB(50, 55, 90)
+            statusDot.BackgroundColor3 = Color3.fromRGB(50, 220, 100)
+        end
+        
+        -- Button Click Handler
+        eventBtn.MouseButton1Click:Connect(function()
+            if activeEventsClient[event.name] then
+                -- Stop Event
+                activeEventsClient[event.name] = false
+                eventBtn.BackgroundColor3 = Color3.fromRGB(40, 45, 70)
+                statusDot.BackgroundColor3 = Color3.fromRGB(100, 100, 100)
+                remoteEvent:FireServer("StopEvent", {eventName = event.name})
+            else
+                -- Start Event
+                activeEventsClient[event.name] = true
+                eventBtn.BackgroundColor3 = Color3.fromRGB(50, 55, 90)
+                statusDot.BackgroundColor3 = Color3.fromRGB(50, 220, 100)
+                remoteEvent:FireServer("StartEvent", {eventName = event.name})
+            end
+        end)
+        
+        eventBtn.MouseEnter:Connect(function()
+            if not activeEventsClient[event.name] then
+                eventBtn.BackgroundColor3 = Color3.fromRGB(50, 55, 85)
+            end
+        end)
+        
+        eventBtn.MouseLeave:Connect(function()
+            if not activeEventsClient[event.name] then
+                eventBtn.BackgroundColor3 = Color3.fromRGB(40, 45, 70)
+            end
+        end)
+    end
+    
+    -- Toggle Button Handler
+    toggleBtn.MouseButton1Click:Connect(function()
+        mainFrame.Visible = not mainFrame.Visible
+        if mainFrame.Visible then
+            toggleBtn.BackgroundColor3 = Color3.fromRGB(100, 105, 140)
+        else
+            toggleBtn.BackgroundColor3 = Color3.fromRGB(70, 75, 110)
+        end
     end)
-end)`
+    
+    -- Close Button Handler
+    closeBtn.MouseButton1Click:Connect(function()
+        mainFrame.Visible = false
+        toggleBtn.BackgroundColor3 = Color3.fromRGB(70, 75, 110)
+    end)
+    
+    -- Start All Handler
+    startAllBtn.MouseButton1Click:Connect(function()
+        for _, event in ipairs(EVENTS) do
+            if not activeEventsClient[event.name] then
+                activeEventsClient[event.name] = true
+                local btn = eventsScroll:FindFirstChild(event.name)
+                if btn then
+                    btn.BackgroundColor3 = Color3.fromRGB(50, 55, 90)
+                    btn.StatusDot.BackgroundColor3 = Color3.fromRGB(50, 220, 100)
+                end
+            end
+        end
+        remoteEvent:FireServer("StartAll")
+    end)
+    
+    -- Stop All Handler
+    stopAllBtn.MouseButton1Click:Connect(function()
+        for _, event in ipairs(EVENTS) do
+            if activeEventsClient[event.name] then
+                activeEventsClient[event.name] = false
+                local btn = eventsScroll:FindFirstChild(event.name)
+                if btn then
+                    btn.BackgroundColor3 = Color3.fromRGB(40, 45, 70)
+                    btn.StatusDot.BackgroundColor3 = Color3.fromRGB(100, 100, 100)
+                end
+            end
+        end
+        remoteEvent:FireServer("StopAll")
+    end)
+    
+    print("✅ Admin Panel GUI Created!")
+end
+
+-- ============================================
+-- TERIMA DATA DARI SERVER
+-- ============================================
+remoteEvent.OnClientEvent:Connect(function(action, data)
+    if action == "LoadPanel" then
+        EVENTS = data
+        player:WaitForChild("PlayerGui")
+        wait(0.5)
+        createAdminGUI()
+    end
+end)
+
+-- ============================================
+-- HANDLE RESPAWN (BUAT ULANG GUI)
+-- ============================================
+player.CharacterAdded:Connect(function(character)
+    -- Tunggu character siap
+    wait(0.5)
+    
+    -- Kalau EVENTS udah di-load, buat GUI baru
+    if #EVENTS > 0 then
+        createAdminGUI()
+        print("🔄 Admin Panel recreated after respawn!")
+    end
+end)
+
+print("✅ Admin Panel Client Ready!")`
+            }
+        ],
+        comments: []
+    },
+    {
+        name: 'SCRIPT CHAT TAG ADA CENTANG BIRU KHUSUS OWNER & ADMIN ( TARO DI StaterPlayerScript )',
+        price: 'GRATIS',
+        icon: 'https://collective-yellow-rgxbfq2dg5.edgeone.app/IMG_20260114_181326.jpg',
+        iconType: 'image',
+        gradient: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+        badge: 'Unlimited',
+        stock: Infinity,
+        category: 'Unlimited',
+        tutorialVideo: 'https://vt.tiktok.com/ZS5cF5gHF/',
+        files: [
+            {
+                name: 'chattag(StaterPlayerScript).txt',
+                size: '5.2 KB',
+                content: `-- chattag
+--print("Hello, World!")
+local TextChatService = game:GetService("TextChatService")
+
+-- Owner and Admin Usernames
+local OwnerUsernames = {"USERNAME", "USERNAME"}
+local AdminUsernames = {"USERNAME", "USERNAME"}
+local SpecialUser = "DoubleKoi"
+
+TextChatService.OnIncomingMessage = function(Message)
+    
+    if not Message.TextSource then return end
+    
+    local Player = game.Players:GetPlayerByUserId(Message.TextSource.UserId)
+    
+    if not Player then return end
+    
+    local prefix = "" -- start empty
+    local verifiedBadge = "" -- badge verifikasi
+    
+    -- Owner Tags
+    if table.find(OwnerUsernames, Player.Name) then
+        verifiedBadge = "" -- badge untuk owner
+        prefix = "[OWNER] "
+        
+        -- Admin Tags
+    elseif table.find(AdminUsernames, Player.Name) then
+        verifiedBadge = "" -- badge untuk admin
+        prefix = "[ADMIN] "
+        
+    end
+    
+    -- Special User badge
+    if Player.Name == SpecialUser then
+        verifiedBadge = ""
+    end
+    
+    -- Gunakan DisplayName dengan badge verifikasi
+    local nameText = Player.DisplayName .. verifiedBadge
+    
+    -- Set prefix text dengan display name dan badge
+    Message.PrefixText = prefix .. nameText
+    
+end`
             }
         ],
         comments: []
@@ -1306,7 +2815,7 @@ function downloadFile(fileName, content) {
 
 function renderComments(comments) {
     if (!comments || comments.length === 0) {
-        return '<div class="comments-section"><p style="text-align:center;color:#7f8c99;">Belum ada komentar</p></div>';
+        return '<div class="comments-section"><p style="text-align:center;color:#7f8c99;"></p></div>';
     }
 
     const slides = comments.map((comment, index) => {

@@ -812,44 +812,60 @@
     </style>
 </head>
 <body>
+<!-- Musik Background -->
 <audio id="backgroundMusic" loop>
-    <source src="https://files.catbox.moe/f247he.mp3" type="audio/mpeg">
+    <source src="https://files.catbox.moe/ux6knl.mp3" type="audio/mpeg">
     Browsermu nggak support audio.
 </audio>
 
+<!-- Tombol Play Musik -->
 <button id="musicToggle" 
         style="position: fixed; bottom: 20px; right: 20px; z-index: 9999; 
-               background: rgba(102, 126, 234, 0.8); color: white; border: none; 
+               background: rgba(288, 255, 234, 0.8); color: white; border: none; 
                padding: 0.8rem 1.2rem; border-radius: 50px; cursor: pointer; 
                font-size: 1rem; font-weight: bold;">
-    ⏸️ Pause Music
+    ▶️ Play Music
 </button>
 
 <script>
 const music = document.getElementById('backgroundMusic');
 const toggleBtn = document.getElementById('musicToggle');
-music.volume = 0.5;
 
-// Tombol pause/play
+music.volume = 0.5; // atur volume aman
+
+// Fungsi untuk mencoba memainkan musik otomatis saat halaman load
+window.addEventListener('load', () => {
+    music.play().then(() => {
+        // Jika berhasil, update tombol
+        updateButton();
+    }).catch(() => {
+        // Jika gagal (misalnya diblokir browser), biarkan tombol untuk manual play
+        console.log('Autoplay diblokir, gunakan tombol untuk play manual.');
+    });
+});
+
+// Fungsi untuk update tombol berdasarkan status musik
+function updateButton() {
+    if (music.paused) {
+        toggleBtn.textContent = '▶️ Play Music';
+    } else {
+        toggleBtn.textContent = '⏸️ Pause Music';
+    }
+}
+
+// Event listener untuk tombol
 toggleBtn.addEventListener('click', () => {
     if (music.paused) {
         music.play();
-        toggleBtn.textContent = '⏸️ Pause Music';
     } else {
         music.pause();
-        toggleBtn.textContent = '▶️ Play Music';
     }
+    updateButton();
 });
 
-// Coba autoplay seolah langsung jalan
-document.addEventListener('DOMContentLoaded', () => {
-    music.play().catch(() => {
-        // Autoplay diblok, tunggu interaksi user
-        console.log("Autoplay diblok, nanti jalan kalau user klik/scroll");
-        document.addEventListener('click', () => music.play());
-        document.addEventListener('scroll', () => music.play());
-    });
-});
+// Update tombol saat musik mulai atau berhenti
+music.addEventListener('play', updateButton);
+music.addEventListener('pause', updateButton);
 </script>
     <nav class="navbar">
         <div class="logo">✨ RenzzzWebsite BETA</div>

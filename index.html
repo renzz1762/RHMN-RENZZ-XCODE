@@ -99,17 +99,32 @@
             color: white;
         }
 
-        .hero h1 {
-            font-size: 2.5rem;
-            margin-bottom: 0.8rem;
-            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
-        }
+.hero {
+    padding: 3rem 5%;
+    text-align: center;
+    color: white;
+    background-image: url('https://files.catbox.moe/bkwell.png'); /* ganti ini dengan link foto dede */
+    background-size: cover;       /* biar menutupi seluruh area hero */
+    background-position: center;  /* biar foto di tengah */
+    background-repeat: no-repeat;
+    position: relative;
+}
 
-        .hero p {
-            font-size: 1.1rem;
-            opacity: 0.95;
-            margin-bottom: 0.8rem;
-        }
+.hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(102, 126, 234, 0.7); /* Overlay transparan */
+    z-index: 1;
+}
+
+.hero > * {
+    position: relative;
+    z-index: 2;
+}
 
         .social-buttons {
             display: flex;
@@ -216,6 +231,15 @@
             font-size: 3.5rem;
             position: relative;
         }
+.product-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.product-image-emoji {
+    font-size: 3.5rem;
+}
 
         .product-info {
             padding: 1.5rem;
@@ -594,10 +618,239 @@
             .product-grid {
                 grid-template-columns: 1fr;
             }
+.comments-main-section {
+    padding: 3rem 5%;
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.comments-container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.comments-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.comments-title {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #7fb8d4;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+.comment-carousel {
+    position: relative;
+    overflow: hidden;
+    border-radius: 20px;
+}
+
+.comment-slider {
+    display: flex;
+    transition: transform 0.3s ease;
+}
+
+.comment-slide {
+    min-width: 100%;
+    padding: 0 1rem;
+}
+
+.comment-card {
+    background: linear-gradient(135deg, #34495e 0%, #2c3e50 100%);
+    border: 2px solid #4a6278;
+    border-radius: 20px;
+    padding: 2rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.comment-user {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.user-avatar {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: #fff;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.user-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.user-info {
+    flex: 1;
+}
+
+.user-name {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #7fb8d4;
+    margin-bottom: 0.3rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.developer-badge {
+    background: #667eea;
+    color: white;
+    padding: 0.2rem 0.8rem;
+    border-radius: 15px;
+    font-size: 0.75rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+}
+
+.comment-email {
+    color: #a0b4c3;
+    font-size: 0.9rem;
+    margin-bottom: 0.2rem;
+}
+
+.comment-date {
+    color: #7f8c99;
+    font-size: 0.85rem;
+    margin-bottom: 0.5rem;
+}
+
+.comment-rating {
+    display: flex;
+    gap: 0.2rem;
+}
+
+.star {
+    color: #FFD700;
+    font-size: 1.3rem;
+}
+
+.star.empty {
+    color: #4a6278;
+}
+
+.comment-text {
+    color: #d4dce4;
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin: 1.5rem 0;
+}
+
+.comment-stats {
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+}
+
+.stat-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #a0b4c3;
+    font-size: 1rem;
+}
+
+.stat-item .icon {
+    font-size: 1.3rem;
+}
+
+.carousel-dots {
+    display: flex;
+    justify-content: center;
+    gap: 0.8rem;
+    margin-top: 2rem;
+}
+
+.dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #4a6278;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.dot.active {
+    background: #7fb8d4;
+    width: 30px;
+    border-radius: 10px;
+}
+
+@media (max-width: 768px) {
+    .comments-main-section {
+        padding: 2rem 5%;
+    }
+
+    .comment-card {
+        padding: 1.5rem;
+    }
+
+    .user-avatar {
+        width: 50px;
+        height: 50px;
+    }
+
+    .user-name {
+        font-size: 1rem;
+    }
+
+    .comment-text {
+        font-size: 1rem;
+    }
+}
+</style>
         }
     </style>
 </head>
 <body>
+<audio id="backgroundMusic" loop>
+    <source src="https://files.catbox.moe/f247he.mp3" type="audio/mpeg">
+    Browsermu nggak support audio.
+</audio>
+
+<button id="musicToggle" 
+        style="position: fixed; bottom: 20px; right: 20px; z-index: 9999; 
+               background: rgba(102, 126, 234, 0.8); color: white; border: none; 
+               padding: 0.8rem 1.2rem; border-radius: 50px; cursor: pointer; 
+               font-size: 1rem; font-weight: bold;">
+    ⏸️ Pause Music
+</button>
+
+<script>
+const music = document.getElementById('backgroundMusic');
+const toggleBtn = document.getElementById('musicToggle');
+music.volume = 0.5;
+
+// Tombol pause/play
+toggleBtn.addEventListener('click', () => {
+    if (music.paused) {
+        music.play();
+        toggleBtn.textContent = '⏸️ Pause Music';
+    } else {
+        music.pause();
+        toggleBtn.textContent = '▶️ Play Music';
+    }
+});
+
+// Coba autoplay seolah langsung jalan
+document.addEventListener('DOMContentLoaded', () => {
+    music.play().catch(() => {
+        // Autoplay diblok, tunggu interaksi user
+        console.log("Autoplay diblok, nanti jalan kalau user klik/scroll");
+        document.addEventListener('click', () => music.play());
+        document.addEventListener('scroll', () => music.play());
+    });
+});
+</script>
     <nav class="navbar">
         <div class="logo">✨ RenzzzWebsite BETA</div>
         <div class="search-bar">
@@ -620,7 +873,123 @@
             <a href="https://vm.tiktok.com/ZSHEnKAhyrGwU-dxm18/" class="social-btn" target="_blank">🎵 ACCOUNT TIKTOK REAL</a>
         </div>
     </div>
+<div class="comments-main-section">
+    <div class="comments-container">
+        <div class="comments-header">
+            <h3 class="comments-title">Komentar Terpopuler</h3>
+        </div>
+        <div class="comment-carousel">
+            <div class="comment-slider" id="mainCommentSlider">
+                <!-- Komentar 1 -->
+                <div class="comment-slide">
+                    <div class="comment-card">
+                        <div class="comment-user">
+                            <div class="user-avatar">
+                                <img src="https://files.catbox.moe/bkwell.png" alt="RenzzzOFC">
+                            </div>
+                            <div class="user-info">
+                                <div class="user-name">
+                                    Renzzz OFC18
+                                    <span class="developer-badge"><span>✓</span> Developer</span>
+                                </div>
+                                <div class="comment-email">renzzz******18@Renzz,.cloud</div>
+                                <div class="comment-date">tanggal -14 - januari 2025 pukul 07.17</div>
+                                <div class="comment-rating">
+                                    <span class="star">★</span>
+                                    <span class="star">★</span>
+                                    <span class="star">★</span>
+                                    <span class="star">★</span>
+                                    <span class="star">★</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="comment-text">TES!</div>
+                        <div class="comment-stats">
+                            <div class="stat-item">
+                                <span class="icon">👍</span>
+                                <span>91,5k</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="icon">👎</span>
+                                <span>1,2k</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
+                <!-- Komentar 2 -->
+                <div class="comment-slide">
+                    <div class="comment-card">
+                        <div class="comment-user">
+                            <div class="user-avatar">
+                                <img src="https://i.pravatar.cc/150?img=2" alt="John Doe">
+                            </div>
+                            <div class="user-info">
+                                <div class="user-name">John Doe</div>
+                                <div class="comment-email">j***e@example.com</div>
+                                <div class="comment-date">19 September 2025 pukul 15.30</div>
+                                <div class="comment-rating">
+                                    <span class="star">★</span>
+                                    <span class="star">★</span>
+                                    <span class="star">★</span>
+                                    <span class="star">★</span>
+                                    <span class="star empty">★</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="comment-text">Script nya mantap banget, sangat membantu!</div>
+                        <div class="comment-stats">
+                            <div class="stat-item">
+                                <span class="icon">👍</span>
+                                <span>234</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="icon">👎</span>
+                                <span>5</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="comment-slide">
+                    <div class="comment-card">
+                        <div class="comment-user">
+                            <div class="user-avatar">
+                                <img src="https://i.pravatar.cc/150?img=2" alt="John Doe">
+                            </div>
+                            <div class="user-info">
+                                <div class="user-name">John Doe</div>
+                                <div class="comment-email">j***e@example.com</div>
+                                <div class="comment-date">19 September 2025 pukul 15.30</div>
+                                <div class="comment-rating">
+                                    <span class="star">★</span>
+                                    <span class="star">★</span>
+                                    <span class="star">★</span>
+                                    <span class="star">★</span>
+                                    <span class="star empty">★</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="comment-text">Script nya mantap banget, sangat membantu!</div>
+                        <div class="comment-stats">
+                            <div class="stat-item">
+                                <span class="icon">👍</span>
+                                <span>234</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="icon">👎</span>
+                                <span>5</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </div>
+        <div class="carousel-dots" id="mainCarouselDots">
+            <div class="dot active" onclick="goToMainSlide(0)"></div>
+            <div class="dot" onclick="goToMainSlide(1)"></div>
+            <div class="dot" onclick="goToMainSlide(2)"></div>
+        </div>
+    </div>
+</div>
     <div class="categories">
         <div class="category-card active" data-category="all">✨ Semua</div>
         <div class="category-card" data-category="Unlimited">Unlimited ∞</div>
@@ -679,7 +1048,8 @@ const products = [
     {
         name: 'SCRIPT P BALAP ( DI ASET MODEL INI KALIAN TAMBAHIN SCRIPT DI SERVER SCRIPT SERVICE )',
         price: 'GRATIS',
-        icon: '📄',
+        icon: '📄', // Bisa emoji atau URL gambar
+        iconType: 'emoji', // 'emoji' atau 'image'
         gradient: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
         badge: 'Terlaris',
         stock: 0,
@@ -690,7 +1060,8 @@ const products = [
     {
         name: 'SCRIPT MUSIC ( BISA ANTRI MUSIC )',
         price: 'GRATIS',
-        icon: '📄 | 🎵',
+        icon: 'https://files.catbox.moe/bkwell.png', // CONTOH PAKE GAMBAR
+        iconType: 'image', // Set 'image' kalau pake foto
         gradient: 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)',
         badge: 'New',
         stock: 0,
@@ -702,6 +1073,7 @@ const products = [
         name: 'SCRIPT TERRAIN BISA GANTI WARNA ( MAX 1 WARNA )',
         price: 'GRATIS',
         icon: '📄 | 🌱',
+        iconType: 'emoji',
         gradient: 'linear-gradient(135deg, #f5576c 0%, #764ba2 100%)',
         badge: 'Unlimited',
         stock: Infinity,
@@ -726,6 +1098,109 @@ end
 ColorValue.Changed:Connect(changeTerrainColor)
 changeTerrainColor()`
             }
+        ],
+        comments: []
+    },
+    {
+        name: 'SCRIPT PART KALO DI INJECT BISA BERUBAH WARNA ( SCRIPT TARO DI DALAM PART )',
+        price: 'GRATIS',
+        icon: '📄 | 🟦',
+        iconType: 'emoji',
+        gradient: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+        badge: 'Unlimited',
+        stock: Infinity,
+        category: 'Unlimited',
+        tutorialVideo: 'https://vm.tiktok.com/ZSHEnKAhyrGwU-dxm18/',
+        files: [
+            {
+                name: 'color_changer.lua',
+                size: '1.8 KB',
+                content: `-- Script Part Color Changer
+local part = script.Parent
+local terrain = workspace.Terrain
+local warnaR = 0
+local warnaG = 255  
+local warnaB = 255
+local mat = Enum.Material.Grass
+
+if part.Shape == Enum.PartType.Block then
+    terrain:FillBlock(part.CFrame, part.Size, mat)
+end
+
+pcall(function()
+    terrain:SetMaterialColor(mat, Color3.fromRGB(warnaR, warnaG, warnaB))
+end)
+
+wait()
+part:Destroy()`
+            }
+        ],
+        comments: []
+    },
+    {
+        name: 'SCRIPT TOOLS KHUSUS OWNER & ADMIN ( TARO DI SERVER SCRIPT SERVICE )',
+        price: 'GRATIS',
+        icon: '📄 | 🛠️',
+        iconType: 'emoji',
+        gradient: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+        badge: 'Unlimited',
+        stock: Infinity,
+        category: 'Unlimited',
+        tutorialVideo: 'https://vm.tiktok.com/ZSHEnKAhyrGwU-dxm18/',
+        files: [
+            {
+                name: 'owner_tools.lua',
+                size: '5.2 KB',
+                content: `-- Admin Tools Script
+local playersList = {"username"}
+local gear = game.ServerStorage:WaitForChild("nama tools")
+ 
+game.Players.PlayerAdded:Connect(function(plr)
+    plr.CharacterAdded:Connect(function(char)
+        for i = 1, #playersList do
+            if playersList[i] == plr.Name then
+                local clonedGear = gear:Clone()
+                clonedGear.Parent = plr:WaitForChild("Backpack")
+            end
+        end
+    end)
+end)`
+            }
+        ],
+        comments: [
+            {
+                username: 'Zass Desuta',
+                avatar: 'https://i.pravatar.cc/150?img=1',
+                email: 'a***n@zass.cloud',
+                date: '20 September 2025 pukul 07.17',
+                rating: 5,
+                text: 'Teaser Season 2!',
+                likes: 10035,
+                dislikes: 80,
+                isDeveloper: true
+            },
+            {
+                username: 'John Doe',
+                avatar: 'https://i.pravatar.cc/150?img=2',
+                email: 'j***e@example.com',
+                date: '19 September 2025 pukul 15.30',
+                rating: 4,
+                text: 'Script nya mantap banget, sangat membantu!',
+                likes: 234,
+                dislikes: 5,
+                isDeveloper: false
+            },
+            {
+                username: 'Sarah Miller',
+                avatar: 'https://i.pravatar.cc/150?img=3',
+                email: 's***r@example.com',
+                date: '18 September 2025 pukul 20.45',
+                rating: 5,
+                text: 'Perfect! Exactly what I needed',
+                likes: 567,
+                dislikes: 12,
+                isDeveloper: false
+            }
         ]
     },
     {
@@ -743,19 +1218,25 @@ changeTerrainColor()`
                 size: '1.8 KB',
                 content: `-- Script Part Color Changer
 local part = script.Parent
-local colors = {
-    Color3.fromRGB(255, 0, 0),
-    Color3.fromRGB(0, 255, 0),
-    Color3.fromRGB(0, 0, 255),
-    Color3.fromRGB(255, 255, 0),
-    Color3.fromRGB(255, 0, 255)
-}
+local terrain = workspace.Terrain
+local warnaR = 0
+local warnaG = 255  
+local warnaB = 255
+local mat = Enum.Material.Grass
 
-while wait(1) do
-    part.Color = colors[math.random(1, #colors)]
-end`
+if part.Shape == Enum.PartType.Block then
+    terrain:FillBlock(part.CFrame, part.Size, mat)
+end
+
+pcall(function()
+    terrain:SetMaterialColor(mat, Color3.fromRGB(warnaR, warnaG, warnaB))
+end)
+
+wait()
+part:Destroy()`
             }
-        ]
+        ],
+        comments: []
     },
     {
         name: 'SCRIPT TOOLS KHUSUS OWNER & ADMIN ( TARO DI SERVER SCRIPT SERVICE )',
@@ -768,38 +1249,32 @@ end`
         tutorialVideo: 'https://vm.tiktok.com/ZSHEnKAhyrGwU-dxm18/',
         files: [
             {
-                name: 'admin_tools.lua',
+                name: 'owner_tools.lua',
                 size: '5.2 KB',
                 content: `-- Admin Tools Script
-local admins = {123456789, 987654321}
-
-game.Players.PlayerAdded:Connect(function(player)
-    if table.find(admins, player.UserId) then
-        print(player.Name .. " is an admin!")
-        -- Add admin commands here
-    end
-end)`
-            },
-            {
-                name: 'owner_commands.lua',
-                size: '3.7 KB',
-                content: `-- Owner Commands
-local owner = 123456789
-
-game.Players.PlayerAdded:Connect(function(player)
-    if player.UserId == owner then
-        print("Owner " .. player.Name .. " joined!")
-        -- Owner-only features
-    end
+local playersList = {"username"}
+local gear = game.ServerStorage:WaitForChild("nama tools")
+ 
+game.Players.PlayerAdded:Connect(function(plr)
+    plr.CharacterAdded:Connect(function(char)
+        for i = 1, #playersList do
+            if playersList[i] == plr.Name then
+                local clonedGear = gear:Clone()
+                clonedGear.Parent = plr:WaitForChild("Backpack")
+            end
+        end
+    end)
 end)`
             }
-        ]
+        ],
+        comments: []
     }
 ];
 
 let cart = [];
 let wishlist = [];
 let currentCategory = 'all';
+let currentSlide = 0;
 
 function downloadFile(fileName, content) {
     const blob = new Blob([content], { type: 'text/plain' });
@@ -811,6 +1286,86 @@ function downloadFile(fileName, content) {
     a.click();
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
+}
+
+function renderComments(comments) {
+    if (!comments || comments.length === 0) {
+        return '<div class="comments-section"><p style="text-align:center;color:#7f8c99;">Belum ada komentar</p></div>';
+    }
+
+    const slides = comments.map((comment, index) => {
+        const stars = Array(5).fill(0).map((_, i) => 
+            `<span class="star ${i < comment.rating ? '' : 'empty'}">★</span>`
+        ).join('');
+
+        const developerBadge = comment.isDeveloper ? 
+            '<span class="developer-badge"><span>✓</span> Developer</span>' : '';
+
+        return `
+            <div class="comment-slide">
+                <div class="comment-card">
+                    <div class="comment-user">
+                        <div class="user-avatar">
+                            <img src="${comment.avatar}" alt="${comment.username}">
+                        </div>
+                        <div class="user-info">
+                            <div class="user-name">
+                                ${comment.username}
+                                ${developerBadge}
+                            </div>
+                            <div class="comment-email">${comment.email}</div>
+                            <div class="comment-date">${comment.date}</div>
+                            <div class="comment-rating">${stars}</div>
+                        </div>
+                    </div>
+                    <div class="comment-text">${comment.text}</div>
+                    <div class="comment-stats">
+                        <div class="stat-item">
+                            <span class="icon">👍</span>
+                            <span>${comment.likes}</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="icon">👎</span>
+                            <span>${comment.dislikes}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+    }).join('');
+
+    const dots = comments.map((_, i) => 
+        `<div class="dot ${i === 0 ? 'active' : ''}" onclick="goToSlide(${i})"></div>`
+    ).join('');
+
+    return `
+        <div class="comments-section">
+            <div class="comments-header">
+                <h3 class="comments-title">Informasi</h3>
+            </div>
+            <div class="comment-carousel">
+                <div class="comment-slider" id="commentSlider">
+                    ${slides}
+                </div>
+            </div>
+            <div class="carousel-dots" id="carouselDots">
+                ${dots}
+            </div>
+        </div>
+    `;
+}
+
+function goToSlide(index) {
+    currentSlide = index;
+    const slider = document.getElementById('commentSlider');
+    const dots = document.querySelectorAll('.dot');
+    
+    if (slider) {
+        slider.style.transform = `translateX(-${index * 100}%)`;
+        dots.forEach((dot, i) => {
+            dot.classList.toggle('active', i === index);
+        });
+    }
 }
 
 function renderProducts(category = 'all', search = '') {
@@ -863,6 +1418,7 @@ function renderProducts(category = 'all', search = '') {
 function buyNow(index) {
     if (products[index].stock === 0) return;
     
+    currentSlide = 0;
     const product = products[index];
     document.getElementById('modalProduct').textContent = product.name + ' - ' + product.price;
     
@@ -889,8 +1445,10 @@ function buyNow(index) {
             </button>
         </a>
     ` : '';
+
+    const commentsHTML = renderComments(product.comments);
     
-    document.getElementById('fileList').innerHTML = (fileListHTML || '<p style="color: #999;">Tidak ada file tersedia</p>') + tutorialButton;
+    document.getElementById('fileList').innerHTML = (fileListHTML || '<p style="color: #999;">Tidak ada file tersedia</p>') + tutorialButton + commentsHTML;
     document.getElementById('purchaseModal').classList.add('show');
 }
 
@@ -912,7 +1470,7 @@ function addToCart(index) {
 }
 
 function toggleWishlist(index) {
-const pos = wishlist.indexOf(index);
+    const pos = wishlist.indexOf(index);
     if (pos === -1) {
         wishlist.push(index);
         renderProducts(currentCategory, document.getElementById('searchInput').value);
@@ -944,34 +1502,56 @@ function removeFromWishlist(index) {
     }
 }
 
-function renderCartItems() {
-    const container = document.getElementById('cartItems');
-    if (cart.length === 0) {
-        container.innerHTML = `
-            <div class="empty-state">
-                <div class="empty-icon">🛒</div>
-                <p>Keranjang kamu masih kosong</p>
-                <p style="font-size: 0.9rem; color: #ccc;">Yuk belanja sekarang!</p>
-            </div>
-        `;
-        return;
-    }
+function renderProducts(category = 'all', search = '') {
+    const grid = document.getElementById('productGrid');
+    const filtered = products.filter(p => 
+        (category === 'all' || p.category === category) &&
+        p.name.toLowerCase().includes(search.toLowerCase())
+    );
 
-    container.innerHTML = cart.map(index => {
-        const p = products[index];
+    grid.innerHTML = filtered.map((p, i) => {
+        const realIndex = products.indexOf(p);
+        
+        // Render icon: bisa emoji atau gambar
+        let iconHTML = '';
+        if (p.iconType === 'image') {
+            iconHTML = `<img src="${p.icon}" alt="${p.name}">`;
+        } else {
+            iconHTML = `<span class="product-image-emoji">${p.icon}</span>`;
+        }
+        
         return `
-            <div class="item-card">
-                <div class="item-info">
-                    <div class="item-name">${p.icon} ${p.name}</div>
-                    <div class="item-price">${p.price}</div>
+            <div class="product-card">
+                <div class="product-image" style="background: ${p.gradient}">
+                    ${iconHTML}
+                    ${p.stock === 0 ? 
+                        '<div class="badge badge-sold-out">COMING SOON</div>' : 
+                        (p.badge ? `<div class="badge ${p.badge === 'Unlimited' ? 'badge-unlimited' : ''}">${p.badge}</div>` : '')
+                    }
                 </div>
-                <div class="item-actions">
-                    <button class="btn-download-file" onclick="buyNow(${index}); event.stopPropagation();">
-                        📥 Buka
-                    </button>
-                    <button class="btn-remove" onclick="removeFromCart(${index}); event.stopPropagation();">
-                        🗑️ Hapus
-                    </button>
+                <div class="product-info">
+                    <div class="product-name">${p.name}</div>
+                    <div class="product-price">${p.price}</div>
+                    <div class="product-stock ${p.stock > 0 ? 'stock-available' : 'stock-out'}">
+                        ${p.stock === Infinity ? '✓ Stok: Unlimited ∞' : 
+                          (p.stock > 0 ? `✓ Stok: ${p.stock}` : 'COMING SOON')}
+                    </div>
+                    <div class="button-group">
+                        <button class="btn-cart ${p.stock === 0 ? 'btn-disabled' : ''}" 
+                                onclick="addToCart(${realIndex}); event.stopPropagation();" 
+                                ${p.stock === 0 ? 'disabled' : ''}>
+                            🛒
+                        </button>
+                        <button class="btn-buy ${p.stock === 0 ? 'btn-disabled' : ''}" 
+                                onclick="buyNow(${realIndex}); event.stopPropagation();" 
+                                ${p.stock === 0 ? 'disabled' : ''}>
+                            ${p.stock === 0 ? 'TERBATAS' : 'DAPATKAN'}
+                        </button>
+                        <button class="btn-love ${wishlist.includes(realIndex) ? 'loved' : ''}" 
+                                onclick="toggleWishlist(${realIndex}); event.stopPropagation();">
+                            ❤️
+                        </button>
+                    </div>
                 </div>
             </div>
         `;
@@ -1065,6 +1645,27 @@ window.onclick = (e) => {
 };
 
 renderProducts();
-    </script>
+let mainSlideIndex = 0;
+
+function goToMainSlide(index) {
+    mainSlideIndex = index;
+    const slider = document.getElementById('mainCommentSlider');
+    const dots = document.querySelectorAll('#mainCarouselDots .dot');
+    
+    if (slider) {
+        slider.style.transform = `translateX(-${index * 100}%)`;
+        dots.forEach((dot, i) => {
+            dot.classList.toggle('active', i === index);
+        });
+    }
+}
+
+// Auto slide setiap 5 detik
+setInterval(() => {
+    const totalSlides = 3; // Jumlah komentar
+    mainSlideIndex = (mainSlideIndex + 0) % totalSlides;
+    goToMainSlide(mainSlideIndex);
+}, 5000);
+</script>
 </body>
 </html>

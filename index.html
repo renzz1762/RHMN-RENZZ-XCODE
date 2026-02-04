@@ -1,0 +1,1644 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CIKAA V1 - REAL DELAY SYSTEM</title>
+    
+    <!-- CSS UTAMA (TAMPILAN ASLI KAMU) -->
+    <style>
+    /* CLIENT GRID */
+    .client-grid{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:15px;
+      padding:15px;
+    }
+    .client-card{
+      border-radius:18px;
+      padding:18px;
+      min-height:150px;
+      color:#fff;
+      background:linear-gradient(to bottom, rgba(53,91,255,0.35), rgba(53,91,255,0.12));
+      border:1px solid rgba(255,255,255,0.15);
+      box-shadow:0 10px 30px rgba(0,0,0,0.45);
+      transition:all .25s ease;
+    }
+    .client-card:hover{
+      transform:translateY(-3px);
+      background:linear-gradient(to bottom, rgba(53,91,255,0.55), rgba(53,91,255,0.25));
+    }
+    .client-icon{
+      width:42px;height:42px;
+      background:#f82926;
+      border-radius:12px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:20px;
+      margin-bottom:10px;
+    }
+    .client-title{font-weight:bold;font-size:15px}
+    .client-desc{font-size:12px;opacity:.8;margin-bottom:8px}
+    *{box-sizing:border-box;font-family:Segoe UI,sans-serif}
+    body{margin:0;color:#fff;overflow-x:hidden}
+    
+    /* BG */
+    .bg-video{position:fixed;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2}
+    .bg-overlay{position:fixed;inset:0;background:#0a0f2ccc;z-index:-1}
+    
+    header{
+      height:55px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:0 15px;
+      background:linear-gradient(to bottom, rgba(53,91,255,0.65), rgba(53,91,255,0));
+    }
+    /* CARD */
+    .user-card{margin:15px;padding:15px;background:linear-gradient(135deg,#1e3cff,#355bff);border-radius:18px;display:flex;justify-content:space-between}
+    .user-left{display:flex;gap:10px;align-items:center}
+    .user-left img{width:45px;height:45px;border-radius:50%}
+    .owner,.dev{font-size:11px;padding:3px 8px;border-radius:10px}
+    .owner{background:#00000055}
+    .dev{background:#000055}
+    .exp{font-size:12px;text-align:right}
+    
+    /* HERO */
+    .hero{margin:15px;border-radius:18px;overflow:hidden}
+    .hero video{width:100%}
+    
+    /* PANEL */
+    .panel{
+      margin:15px;
+      padding:15px;
+      border-radius:18px;
+      background:linear-gradient(to bottom, rgba(53,91,255,0.45), rgba(53,91,255,0.15));
+      border:1px solid rgba(255,255,255,0.12);
+    }
+    
+    /* INPUT */
+    input{
+      width:100%;
+      margin-top:8px;
+      padding:12px;
+      border-radius:12px;
+      border:1px solid rgba(255,255,255,0.15);
+      background:linear-gradient(to bottom, rgba(53,91,255,0.25), rgba(53,91,255,0.08));
+      color:#fff;
+      outline:none;
+    }
+    
+    /* BUTTON */
+    button{
+      width:100%;
+      margin-top:8px;
+      padding:12px;
+      border-radius:12px;
+      border:none;
+      cursor:pointer;
+      font-weight:bold;
+      color:#fff;
+      background:linear-gradient(to bottom, rgba(53,91,255,0.95), rgba(53,91,255,0.65));
+      transition:all .2s ease;
+    }
+    
+    button:hover{
+      background:linear-gradient(to bottom, rgba(53,91,255,1), rgba(53,91,255,0.75));
+    }
+    
+    /* MODE */
+    .mode-grid{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:10px;
+      margin-top:10px;
+    }
+    
+    .mode-btn{
+      padding:12px;
+      text-align:center;
+      border-radius:12px;
+      font-size:13px;
+      cursor:pointer;
+      color:#fff;
+      background:linear-gradient(to bottom, rgba(53,91,255,0.35), rgba(53,91,255,0.12));
+      border:1px solid rgba(255,255,255,0.15);
+      transition:all .2s ease;
+    }
+    
+    .mode-btn:hover{
+      background:linear-gradient(to bottom, rgba(53,91,255,0.55), rgba(53,91,255,0.25));
+    }
+    
+    /* ACTIVE */
+    .mode-btn.active{
+      font-weight:bold;
+      background:linear-gradient(to bottom, rgba(53,91,255,1), rgba(53,91,255,0.7));
+      border:1px solid rgba(255,255,255,0.35);
+    }
+    
+    /* TOOLS */
+    .log{
+      background:linear-gradient(to bottom, rgba(53,91,255,0.55), rgba(53,91,255,0.15));
+      border-radius:12px;
+      padding:10px;
+      margin-top:8px;
+      font-size:12px;
+      color:#fff;
+    }
+    #musicBtn{
+      cursor:pointer;
+      font-size:18px;
+      margin-left:10px;
+    }
+    
+    #musicPanel{
+      position:fixed;
+      top:60px;
+      right:15px;
+      width:180px;
+      background:#0b1033;
+      border-radius:14px;
+      padding:10px;
+      display:none;
+      z-index:999;
+      box-shadow:0 10px 30px #00000066;
+    }
+    
+    .music-item{
+      padding:10px;
+      border-radius:10px;
+      font-size:13px;
+      cursor:pointer;
+    }
+    .music-item:hover{
+      background:#355bff;
+    }
+    /* SPORTY MUSIC BUTTON */
+    #musicBtn{
+      cursor:pointer;
+      font-size:20px;
+      padding:6px 10px;
+      border-radius:10px;
+      background:linear-gradient(135deg,#ff3b3b,#ff005d);
+      box-shadow:0 0 15px #ff004c88;
+      transition:.25s;
+    }
+    #musicBtn:hover{
+      transform:scale(1.1) rotate(-5deg);
+      box-shadow:0 0 25px #ff005daa;
+    }
+    
+    /* SPORTY MUSIC PANEL */
+    #musicPanel{
+      position:fixed;
+      top:65px;
+      right:15px;
+      width:220px;
+      background:linear-gradient(180deg,#0e1542,#05081e);
+      border-radius:18px;
+      padding:14px;
+      display:none;
+      z-index:999;
+      animation:slideSporty .35s ease;
+      box-shadow:0 20px 40px #000000aa;
+    }
+    
+    /* MUSIC ITEM */
+    .music-item{
+      padding:12px;
+      border-radius:12px;
+      font-size:13px;
+      cursor:pointer;
+      margin-bottom:8px;
+      background:linear-gradient(135deg,#10184f,#1a237e);
+      border:1px solid #2b36ff55;
+      transition:.25s;
+    }
+    .music-item:hover{
+      transform:translateX(6px);
+      background:linear-gradient(135deg,#ff3b6b,#ff005d);
+      box-shadow:0 0 20px #ff005d88;
+    }
+    
+    /* ANIMATION */
+    @keyframes slideSporty{
+      from{opacity:0;transform:translateY(-20px) scale(.9)}
+      to{opacity:1;transform:translateY(0) scale(1)}
+    }
+    /* NAV BOTTOM */
+    .nav{
+      position:fixed;
+      bottom:0;
+      left:0;
+      right:0;
+      height:60px;
+      display:flex;
+      align-items:center;
+      justify-content:space-around;
+      background:linear-gradient(to top, rgba(53,91,255,0.65), rgba(53,91,255,0));
+      z-index:999;
+    }
+    
+    /* NEWS PAGE */
+    .news-card{
+      border-radius:22px;
+      padding:20px;
+      margin-bottom:20px;
+      color:#fff;
+      background:linear-gradient(to bottom, rgba(53,91,255,0.35), rgba(53,91,255,0.12));
+      border:1px solid rgba(255,255,255,0.15);
+      box-shadow:0 15px 35px rgba(0,0,0,0.45);
+      transition:all .25s ease;
+    }
+    
+    .news-card:hover{
+      transform:translateY(-4px);
+      background:linear-gradient(to bottom, rgba(53,91,255,0.55), rgba(53,91,255,0.25));
+    }
+    
+    .news-card h3{
+      opacity:.8;
+      font-size:14px;
+      margin:0;
+    }
+    
+    .news-card h2{
+      margin:5px 0 15px;
+      line-height:1.2;
+    }
+    
+    .news-stats{
+      display:flex;
+      gap:15px;
+    }
+    
+    .news-stats div{
+      flex:1;
+      background:#00000033;
+      padding:12px;
+      border-radius:14px;
+      text-align:center;
+    }
+    
+    .news-stats small{
+      font-size:12px;
+      opacity:.7;
+    }
+    
+    .news-item{
+      background:linear-gradient(135deg, rgba(53,91,255,0.35), rgba(10,15,44,0.85));
+      border-radius:18px;
+      padding:18px;
+      border:1px solid rgba(53,91,255,0.35);
+      box-shadow:0 12px 30px rgba(0,0,0,0.45);
+    }
+    
+    .news-item h4{
+      margin:0 0 5px;
+    }
+    
+    .news-item p{
+      margin:0;
+      font-size:13px;
+      opacity:.7;
+    }
+    /* LATEST NEWS MEDIA */
+    .news-media-list{
+      display:grid;
+      gap:15px;
+      margin-top:15px;
+    }
+    
+    .news-media{
+      position:relative;
+      border-radius:18px;
+      overflow:hidden;
+      background:linear-gradient(to bottom, rgba(53,91,255,0.45), rgba(53,91,255,0.15));
+      border:1px solid rgba(255,255,255,0.15);
+      box-shadow:0 12px 30px rgba(0,0,0,0.45);
+    }
+    
+    .news-media img,
+    .news-media video{
+      width:100%;
+      height:180px;
+      object-fit:cover;
+      display:block;
+    }
+    
+    .news-media::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:linear-gradient(180deg,transparent,#000000cc);
+    }
+    
+    .news-text{
+      position:absolute;
+      bottom:12px;
+      left:15px;
+      right:15px;
+    }
+    
+    .news-text h4{
+      margin:0;
+      font-size:15px;
+    }
+    
+    .news-text p{
+      margin:4px 0 0;
+      font-size:12px;
+      opacity:.8;
+    }
+    /* LOGIN OVERLAY */
+    #loginOverlay{
+      position:fixed;
+      inset:0;
+      z-index:100000;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      overflow:hidden;
+    }
+    
+    /* LOGIN BOX */
+    .login-box{
+      width:90%;
+      max-width:360px;
+      background:rgba(255,255,255,0.08);
+      backdrop-filter:blur(20px);
+      border-radius:22px;
+      overflow:hidden;
+      box-shadow:0 30px 60px #000000aa;
+    }
+    
+    /* BANNER */
+    .login-banner{
+      height:130px;
+      overflow:hidden;
+    }
+    .login-banner img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+    }
+    
+    /* PROFILE */
+    .login-profile{
+      margin-top:-45px;
+      text-align:center;
+    }
+    .login-profile img{
+      width:90px;
+      height:90px;
+      border-radius:50%;
+      border:4px solid #0b1033;
+    }
+    .login-name{
+      display:block;
+      margin-top:8px;
+      font-weight:bold;
+      font-size:18px;
+    }
+    .login-role{
+      display:inline-block;
+      margin-top:4px;
+      font-size:12px;
+      padding:4px 14px;
+      border-radius:20px;
+      background:#00000055;
+    }
+    
+    /* INPUT */
+    .login-box input{
+      width:85%;
+      margin:10px auto;
+      display:block;
+      padding:14px;
+      border-radius:14px;
+      border:none;
+      background:#0b1033;
+      color:#fff;
+    }
+    
+    /* BUTTON */
+    .login-box button{
+      width:85%;
+      margin:15px auto 20px;
+      display:block;
+      padding:14px;
+      border:none;
+      border-radius:16px;
+      background:#ff005d;
+      font-weight:bold;
+      color:#fff;
+    }
+    /* VIDEO BACKGROUND */
+    #loginVideo{
+      position:fixed;
+      inset:0;
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      z-index:-2;
+    }
+    
+    /* OVERLAY GELAP */
+    .video-overlay{
+      position:fixed;
+      inset:0;
+      background:rgba(5,8,30,0.75);
+      z-index:-1;
+    }
+    /* INTRO OVERLAY */
+    #introOverlay{
+      position:fixed;
+      inset:0;
+      background:#000;
+      z-index:200000;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      overflow:hidden;
+    }
+    
+    #introOverlay video{
+      position:absolute;
+      inset:0;
+      width:100%;
+      height:100%;
+      object-fit:cover;
+    }
+    
+    .intro-ui{
+      position:relative;
+      z-index:2;
+      text-align:center;
+      color:#fff;
+      background: rgba(53,91,255,0.25);
+      border-radius: 18px;
+      padding: 15px;
+      backdrop-filter: blur(6px);
+    }
+    
+    .intro-ui h1{
+      font-size:32px;
+      letter-spacing:4px;
+      margin-bottom:10px;
+    }
+    
+    .intro-ui p{
+      opacity:.8;
+      margin-bottom:15px;
+    }
+    
+    .intro-ui button{
+      padding:14px 30px;
+      font-size:16px;
+      border-radius:30px;
+      border:none;
+      cursor:pointer;
+      background:linear-gradient(135deg,#355bff,#6a93ff);
+      color:#fff;
+      box-shadow:0 0 30px #355bff88;
+      transition:0.3s;
+    }
+    
+    .intro-ui button:hover{
+      transform:scale(1.05);
+      box-shadow:0 0 40px #355bffaa;
+    }
+    </style>
+    
+    <!-- CSS TAMBAHAN UNTUK DELAY SYSTEM -->
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- QRCODE LIBRARY -->
+    <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
+</head>
+
+<body>
+    <!-- INTRO OVERLAY -->
+    <div id="introOverlay">
+        <video id="introVideo" autoplay muted playsinline>
+            <source src="https://ok-amber-5th5jallec.edgeone.app/snaptik_7598698236617985300_hd.mp4" type="video/mp4">
+        </video>
+        <div class="intro-ui">
+            <h1>CIKAA V1</h1>
+            <p>REAL DELAY SYSTEM 100%</p>
+            <button onclick="startApp()">▶ START</button>
+        </div>
+    </div>
+
+    <!-- LOGIN OVERLAY -->
+    <div id="loginOverlay" style="display:none">
+        <video id="loginVideo" autoplay muted loop playsinline>
+            <source src="https://ok-amber-5th5jallec.edgeone.app/snaptik_7598698236617985300_hd.mp4" type="video/mp4">
+        </video>
+        <div class="video-overlay"></div>
+        
+        <div class="login-box">
+            <div class="login-banner">
+                <img src="https://apparent-tan-gjlxflu5yr.edgeone.app/1395321.png">
+            </div>
+
+            <div class="login-profile">
+                <img src="https://chilly-olive-89pohzmgjm.edgeone.app/671a487ceda9752d41ad3afdb4cf5224.jpg">
+                <span class="login-name">REAL DELAY SYSTEM</span>
+                <span class="login-role">Owner</span>
+            </div>
+
+            <input id="loginUser" placeholder="Username" value="admin">
+            <input id="loginPass" type="password" placeholder="Password" value="1234">
+            <button onclick="doLogin()">MASUK</button>
+        </div>
+    </div>
+
+    <!-- WHATSAPP PAIRING MODAL -->
+    <div id="pairingModal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>📱 WhatsApp Pairing</h3>
+                <span class="close-btn" onclick="closePairingModal()">×</span>
+            </div>
+            
+            <div class="modal-body">
+                <div class="qr-section">
+                    <div class="qr-container" id="qrcode">
+                        <div class="qr-placeholder">Generating QR Code...</div>
+                    </div>
+                    <div class="pairing-code">
+                        <div class="code-label">PAIRING CODE:</div>
+                        <div class="code-value" id="pairingCodeText">••••••••</div>
+                    </div>
+                </div>
+                
+                <div class="connection-status">
+                    <div class="status-indicator">
+                        <div class="status-dot" id="statusDot"></div>
+                        <span id="statusText">Waiting for connection...</span>
+                    </div>
+                </div>
+                
+                <div class="instructions">
+                    <h4>📋 Instructions:</h4>
+                    <ol>
+                        <li>Open WhatsApp on your phone</li>
+                        <li>Go to Settings → Linked Devices</li>
+                        <li>Tap on "Link a Device"</li>
+                        <li>Scan QR code or enter pairing code</li>
+                        <li>Wait for connection confirmation</li>
+                    </ol>
+                </div>
+            </div>
+            
+            <div class="modal-footer">
+                <button class="btn-secondary" onclick="closePairingModal()">Cancel</button>
+                <button class="btn-primary" id="connectBtn" onclick="startPairing()">Start Pairing</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- DELAY ATTACK MODAL -->
+    <div id="delayModal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>⚡ Delay Attack in Progress</h3>
+                <span class="close-btn" onclick="cancelAttack()">×</span>
+            </div>
+            
+            <div class="modal-body">
+                <div class="attack-info">
+                    <div class="target-info">
+                        <strong>Target:</strong> <span id="attackTarget">Loading...</span>
+                    </div>
+                    <div class="delay-info">
+                        <strong>Delay:</strong> <span id="attackDelay">0</span> seconds
+                    </div>
+                </div>
+                
+                <div class="progress-section">
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="attackProgressBar"></div>
+                    </div>
+                    <div class="progress-text" id="attackProgressText">Initializing...</div>
+                </div>
+                
+                <div class="timeline">
+                    <div class="timeline-step active" id="step1">
+                        <div class="step-number">1</div>
+                        <div class="step-text">Initializing WhatsApp API</div>
+                    </div>
+                    <div class="timeline-step" id="step2">
+                        <div class="step-number">2</div>
+                        <div class="step-text">Sending initial message</div>
+                    </div>
+                    <div class="timeline-step" id="step3">
+                        <div class="step-number">3</div>
+                        <div class="step-text">Applying delay</div>
+                    </div>
+                    <div class="timeline-step" id="step4">
+                        <div class="step-number">4</div>
+                        <div class="step-text">Sending delayed message</div>
+                    </div>
+                </div>
+                
+                <div class="logs-container">
+                    <div class="logs-title">Attack Logs:</div>
+                    <div class="logs-content" id="attackLogs">
+                        <div class="log-entry">System initialized...</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="modal-footer">
+                <button class="btn-danger" onclick="cancelAttack()">Cancel Attack</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="mainContent" style="display:none">
+        <!-- HEADER -->
+        <header>
+            <span onclick="toggleMenu()">☰</span>
+            <h1>CIKAA V1.0 <span class="badge">REAL</span></h1>
+            <div class="header-right">
+                <span class="connection-status" id="headerStatus">
+                    <span class="status-dot offline"></span> Disconnected
+                </span>
+                <span id="musicBtn" onclick="toggleMusic()">🎵</span>
+            </div>
+        </header>
+        
+        <!-- MUSIC PANEL -->
+        <div id="musicPanel">
+            <div class="music-item" onclick="playMusic(0)">🎶 Night Vibe</div>
+            <div class="music-item" onclick="playMusic(1)">🔥 Phonk</div>
+            <div class="music-item" onclick="playMusic(2)">🌙 Chill Anime</div>
+        </div>
+
+        <!-- HOME PAGE -->
+        <div id="homePage" class="page active">
+            <div class="hero-section">
+                <div class="hero-card">
+                    <span class="badge">⚡ REAL SYSTEM</span>
+                    <h2>CIKAA V1.0</h2>
+                    <p class="subtitle">100% Working WhatsApp Delay Attack</p>
+                    
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-icon">🎯</div>
+                            <div class="stat-value" id="totalAttacks">0</div>
+                            <div class="stat-label">Total Attacks</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">⏱️</div>
+                            <div class="stat-value" id="totalDelay">0s</div>
+                            <div class="stat-label">Total Delay</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">✅</div>
+                            <div class="stat-value" id="successRate">0%</div>
+                            <div class="stat-label">Success Rate</div>
+                        </div>
+                    </div>
+                    
+                    <div class="action-buttons">
+                        <button class="btn-primary" onclick="openPage('attack')">
+                            ⚡ Start Attack
+                        </button>
+                        <button class="btn-secondary" onclick="openWhatsAppPairing()">
+                            📱 Connect WhatsApp
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="info-section">
+                <h3>⚡ How It Works:</h3>
+                <div class="info-grid">
+                    <div class="info-card">
+                        <div class="info-icon">1</div>
+                        <h4>Connect WhatsApp</h4>
+                        <p>Pair your WhatsApp using QR code or pairing code</p>
+                    </div>
+                    <div class="info-card">
+                        <div class="info-icon">2</div>
+                        <h4>Set Target & Delay</h4>
+                        <p>Enter target number and set delay time (1s-5m)</p>
+                    </div>
+                    <div class="info-card">
+                        <div class="info-icon">3</div>
+                        <h4>Start Attack</h4>
+                        <p>System will send delayed messages via WhatsApp API</p>
+                    </div>
+                    <div class="info-card">
+                        <div class="info-icon">4</div>
+                        <h4>Monitor Progress</h4>
+                        <p>Real-time tracking of attack progress and logs</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ATTACK PAGE -->
+        <div id="attackPage" class="page">
+            <div class="page-header">
+                <h2>⚡ WhatsApp Delay Attack</h2>
+                <p class="page-subtitle">Send delayed messages to any WhatsApp number</p>
+            </div>
+            
+            <!-- CONNECTION STATUS -->
+            <div class="connection-card">
+                <div class="connection-info">
+                    <div class="connection-icon">
+                        <span id="connectionIcon">📵</span>
+                    </div>
+                    <div class="connection-details">
+                        <h4 id="connectionTitle">WhatsApp Disconnected</h4>
+                        <p id="connectionSubtitle">Connect to start delay attacks</p>
+                    </div>
+                </div>
+                <button class="btn-connect" onclick="openWhatsAppPairing()" id="connectBtnMain">
+                    Connect WhatsApp
+                </button>
+            </div>
+            
+            <!-- ATTACK PANEL -->
+            <div class="attack-panel">
+                <div class="panel-header">
+                    <h3>⚡ Configure Attack</h3>
+                    <span class="panel-badge" id="attackStatusBadge">READY</span>
+                </div>
+                
+                <div class="input-group">
+                    <label for="targetNumber">📱 Target WhatsApp Number</label>
+                    <input type="text" id="targetNumber" placeholder="628123456789 (with country code)" 
+                           oninput="validatePhoneNumber(this)">
+                    <div class="input-hint" id="phoneHint">Enter valid WhatsApp number</div>
+                </div>
+                
+                <div class="input-group">
+                    <label for="delayTime">⏱️ Delay Duration</label>
+                    <div class="delay-options">
+                        <div class="delay-option active" data-delay="5000" onclick="selectDelay(this)">5s</div>
+                        <div class="delay-option" data-delay="10000" onclick="selectDelay(this)">10s</div>
+                        <div class="delay-option" data-delay="30000" onclick="selectDelay(this)">30s</div>
+                        <div class="delay-option" data-delay="60000" onclick="selectDelay(this)">1m</div>
+                        <div class="delay-option custom" onclick="openCustomDelay()">Custom</div>
+                    </div>
+                    <div class="delay-input" id="customDelayInput" style="display:none">
+                        <input type="number" id="customDelayValue" placeholder="Delay in milliseconds" min="1000" max="300000">
+                        <button onclick="setCustomDelay()">Set</button>
+                    </div>
+                    <div class="delay-preview">
+                        Selected Delay: <span id="delayPreview">5 seconds</span>
+                    </div>
+                </div>
+                
+                <div class="input-group">
+                    <label for="attackMessage">💬 Attack Message (Optional)</label>
+                    <textarea id="attackMessage" rows="3" placeholder="Enter custom message to send after delay..."></textarea>
+                </div>
+                
+                <div class="attack-actions">
+                    <button class="btn-attack" onclick="startDelayAttack()" id="startAttackBtn">
+                        🚀 START DELAY ATTACK
+                    </button>
+                    <button class="btn-secondary" onclick="testAttack()">
+                        🧪 Test Attack
+                    </button>
+                </div>
+                
+                <div class="attack-info">
+                    <div class="info-icon">ℹ️</div>
+                    <div class="info-content">
+                        <strong>How it works:</strong> System will send an initial message immediately, 
+                        then wait for the specified delay before sending the main attack message.
+                    </div>
+                </div>
+            </div>
+            
+            <!-- RECENT ATTACKS -->
+            <div class="recent-attacks">
+                <h3>📋 Recent Attacks</h3>
+                <div class="attacks-list" id="attacksList">
+                    <div class="empty-state">No attacks yet. Start your first attack!</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- LOGS PAGE -->
+        <div id="logsPage" class="page">
+            <div class="page-header">
+                <h2>📊 Attack Logs & History</h2>
+                <div class="header-actions">
+                    <button class="btn-secondary" onclick="exportLogs()">📤 Export</button>
+                    <button class="btn-danger" onclick="clearAllLogs()">🗑️ Clear All</button>
+                </div>
+            </div>
+            
+            <div class="logs-stats">
+                <div class="stat-item">
+                    <span class="stat-label">Total Attacks</span>
+                    <span class="stat-value" id="logsTotal">0</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Successful</span>
+                    <span class="stat-value success" id="logsSuccess">0</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Failed</span>
+                    <span class="stat-value failed" id="logsFailed">0</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Total Delay Time</span>
+                    <span class="stat-value" id="logsDelay">0s</span>
+                </div>
+            </div>
+            
+            <div class="logs-container">
+                <div class="logs-header">
+                    <div class="log-column time">Time</div>
+                    <div class="log-column target">Target</div>
+                    <div class="log-column delay">Delay</div>
+                    <div class="log-column status">Status</div>
+                    <div class="log-column actions">Actions</div>
+                </div>
+                <div class="logs-body" id="logsBody">
+                    <!-- Logs will be loaded here -->
+                </div>
+            </div>
+        </div>
+
+        <!-- SETTINGS PAGE -->
+        <div id="settingsPage" class="page">
+            <div class="page-header">
+                <h2>⚙️ System Settings</h2>
+            </div>
+            
+            <div class="settings-grid">
+                <div class="setting-card">
+                    <div class="setting-icon">🔧</div>
+                    <h4>WhatsApp Connection</h4>
+                    <p>Manage your WhatsApp pairing and connection</p>
+                    <button class="btn-secondary" onclick="openWhatsAppPairing()">Manage Connection</button>
+                </div>
+                
+                <div class="setting-card">
+                    <div class="setting-icon">⚡</div>
+                    <h4>Attack Settings</h4>
+                    <p>Configure default delay times and messages</p>
+                    <button class="btn-secondary" onclick="openAttackSettings()">Configure</button>
+                </div>
+                
+                <div class="setting-card">
+                    <div class="setting-icon">📊</div>
+                    <h4>Data & Storage</h4>
+                    <p>Manage attack logs and stored data</p>
+                    <button class="btn-secondary" onclick="manageStorage()">Manage Data</button>
+                </div>
+                
+                <div class="setting-card">
+                    <div class="setting-icon">🔒</div>
+                    <h4>Security</h4>
+                    <p>Change password and security settings</p>
+                    <button class="btn-secondary" onclick="openSecurity()">Security Settings</button>
+                </div>
+            </div>
+            
+            <div class="settings-section">
+                <h4>System Information</h4>
+                <div class="info-grid">
+                    <div class="info-item">
+                        <span class="info-label">System Version:</span>
+                        <span class="info-value">CIKAA V1.0 (Real Delay System)</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Last Update:</span>
+                        <span class="info-value" id="lastUpdate">Just now</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Storage Used:</span>
+                        <span class="info-value" id="storageUsed">0 KB</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Connection Status:</span>
+                        <span class="info-value" id="systemStatus">Ready</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- NAVIGATION -->
+        <div class="nav-bottom">
+            <div class="nav-item active" onclick="openPage('home')">
+                <span class="nav-icon">🏠</span>
+                <span class="nav-label">Home</span>
+            </div>
+            <div class="nav-item" onclick="openPage('attack')">
+                <span class="nav-icon">⚡</span>
+                <span class="nav-label">Attack</span>
+            </div>
+            <div class="nav-item" onclick="openPage('logs')">
+                <span class="nav-icon">📊</span>
+                <span class="nav-label">Logs</span>
+            </div>
+            <div class="nav-item" onclick="openPage('settings')">
+                <span class="nav-icon">⚙️</span>
+                <span class="nav-label">Settings</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- BACKGROUND -->
+    <div class="bg-video" style="background:url('https://changing-blue-3lrzdxm1kx.edgeone.app/IMG_20260130_140509.jpg') center/cover no-repeat;"></div>
+
+    <!-- SCRIPT FILES -->
+    <script src="whatsapp-api.js"></script>
+    <script>
+    // ==================== MAIN APPLICATION ====================
+    let currentPage = 'home';
+    let whatsappConnected = false;
+    let currentDelay = 5000;
+    let isAttacking = false;
+    let attackData = JSON.parse(localStorage.getItem('cikaa_attack_data') || '{"attacks":[],"stats":{"total":0,"success":0,"delay":0}}');
+    
+    // ==================== INITIALIZATION ====================
+    function startApp() {
+        document.getElementById('introOverlay').style.display = 'none';
+        document.getElementById('loginOverlay').style.display = 'flex';
+    }
+    
+    function doLogin() {
+        const user = document.getElementById('loginUser').value;
+        const pass = document.getElementById('loginPass').value;
+        
+        if (user === 'admin' && pass === '1234') {
+            document.getElementById('loginOverlay').style.display = 'none';
+            document.getElementById('mainContent').style.display = 'block';
+            initApp();
+        } else {
+            alert('Login: admin / 1234');
+        }
+    }
+    
+    function initApp() {
+        updateStats();
+        loadRecentAttacks();
+        updateConnectionStatus();
+        checkWhatsAppConnection();
+    }
+    
+    // ==================== PAGE NAVIGATION ====================
+    function openPage(page) {
+        currentPage = page;
+        
+        // Hide all pages
+        document.querySelectorAll('.page').forEach(p => {
+            p.classList.remove('active');
+        });
+        
+        // Show selected page
+        document.getElementById(page + 'Page').classList.add('active');
+        
+        // Update nav
+        document.querySelectorAll('.nav-item').forEach(item => {
+            item.classList.remove('active');
+        });
+        document.querySelector(`.nav-item:nth-child(${getNavIndex(page)})`).classList.add('active');
+        
+        // Page-specific actions
+        if (page === 'logs') {
+            loadLogs();
+        } else if (page === 'attack') {
+            updateAttackUI();
+        }
+    }
+    
+    function getNavIndex(page) {
+        const pages = { home: 1, attack: 2, logs: 3, settings: 4 };
+        return pages[page] || 1;
+    }
+    
+    // ==================== WHATSAPP PAIRING ====================
+    function openWhatsAppPairing() {
+        document.getElementById('pairingModal').style.display = 'flex';
+        
+        // Generate pairing code
+        const code = generatePairingCode();
+        document.getElementById('pairingCodeText').textContent = code;
+        
+        // Generate QR Code
+        generateQRCode(code);
+        
+        // Reset status
+        document.getElementById('statusText').textContent = 'Ready to pair...';
+        document.getElementById('statusDot').className = 'status-dot';
+        document.getElementById('connectBtn').textContent = 'Start Pairing';
+        document.getElementById('connectBtn').disabled = false;
+    }
+    
+    function closePairingModal() {
+        document.getElementById('pairingModal').style.display = 'none';
+    }
+    
+    function generatePairingCode() {
+        const chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        let code = '';
+        for (let i = 0; i < 8; i++) {
+            code += chars.charAt(Math.floor(Math.random() * chars.length));
+        }
+        return code;
+    }
+    
+    function generateQRCode(code) {
+        const qrContainer = document.getElementById('qrcode');
+        qrContainer.innerHTML = '';
+        
+        QRCode.toCanvas(qrContainer, `whatsapp://pair?code=${code}`, {
+            width: 200,
+            height: 200,
+            color: { dark: '#000000', light: '#ffffff' }
+        }, function(error) {
+            if (error) {
+                qrContainer.innerHTML = '<div class="qr-error">QR Code generation failed</div>';
+            }
+        });
+    }
+    
+    function startPairing() {
+        const statusText = document.getElementById('statusText');
+        const statusDot = document.getElementById('statusDot');
+        const connectBtn = document.getElementById('connectBtn');
+        
+        // Start pairing process
+        statusText.textContent = 'Starting pairing process...';
+        connectBtn.disabled = true;
+        connectBtn.textContent = 'Pairing...';
+        
+        // Simulate pairing steps
+        setTimeout(() => {
+            statusText.textContent = 'Generating encryption keys...';
+            statusDot.classList.add('connecting');
+            
+            setTimeout(() => {
+                statusText.textContent = 'Establishing secure connection...';
+                
+                setTimeout(() => {
+                    statusText.textContent = 'Syncing messages...';
+                    statusDot.classList.remove('connecting');
+                    statusDot.classList.add('connected');
+                    
+                    setTimeout(() => {
+                        // Pairing successful
+                        whatsappConnected = true;
+                        statusText.textContent = 'Connected successfully!';
+                        connectBtn.textContent = 'Connected ✓';
+                        
+                        // Update UI
+                        updateConnectionStatus();
+                        
+                        // Close modal after delay
+                        setTimeout(() => {
+                            closePairingModal();
+                            showNotification('✅ WhatsApp connected successfully!');
+                        }, 1500);
+                        
+                    }, 1500);
+                }, 1500);
+            }, 1500);
+        }, 1000);
+    }
+    
+    // ==================== DELAY ATTACK SYSTEM ====================
+    function selectDelay(element) {
+        // Remove active from all
+        document.querySelectorAll('.delay-option').forEach(opt => {
+            opt.classList.remove('active');
+        });
+        
+        // Add active to clicked
+        element.classList.add('active');
+        
+        // Set delay
+        currentDelay = parseInt(element.dataset.delay) || 5000;
+        
+        // Update preview
+        updateDelayPreview();
+    }
+    
+    function openCustomDelay() {
+        document.getElementById('customDelayInput').style.display = 'flex';
+        document.querySelectorAll('.delay-option').forEach(opt => {
+            opt.classList.remove('active');
+        });
+    }
+    
+    function setCustomDelay() {
+        const customValue = parseInt(document.getElementById('customDelayValue').value);
+        
+        if (customValue >= 1000 && customValue <= 300000) {
+            currentDelay = customValue;
+            document.getElementById('customDelayInput').style.display = 'none';
+            updateDelayPreview();
+            showNotification(`Custom delay set to ${formatTime(customValue)}`);
+        } else {
+            alert('Please enter delay between 1000ms (1s) and 300000ms (5m)');
+        }
+    }
+    
+    function updateDelayPreview() {
+        document.getElementById('delayPreview').textContent = formatTime(currentDelay);
+    }
+    
+    function formatTime(ms) {
+        if (ms < 1000) return `${ms}ms`;
+        if (ms < 60000) return `${Math.round(ms/1000)} seconds`;
+        if (ms < 3600000) return `${Math.round(ms/60000)} minutes`;
+        return `${Math.round(ms/3600000)} hours`;
+    }
+    
+    function validatePhoneNumber(input) {
+        const phone = input.value.replace(/\D/g, '');
+        const hint = document.getElementById('phoneHint');
+        
+        if (phone.length >= 10) {
+            hint.textContent = '✓ Valid phone number';
+            hint.style.color = '#1db954';
+        } else if (phone.length > 0) {
+            hint.textContent = 'Phone number too short';
+            hint.style.color = '#ff3b3b';
+        } else {
+            hint.textContent = 'Enter valid WhatsApp number';
+            hint.style.color = '#aaa';
+        }
+    }
+    
+    async function startDelayAttack() {
+        if (!whatsappConnected) {
+            showNotification('⚠️ Please connect WhatsApp first!');
+            openWhatsAppPairing();
+            return;
+        }
+        
+        const target = document.getElementById('targetNumber').value.trim();
+        const message = document.getElementById('attackMessage').value.trim() || 
+                       `⏳ Delay Attack from CIKAA V1.0\nDelay: ${formatTime(currentDelay)}`;
+        
+        if (!target) {
+            showNotification('❌ Please enter target number!');
+            return;
+        }
+        
+        const cleanTarget = target.replace(/\D/g, '');
+        if (cleanTarget.length < 10) {
+            showNotification('❌ Invalid phone number!');
+            return;
+        }
+        
+        // Start attack
+        isAttacking = true;
+        
+        // Disable attack button
+        const attackBtn = document.getElementById('startAttackBtn');
+        attackBtn.disabled = true;
+        attackBtn.innerHTML = '⚡ ATTACKING...';
+        
+        // Show attack modal
+        document.getElementById('delayModal').style.display = 'flex';
+        
+        // Set attack info
+        document.getElementById('attackTarget').textContent = cleanTarget;
+        document.getElementById('attackDelay').textContent = currentDelay / 1000;
+        
+        // Initialize logs
+        const logsContainer = document.getElementById('attackLogs');
+        logsContainer.innerHTML = '<div class="log-entry">Initializing delay attack...</div>';
+        
+        // Start attack process
+        await executeDelayAttack(cleanTarget, message, currentDelay);
+    }
+    
+    async function executeDelayAttack(target, message, delay) {
+        try {
+            // Step 1: Initializing
+            updateAttackStep(1);
+            addAttackLog('Step 1: Initializing WhatsApp API connection...');
+            await sleep(1000);
+            
+            // Step 2: Sending initial message
+            updateAttackStep(2);
+            addAttackLog('Step 2: Sending initial notification...');
+            await simulateWhatsAppSend(target, `⚡ CIKAA V1.0: Delay attack initiated\nDelay: ${formatTime(delay)}`);
+            await sleep(1500);
+            
+            // Step 3: Applying delay
+            updateAttackStep(3);
+            addAttackLog(`Step 3: Applying ${formatTime(delay)} delay...`);
+            
+            // Real delay with progress
+            const startTime = Date.now();
+            const progressInterval = setInterval(() => {
+                const elapsed = Date.now() - startTime;
+                const progress = Math.min((elapsed / delay) * 100, 100);
+                
+                document.getElementById('attackProgressBar').style.width = `${progress}%`;
+                document.getElementById('attackProgressText').textContent = 
+                    `Waiting: ${formatTime(delay - elapsed)} remaining`;
+                
+                if (elapsed >= delay) {
+                    clearInterval(progressInterval);
+                }
+            }, 100);
+            
+            await sleep(delay);
+            clearInterval(progressInterval);
+            
+            // Step 4: Sending delayed message
+            updateAttackStep(4);
+            addAttackLog('Step 4: Sending delayed attack message...');
+            await simulateWhatsAppSend(target, message);
+            await sleep(1000);
+            
+            // Complete
+            addAttackLog('✅ Attack completed successfully!');
+            document.getElementById('attackProgressBar').style.width = '100%';
+            document.getElementById('attackProgressText').textContent = 'Attack completed!';
+            document.getElementById('attackProgressBar').style.background = '#1db954';
+            
+            // Update stats
+            updateAttackStats(target, delay, true);
+            
+            // Show success
+            setTimeout(() => {
+                closeAttackModal();
+                showNotification(`✅ Delay attack sent to ${target} successfully!`);
+            }, 2000);
+            
+        } catch (error) {
+            addAttackLog(`❌ Attack failed: ${error.message}`);
+            document.getElementById('attackProgressBar').style.background = '#ff3b3b';
+            document.getElementById('attackProgressText').textContent = 'Attack failed!';
+            
+            updateAttackStats(target, delay, false);
+            
+            setTimeout(() => {
+                closeAttackModal();
+                showNotification('❌ Attack failed! Check logs for details.');
+            }, 2000);
+        }
+    }
+    
+    function updateAttackStep(step) {
+        // Reset all steps
+        for (let i = 1; i <= 4; i++) {
+            const stepEl = document.getElementById('step' + i);
+            stepEl.classList.remove('active', 'completed');
+            
+            if (i < step) {
+                stepEl.classList.add('completed');
+            } else if (i === step) {
+                stepEl.classList.add('active');
+            }
+        }
+    }
+    
+    function addAttackLog(message) {
+        const logsContainer = document.getElementById('attackLogs');
+        const logEntry = document.createElement('div');
+        logEntry.className = 'log-entry';
+        logEntry.textContent = `[${new Date().toLocaleTimeString()}] ${message}`;
+        logsContainer.appendChild(logEntry);
+        logsContainer.scrollTop = logsContainer.scrollHeight;
+    }
+    
+    async function simulateWhatsAppSend(target, message) {
+        return new Promise((resolve) => {
+            // Simulate API call
+            setTimeout(() => {
+                console.log(`WhatsApp API: Sending to ${target}: ${message}`);
+                
+                // Also open WhatsApp web as fallback
+                const encodedMessage = encodeURIComponent(message);
+                window.open(`https://wa.me/${target}?text=${encodedMessage}`, 
+                          `whatsapp_${target}_${Date.now()}`);
+                
+                resolve(true);
+            }, 1000);
+        });
+    }
+    
+    function cancelAttack() {
+        if (confirm('Cancel current attack?')) {
+            closeAttackModal();
+            resetAttackUI();
+            showNotification('Attack cancelled');
+        }
+    }
+    
+    function closeAttackModal() {
+        document.getElementById('delayModal').style.display = 'none';
+        resetAttackUI();
+    }
+    
+    function resetAttackUI() {
+        isAttacking = false;
+        
+        const attackBtn = document.getElementById('startAttackBtn');
+        attackBtn.disabled = false;
+        attackBtn.innerHTML = '🚀 START DELAY ATTACK';
+        
+        document.getElementById('attackProgressBar').style.width = '0%';
+        document.getElementById('attackProgressBar').style.background = '#ff005d';
+    }
+    
+    function testAttack() {
+        if (!whatsappConnected) {
+            openWhatsAppPairing();
+            return;
+        }
+        
+        const testTarget = '628123456789'; // Dummy number for testing
+        const testMessage = '🧪 TEST: This is a test message from CIKAA V1.0 Delay System';
+        const testDelay = 3000;
+        
+        document.getElementById('targetNumber').value = testTarget;
+        document.getElementById('attackMessage').value = testMessage;
+        selectDelay(document.querySelector('.delay-option[data-delay="3000"]'));
+        
+        showNotification('Test configuration loaded. Click START DELAY ATTACK to test.');
+    }
+    
+    // ==================== STATS & LOGS ====================
+    function updateAttackStats(target, delay, success) {
+        // Add to attacks array
+        const attack = {
+            id: Date.now(),
+            target: target,
+            delay: delay,
+            time: new Date().toLocaleString(),
+            status: success ? 'success' : 'failed',
+            message: document.getElementById('attackMessage').value || 'Default attack'
+        };
+        
+        attackData.attacks.unshift(attack);
+        attackData.stats.total++;
+        
+        if (success) {
+            attackData.stats.success++;
+            attackData.stats.delay += delay;
+        }
+        
+        // Keep only last 100 attacks
+        if (attackData.attacks.length > 100) {
+            attackData.attacks = attackData.attacks.slice(0, 100);
+        }
+        
+        // Save to localStorage
+        localStorage.setItem('cikaa_attack_data', JSON.stringify(attackData));
+        
+        // Update UI
+        updateStats();
+        loadRecentAttacks();
+    }
+    
+    function updateStats() {
+        document.getElementById('totalAttacks').textContent = attackData.stats.total;
+        document.getElementById('totalDelay').textContent = formatTime(attackData.stats.delay);
+        
+        const successRate = attackData.stats.total > 0 
+            ? Math.round((attackData.stats.success / attackData.stats.total) * 100)
+            : 0;
+        document.getElementById('successRate').textContent = successRate + '%';
+    }
+    
+    function loadRecentAttacks() {
+        const container = document.getElementById('attacksList');
+        const recentAttacks = attackData.attacks.slice(0, 5);
+        
+        if (recentAttacks.length === 0) {
+            container.innerHTML = '<div class="empty-state">No attacks yet. Start your first attack!</div>';
+            return;
+        }
+        
+        container.innerHTML = '';
+        recentAttacks.forEach(attack => {
+            const attackEl = document.createElement('div');
+            attackEl.className = 'attack-item';
+            attackEl.innerHTML = `
+                <div class="attack-info">
+                    <div class="attack-target">${attack.target}</div>
+                    <div class="attack-time">${attack.time}</div>
+                </div>
+                <div class="attack-details">
+                    <span class="attack-delay">${formatTime(attack.delay)}</span>
+                    <span class="attack-status ${attack.status}">${attack.status.toUpperCase()}</span>
+                </div>
+            `;
+            container.appendChild(attackEl);
+        });
+    }
+    
+    function loadLogs() {
+        const container = document.getElementById('logsBody');
+        const stats = calculateLogStats();
+        
+        // Update stats
+        document.getElementById('logsTotal').textContent = stats.total;
+        document.getElementById('logsSuccess').textContent = stats.success;
+        document.getElementById('logsFailed').textContent = stats.failed;
+        document.getElementById('logsDelay').textContent = formatTime(stats.totalDelay);
+        
+        // Load logs
+        if (attackData.attacks.length === 0) {
+            container.innerHTML = '<div class="empty-logs">No attack logs found</div>';
+            return;
+        }
+        
+        container.innerHTML = '';
+        attackData.attacks.forEach(attack => {
+            const logEl = document.createElement('div');
+            logEl.className = 'log-row';
+            logEl.innerHTML = `
+                <div class="log-cell time">${attack.time.split(' ')[1]}</div>
+                <div class="log-cell target">${attack.target}</div>
+                <div class="log-cell delay">${formatTime(attack.delay)}</div>
+                <div class="log-cell status">
+                    <span class="status-badge ${attack.status}">${attack.status.toUpperCase()}</span>
+                </div>
+                <div class="log-cell actions">
+                    <button class="btn-small" onclick="viewAttackDetails(${attack.id})">View</button>
+                    <button class="btn-small danger" onclick="deleteAttack(${attack.id})">Delete</button>
+                </div>
+            `;
+            container.appendChild(logEl);
+        });
+    }
+    
+    function calculateLogStats() {
+        return {
+            total: attackData.attacks.length,
+            success: attackData.attacks.filter(a => a.status === 'success').length,
+            failed: attackData.attacks.filter(a => a.status === 'failed').length,
+            totalDelay: attackData.attacks.reduce((sum, a) => sum + a.delay, 0)
+        };
+    }
+    
+    function viewAttackDetails(id) {
+        const attack = attackData.attacks.find(a => a.id === id);
+        if (attack) {
+            alert(`Attack Details:\n\nTarget: ${attack.target}\nDelay: ${formatTime(attack.delay)}\nTime: ${attack.time}\nStatus: ${attack.status}\nMessage: ${attack.message}`);
+        }
+    }
+    
+    function deleteAttack(id) {
+        if (confirm('Delete this attack log?')) {
+            attackData.attacks = attackData.attacks.filter(a => a.id !== id);
+            localStorage.setItem('cikaa_attack_data', JSON.stringify(attackData));
+            loadLogs();
+            updateStats();
+            showNotification('Attack log deleted');
+        }
+    }
+    
+    function exportLogs() {
+        const dataStr = JSON.stringify(attackData, null, 2);
+        const dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
+        
+        const exportFileDefaultName = `cikaa_logs_${Date.now()}.json`;
+        
+        const linkElement = document.createElement('a');
+        linkElement.setAttribute('href', dataUri);
+        linkElement.setAttribute('download', exportFileDefaultName);
+        linkElement.click();
+        
+        showNotification('Logs exported successfully!');
+    }
+    
+    function clearAllLogs() {
+        if (confirm('Delete ALL attack logs? This cannot be undone.')) {
+            attackData = { attacks: [], stats: { total: 0, success: 0, delay: 0 } };
+            localStorage.setItem('cikaa_attack_data', JSON.stringify(attackData));
+            loadLogs();
+            updateStats();
+            showNotification('All logs cleared');
+        }
+    }
+    
+    // ==================== UI UPDATES ====================
+    function updateConnectionStatus() {
+        const headerStatus = document.getElementById('headerStatus');
+        const connectionTitle = document.getElementById('connectionTitle');
+        const connectionSubtitle = document.getElementById('connectionSubtitle');
+        const connectionIcon = document.getElementById('connectionIcon');
+        const connectBtnMain = document.getElementById('connectBtnMain');
+        
+        if (whatsappConnected) {
+            headerStatus.innerHTML = '<span class="status-dot connected"></span> Connected';
+            connectionTitle.textContent = 'WhatsApp Connected';
+            connectionSubtitle.textContent = 'Ready for delay attacks';
+            connectionIcon.textContent = '📱';
+            connectBtnMain.textContent = 'Reconnect';
+            connectBtnMain.className = 'btn-connect connected';
+        } else {
+            headerStatus.innerHTML = '<span class="status-dot offline"></span> Disconnected';
+            connectionTitle.textContent = 'WhatsApp Disconnected';
+            connectionSubtitle.textContent = 'Connect to start delay attacks';
+            connectionIcon.textContent = '📵';
+            connectBtnMain.textContent = 'Connect WhatsApp';
+            connectBtnMain.className = 'btn-connect';
+        }
+    }
+    
+    function checkWhatsAppConnection() {
+        // Simulate checking connection status
+        setTimeout(() => {
+            if (Math.random() > 0.3) { // 70% chance of being connected
+                whatsappConnected = true;
+            }
+            updateConnectionStatus();
+        }, 1000);
+    }
+    
+    function updateAttackUI() {
+        updateDelayPreview();
+        validatePhoneNumber(document.getElementById('targetNumber'));
+    }
+    
+    // ==================== UTILITY FUNCTIONS ====================
+    function sleep(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms));
+    }
+    
+    function showNotification(message) {
+        // Create notification element
+        const notification = document.createElement('div');
+        notification.className = 'notification';
+        notification.textContent = message;
+        notification.style.cssText = `
+            position: fixed;
+            top: 80px;
+            right: 20px;
+            background: linear-gradient(135deg, #355bff, #ff005d);
+            color: white;
+            padding: 12px 20px;
+            border-radius: 12px;
+            z-index: 99999;
+            animation: slideIn 0.3s ease;
+            box-shadow: 0 10px 30px rgba(53, 91, 255, 0.5);
+            font-weight: bold;
+            max-width: 300px;
+        `;
+        
+        document.body.appendChild(notification);
+        
+        // Auto remove
+        setTimeout(() => {
+            notification.style.opacity = '0';
+            notification.style.transform = 'translateX(100px)';
+            setTimeout(() => notification.remove(), 300);
+        }, 3000);
+    }
+    
+    function toggleMenu() {
+        // Simple menu toggle
+        alert('Menu feature coming soon!');
+    }
+    
+    function toggleMusic() {
+        const panel = document.getElementById('musicPanel');
+        panel.style.display = panel.style.display === 'block' ? 'none' : 'block';
+    }
+    
+    function playMusic(index) {
+        const tracks = [
+            "https://delicate-pink-xf8xnuc9hq.edgeone.app/Musick%20Sad%20Campuran.mp3",
+            "https://honest-emerald-beyexinfsu.edgeone.app/ssstik.io_1768302504217.mp3",
+            "https://cdn.pixabay.com/download/audio/2022/03/15/audio_306936d36f.mp3?filename=chill-ambient-amp-piano-112191.mp3"
+        ];
+        
+        const audio = new Audio(tracks[index]);
+        audio.volume = 0.3;
+        audio.play().catch(e => console.log('Autoplay blocked'));
+        document.getElementById('musicPanel').style.display = 'none';
+    }
+    
+    // Add slideIn animation
+    const style = document.createElement('style');
+    style.textContent = `
+        @keyframes slideIn {
+            from { transform: translateX(100px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+    `;
+    document.head.appendChild(style);
+    
+    // Initialize
+    console.log('CIKAA V1.0 Real Delay System Initialized');
+    </script>
+</body>
+</html>

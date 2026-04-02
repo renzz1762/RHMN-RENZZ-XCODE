@@ -256,10 +256,8 @@ var ADM_PROJECT = 'website-intro-ab3e7';
 var ADM_API_KEY = 'AIzaSyABbV5Ap3YcGxT6UYE4BVgPlTU63EVYArA';
 var ADM_BASE    = 'https://firestore.googleapis.com/v1/projects/' + ADM_PROJECT + '/databases/(default)/documents';
 var admPollTimer       = null;
-window.admDeletedIntroIds = {};
-window.admDeletedInfoIds  = {};
-var admDeletedIntroIds = window.admDeletedIntroIds;
-var admDeletedInfoIds  = window.admDeletedInfoIds;
+var admDeletedIntroIds = {};
+var admDeletedInfoIds  = {};
 
 function admToFSValue(val) {
   if (val === null || val === undefined) return { nullValue: null };
@@ -305,36 +303,22 @@ function admObjToFields(obj) {
   return fields;
 }
 function admFbGet(col) {
-  return fetch(ADM_BASE + '/' + col + '?key=' + ADM_API_KEY)
-    .then(function(r) { return r.json(); })
-    .then(function(data) {
-      if (!data.documents) return [];
-      return data.documents.map(admDocToObj);
-    });
+  // Pakai data realtime dari window yang sudah di-sync onSnapshot
+  if (col === 'intros' && window.intros) return Promise.resolve(window.intros.slice());
+  if (col === 'infos'  && window.infos)  return Promise.resolve(window.infos.slice());
+  return Promise.resolve([]);
 }
 function admFbAdd(col, obj) {
-  return fetch(ADM_BASE + '/' + col + '?key=' + ADM_API_KEY, {
-    method:'POST', headers:{'Content-Type':'application/json'},
-    body: JSON.stringify({ fields: admObjToFields(obj) })
-  }).then(function(r) { return r.json(); });
+  if (!window._fbAdminAdd) return Promise.reject(new Error('SDK belum siap'));
+  return window._fbAdminAdd(col, obj);
 }
 function admFbUpdate(col, id, obj) {
-  // Pakai Firebase SDK (expose dari module) supaya ga konflik sama onSnapshot
-  if (window.fbSdkUpdate) return window.fbSdkUpdate(col, id, obj);
-  // Fallback REST
-  var fields = admObjToFields(obj);
-  var mask = Object.keys(fields).map(function(k) { return 'updateMask.fieldPaths=' + k; }).join('&');
-  return fetch(ADM_BASE + '/' + col + '/' + id + '?' + mask + '&key=' + ADM_API_KEY, {
-    method:'PATCH', headers:{'Content-Type':'application/json'},
-    body: JSON.stringify({ fields: fields })
-  }).then(function(r) { return r.json(); });
+  if (!window._fbAdminUpdate) return Promise.reject(new Error('SDK belum siap'));
+  return window._fbAdminUpdate(col, id, obj);
 }
 function admFbDelete(col, id) {
-  // Pakai Firebase SDK supaya deleteDoc langsung sync ke onSnapshot
-  if (window.fbSdkDelete) return window.fbSdkDelete(col, id);
-  // Fallback REST
-  return fetch(ADM_BASE + '/' + col + '/' + id + '?key=' + ADM_API_KEY, { method:'DELETE' })
-    .then(function(r) { if (!r.ok && r.status !== 404) throw r; return r; });
+  if (!window._fbAdminDelete) return Promise.reject(new Error('SDK belum siap'));
+  return window._fbAdminDelete(col, id);
 }
 
 /* ===== ADM STATE ===== */
@@ -382,6 +366,15 @@ function admStartListeners() {
 }
 function admStopListeners() {
   if (admPollTimer) { clearInterval(admPollTimer); admPollTimer = null; }
+}
+function admPausePoll(ms) {
+  // Pause polling sementara supaya write tidak langsung di-overwrite
+  admStopListeners();
+  setTimeout(function() {
+    if (document.getElementById('adm-panel').classList.contains('adm-show')) {
+      admPollTimer = setInterval(admLoadFromFirebase, 5000);
+    }
+  }, ms || 3000);
 }
 function admLoadFromFirebase() {
   admFbGet('intros').then(function(docs) {
@@ -481,13 +474,13 @@ function admSaveComment() {
   var val=document.getElementById('adm-commentInput').value.trim();
   var btn=document.getElementById('adm-commentConfirm');
   btn.disabled=true;
-  window._admBusy = true;
   admIntros=admIntros.map(function(i){return i._id===admActiveId?Object.assign({},i,{adminComment:val}):i;});
   admSaveIntros(); admRenderTable();
+  admPausePoll(4000);
   admFbUpdate('intros',admActiveId,{adminComment:val})
     .then(function(){admShowToast('💬 Komentar disimpan!');admCloseModal('adm-modalComment');})
-    .catch(function(){admShowToast('💬 Tersimpan lokal (offline)');admCloseModal('adm-modalComment');})
-    .finally(function(){btn.disabled=false; setTimeout(function(){window._admBusy=false;},1500);});
+    .catch(function(){admShowToast('❌ Gagal simpan komentar!');admCloseModal('adm-modalComment');})
+    .finally(function(){btn.disabled=false;});
 }
 function admOpenLabel(id) {
   admActiveId=id;
@@ -506,13 +499,13 @@ function admSaveLabel() {
   if (!admActiveId) return;
   var btn=document.getElementById('adm-labelConfirm');
   btn.disabled=true;
-  window._admBusy = true;
   admIntros=admIntros.map(function(i){return i._id===admActiveId?Object.assign({},i,{label:admPickedLabel}):i;});
   admSaveIntros(); admUpdateStats(); admRenderTable();
+  admPausePoll(4000);
   admFbUpdate('intros',admActiveId,{label:admPickedLabel})
     .then(function(){admShowToast('🏷️ Label diperbarui!');admCloseModal('adm-modalLabel');})
-    .catch(function(){admShowToast('🏷️ Tersimpan lokal (offline)');admCloseModal('adm-modalLabel');})
-    .finally(function(){btn.disabled=false; setTimeout(function(){window._admBusy=false;},1500);});
+    .catch(function(){admShowToast('❌ Gagal update label!');admCloseModal('adm-modalLabel');})
+    .finally(function(){btn.disabled=false;});
 }
 function admOpenDelete(id) {
   admActiveId=id;
@@ -525,14 +518,14 @@ function admConfirmDelete() {
   var btn=document.getElementById('adm-deleteConfirm');
   btn.disabled=true; btn.textContent='⏳ Menghapus...';
   var deletedId=admActiveId;
-  window._admBusy = true;
-  window.admDeletedIntroIds[deletedId]=true;
+  admDeletedIntroIds[deletedId]=true;
   admIntros=admIntros.filter(function(i){return i._id!==deletedId;});
   admSaveIntros(); admUpdateStats(); admRenderTable();
+  admPausePoll(4000);
   admFbDelete('intros',deletedId)
-    .then(function(){admShowToast('🗑️ Intro dihapus dari server!');})
-    .catch(function(){admShowToast('🗑️ Dihapus lokal, server gagal');})
-    .finally(function(){btn.disabled=false;btn.textContent='🗑️ Hapus';admCloseModal('adm-modalDelete'); setTimeout(function(){window._admBusy=false;},2000);});
+    .then(function(){admShowToast('🗑️ Intro dihapus!');})
+    .catch(function(){admShowToast('❌ Gagal hapus dari server!');})
+    .finally(function(){btn.disabled=false;btn.textContent='🗑️ Hapus';admCloseModal('adm-modalDelete');});
 }
 function admCloseModal(id) {
   document.getElementById(id).classList.remove('show');
@@ -573,14 +566,13 @@ function admAddInfo() {
 }
 function admDeleteInfo(id) {
   if (!confirm('Hapus info ini?')) return;
-  window._admBusy = true;
-  window.admDeletedInfoIds[id]=true;
+  admDeletedInfoIds[id]=true;
   admInfos=admInfos.filter(function(i){return i._id!==id;});
   admSaveInfos(); admRenderInfoAdmin(); admUpdateStats();
+  admPausePoll(4000);
   admFbDelete('infos',id)
-    .then(function(){admShowToast('🗑️ Info dihapus dari server!');})
-    .catch(function(){admShowToast('🗑️ Dihapus lokal, server gagal');})
-    .finally(function(){setTimeout(function(){window._admBusy=false;},2000);});
+    .then(function(){admShowToast('🗑️ Info dihapus!');})
+    .catch(function(){admShowToast('❌ Gagal hapus dari server!');});
 }
 function admRenderInfoAdmin() {
   var el=document.getElementById('adm-infoAdminList');

@@ -80,7 +80,7 @@
       <p class="form-section-title">🏷️ Label Kamu</p>
       <div class="member-label-picker">
         <div class="mlabel-opt active" data-mlbl="MEMBER" onclick="pickMemberLabel(this)">
-          <span class="mlabel-icon">💙</span>
+          <span class="mlabel-icon">💕</span>
           <span class="mlabel-name">MEMBER</span>
           <span class="mlabel-desc">Member biasa</span>
         </div>
@@ -372,45 +372,41 @@
 
   var introsRef   = collection(db, 'intros');
   var introsQuery = query(introsRef, orderBy('createdAt', 'desc'));
-  var infosRef    = collection(db, 'infos');
-  var infosQuery  = query(infosRef, orderBy('createdAt', 'desc'));
-
-  // Flag supaya snapshot ga nge-overwrite saat admin lagi operasi
-  window._admBusy = false;
 
   onSnapshot(introsQuery, function(snapshot) {
-    var fresh = snapshot.docs.map(function(d) { return Object.assign({ _id: d.id }, d.data()); });
-    // Filter keluar doc yang udah dihapus admin (hindari flicker)
-    if (window.admDeletedIntroIds) {
-      fresh = fresh.filter(function(d) { return !window.admDeletedIntroIds[d._id]; });
-    }
-    window.intros = fresh;
+    window.intros = snapshot.docs.map(function(d) { return Object.assign({ _id: d.id }, d.data()); });
     fbStatus.style.display = 'none';
     if (document.getElementById('daftar').classList.contains('active')) renderCards();
-    // Sync ke admin table juga jika panel terbuka
-    if (!window._admBusy && typeof admRenderTable === 'function') {
-      admIntros = fresh.filter(function(d) { return !window.admDeletedIntroIds || !window.admDeletedIntroIds[d._id]; });
-      admUpdateStats(); admRenderTable();
-    }
   }, function(err) {
     fbStatus.textContent = '❌ Gagal konek database';
+    console.error('Intros error:', err);
   });
 
+  var infosRef   = collection(db, 'infos');
+  var infosQuery = query(infosRef, orderBy('createdAt', 'desc'));
+
   onSnapshot(infosQuery, function(snapshot) {
-    var fresh = snapshot.docs.map(function(d) { return Object.assign({ _id: d.id }, d.data()); });
-    if (window.admDeletedInfoIds) {
-      fresh = fresh.filter(function(d) { return !window.admDeletedInfoIds[d._id]; });
-    }
-    window.infos = fresh;
+    window.infos = snapshot.docs.map(function(d) { return Object.assign({ _id: d.id }, d.data()); });
     if (document.getElementById('info').classList.contains('active')) renderInfoPage();
     if (window.daftarTab === 'info') renderInfoInDaftar();
-    if (!window._admBusy && typeof admRenderInfoAdmin === 'function') {
-      admInfos = fresh;
-      admUpdateStats(); admRenderInfoAdmin();
-    }
-  }, function(err) {});
+  }, function(err) {
+    console.error('Infos error:', err);
+  });
 
-  // ===== SUBMIT INTRO =====
+  // Expose Firebase SDK functions ke window supaya main.js bisa pakai
+  window._fbAdminUpdate = async function(col, id, data) {
+    var ref = doc(db, col, id);
+    await updateDoc(ref, data);
+  };
+  window._fbAdminDelete = async function(col, id) {
+    var ref = doc(db, col, id);
+    await deleteDoc(ref);
+  };
+  window._fbAdminAdd = async function(col, data) {
+    var ref = await addDoc(collection(db, col), data);
+    return { name: ref.id };
+  };
+
   window.fbSubmitIntro = async function(entry) {
     var btn = document.getElementById('submitBtn');
     btn.disabled = true;
@@ -426,32 +422,11 @@
       resetForm();
       document.getElementById('successPopup').classList.add('show');
     } catch(err) {
+      console.error(err);
       alert('❌ Gagal kirim intro. Coba lagi ya!');
     } finally {
       btn.disabled = false;
       btn.textContent = '🌸 Kirim Intro Gue!';
-    }
-  };
-
-  // ===== ADMIN: UPDATE (label, komentar) pakai SDK langsung =====
-  window.fbSdkUpdate = async function(colName, id, data) {
-    window._admBusy = true;
-    try {
-      var ref = doc(db, colName, id);
-      await updateDoc(ref, data);
-    } finally {
-      setTimeout(function() { window._admBusy = false; }, 1500);
-    }
-  };
-
-  // ===== ADMIN: DELETE pakai SDK langsung =====
-  window.fbSdkDelete = async function(colName, id) {
-    window._admBusy = true;
-    try {
-      var ref = doc(db, colName, id);
-      await deleteDoc(ref);
-    } finally {
-      setTimeout(function() { window._admBusy = false; }, 1500);
     }
   };
 </script>

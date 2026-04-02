@@ -342,17 +342,16 @@
 </div>
 
 <!-- ===== SECURITY (load pertama) ===== -->
-<script src="Security Tools/AntiLinux.js"></script>
-<script src="Security Tools/Security.js"></script>
+<script src="Security.js"></script>
 
 <!-- ===== MAIN APP LOGIC ===== -->
-<script src="src/main.js"></script>
+<script src="main.js"></script>
 
 <!-- ===== FIREBASE (module) ===== -->
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
   import {
-    getFirestore, collection, addDoc,
+    getFirestore, collection, doc, addDoc, updateDoc, deleteDoc,
     onSnapshot, query, orderBy, serverTimestamp
   } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
@@ -373,27 +372,45 @@
 
   var introsRef   = collection(db, 'intros');
   var introsQuery = query(introsRef, orderBy('createdAt', 'desc'));
+  var infosRef    = collection(db, 'infos');
+  var infosQuery  = query(infosRef, orderBy('createdAt', 'desc'));
+
+  // Flag supaya snapshot ga nge-overwrite saat admin lagi operasi
+  window._admBusy = false;
 
   onSnapshot(introsQuery, function(snapshot) {
-    window.intros = snapshot.docs.map(function(d) { return Object.assign({ _id: d.id }, d.data()); });
+    var fresh = snapshot.docs.map(function(d) { return Object.assign({ _id: d.id }, d.data()); });
+    // Filter keluar doc yang udah dihapus admin (hindari flicker)
+    if (window.admDeletedIntroIds) {
+      fresh = fresh.filter(function(d) { return !window.admDeletedIntroIds[d._id]; });
+    }
+    window.intros = fresh;
     fbStatus.style.display = 'none';
     if (document.getElementById('daftar').classList.contains('active')) renderCards();
+    // Sync ke admin table juga jika panel terbuka
+    if (!window._admBusy && typeof admRenderTable === 'function') {
+      admIntros = fresh.filter(function(d) { return !window.admDeletedIntroIds || !window.admDeletedIntroIds[d._id]; });
+      admUpdateStats(); admRenderTable();
+    }
   }, function(err) {
     fbStatus.textContent = '❌ Gagal konek database';
-    console.error('Intros error:', err);
   });
-
-  var infosRef   = collection(db, 'infos');
-  var infosQuery = query(infosRef, orderBy('createdAt', 'desc'));
 
   onSnapshot(infosQuery, function(snapshot) {
-    window.infos = snapshot.docs.map(function(d) { return Object.assign({ _id: d.id }, d.data()); });
+    var fresh = snapshot.docs.map(function(d) { return Object.assign({ _id: d.id }, d.data()); });
+    if (window.admDeletedInfoIds) {
+      fresh = fresh.filter(function(d) { return !window.admDeletedInfoIds[d._id]; });
+    }
+    window.infos = fresh;
     if (document.getElementById('info').classList.contains('active')) renderInfoPage();
     if (window.daftarTab === 'info') renderInfoInDaftar();
-  }, function(err) {
-    console.error('Infos error:', err);
-  });
+    if (!window._admBusy && typeof admRenderInfoAdmin === 'function') {
+      admInfos = fresh;
+      admUpdateStats(); admRenderInfoAdmin();
+    }
+  }, function(err) {});
 
+  // ===== SUBMIT INTRO =====
   window.fbSubmitIntro = async function(entry) {
     var btn = document.getElementById('submitBtn');
     btn.disabled = true;
@@ -409,11 +426,32 @@
       resetForm();
       document.getElementById('successPopup').classList.add('show');
     } catch(err) {
-      console.error(err);
       alert('❌ Gagal kirim intro. Coba lagi ya!');
     } finally {
       btn.disabled = false;
       btn.textContent = '🌸 Kirim Intro Gue!';
+    }
+  };
+
+  // ===== ADMIN: UPDATE (label, komentar) pakai SDK langsung =====
+  window.fbSdkUpdate = async function(colName, id, data) {
+    window._admBusy = true;
+    try {
+      var ref = doc(db, colName, id);
+      await updateDoc(ref, data);
+    } finally {
+      setTimeout(function() { window._admBusy = false; }, 1500);
+    }
+  };
+
+  // ===== ADMIN: DELETE pakai SDK langsung =====
+  window.fbSdkDelete = async function(colName, id) {
+    window._admBusy = true;
+    try {
+      var ref = doc(db, colName, id);
+      await deleteDoc(ref);
+    } finally {
+      setTimeout(function() { window._admBusy = false; }, 1500);
     }
   };
 </script>

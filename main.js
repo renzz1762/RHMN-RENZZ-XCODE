@@ -230,8 +230,8 @@ function renderInfoInDaftar() { document.getElementById('daftar-info-content').i
    Stored sebagai triple-encoded + XOR — tidak plain text
    ===== */
 var _SEC_KEY = 'GI_SEC_2025';
-var _ENC_U = 'cXAyHi4BB2UFXl4kIy8EETAZd319exMfCmYQJhlgZmY=';
-var _ENC_P = 'cXAyHi4BB2UFXl4kIy8EETAZd319exMfCmYQJhlgZmY=';
+var _ENC_U = 'fiIzMgsnB2F1Xl4VfR0HEBcndX1gURAfCQEpEG5nZmc=';
+var _ENC_P = 'enQOA3wgMmYFdF4mBw0LEQZud1RkRRAd';
 
 function _decodeCredential(enc) {
   try {

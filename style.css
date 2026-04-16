@@ -679,3 +679,137 @@ textarea { resize:vertical;min-height:80px; }
 @media(min-width:1200px) {
   #home { max-width:740px; }
 }
+
+/* ===== GALLERY UPLOAD ZONE ===== */
+.upload-drop-zone {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 32px 20px;
+  border: 2px dashed rgba(240,98,146,0.45);
+  border-radius: 16px;
+  background: rgba(255,240,248,0.6);
+  cursor: pointer;
+  transition: all 0.25s;
+  text-align: center;
+}
+.upload-drop-zone:hover, .upload-drop-zone:active {
+  border-color: var(--accent);
+  background: rgba(240,98,146,0.07);
+  transform: scale(1.01);
+}
+.upload-icon { font-size: 2.4rem; }
+.upload-text { font-size: 0.92rem; font-weight: 800; color: var(--accent); }
+.upload-sub  { font-size: 0.74rem; color: var(--muted); font-weight: 600; }
+
+.upload-preview {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 14px;
+  border-radius: 16px;
+  background: rgba(255,240,248,0.7);
+  border: 1.5px solid rgba(240,98,146,0.3);
+}
+.upload-preview img {
+  max-width: 100%;
+  max-height: 220px;
+  border-radius: 12px;
+  object-fit: cover;
+  box-shadow: 0 4px 20px rgba(240,98,146,0.2);
+}
+.upload-remove-btn {
+  padding: 6px 18px;
+  background: rgba(244,67,54,0.12);
+  color: #e53935;
+  border: 1.5px solid rgba(244,67,54,0.3);
+  border-radius: 30px;
+  font-size: 0.78rem;
+  font-weight: 800;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: inherit;
+}
+.upload-remove-btn:hover { background: rgba(244,67,54,0.2); }
+
+/* ===== INFO CARD VIDEO WRAP ===== */
+.info-card-video-wrap {
+  margin-bottom: 12px;
+  border-radius: 10px 10px 0 0;
+  overflow: hidden;
+}
+.info-card-video-wrap video {
+  width: 100%;
+  max-height: 220px;
+  object-fit: cover;
+  display: block;
+}
+
+/* ===== ADMIN MEDIA CHOICE BUTTONS ===== */
+.adm-media-choice {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+}
+.adm-media-btn {
+  padding: 7px 14px;
+  border-radius: 20px;
+  border: 1.5px solid rgba(240,98,146,0.25);
+  background: rgba(240,98,146,0.06);
+  color: var(--admin-muted, #a0aec0);
+  font-size: 0.76rem;
+  font-weight: 800;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: inherit;
+}
+.adm-media-btn:hover {
+  border-color: rgba(240,98,146,0.5);
+  color: var(--admin-accent, #f06292);
+  background: rgba(240,98,146,0.12);
+}
+.adm-media-btn.active {
+  background: linear-gradient(135deg, rgba(240,98,146,0.25), rgba(236,64,122,0.18));
+  border-color: rgba(240,98,146,0.6);
+  color: #f06292;
+}
+
+/* Admin media preview box */
+.adm-media-preview-box {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 10px;
+  background: rgba(240,98,146,0.06);
+  border-radius: 12px;
+  border: 1.5px solid rgba(240,98,146,0.2);
+}
+.adm-media-preview-box img,
+.adm-media-preview-box video {
+  border-radius: 8px;
+  max-width: 100%;
+}
+.adm-media-remove-btn {
+  padding: 5px 14px;
+  background: rgba(244,67,54,0.1);
+  color: #e53935;
+  border: 1.5px solid rgba(244,67,54,0.25);
+  border-radius: 20px;
+  font-size: 0.73rem;
+  font-weight: 800;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: inherit;
+}
+.adm-media-remove-btn:hover { background: rgba(244,67,54,0.2); }
+
+/* Wider modal for comment (has media) */
+.adm-modal-wide {
+  max-width: 520px !important;
+  width: 95% !important;
+}

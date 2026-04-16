@@ -1,5 +1,6 @@
 /* ============================================================
    main.js — GrupIntro App Logic + Admin Panel
+   UPDATE: Upload foto dari galeri (base64), dukungan foto+video di admin
    ============================================================ */
 
 /* ===== ADMIN OVERLAY TOGGLE — defined first ===== */
@@ -18,10 +19,38 @@ function closeAdminOverlay() {
 /* ===== UI STATE ===== */
 var intros      = [];
 var infos       = [];
-var photoMode   = 'link';
+var photoMode   = 'upload';
 var pickedSticker = '';
 var memberLabel = 'MEMBER';
 var daftarTab   = 'all';
+var uploadedPhotoBase64 = '';   // base64 foto yang diupload user
+
+/* ===== PHOTO UPLOAD (Galeri) ===== */
+function handlePhotoUpload(input) {
+  var file = input.files && input.files[0];
+  if (!file) return;
+  if (file.size > 5 * 1024 * 1024) {
+    alert('⚠️ Foto terlalu besar! Maksimal 5MB ya~');
+    input.value = '';
+    return;
+  }
+  var reader = new FileReader();
+  reader.onload = function(e) {
+    uploadedPhotoBase64 = e.target.result;
+    document.getElementById('uploadPreviewImg').src = uploadedPhotoBase64;
+    document.getElementById('uploadPreview').style.display = 'flex';
+    document.getElementById('uploadDropZone').style.display = 'none';
+  };
+  reader.readAsDataURL(file);
+}
+
+function removeUploadedPhoto() {
+  uploadedPhotoBase64 = '';
+  document.getElementById('fotoFile').value = '';
+  document.getElementById('uploadPreviewImg').src = '';
+  document.getElementById('uploadPreview').style.display = 'none';
+  document.getElementById('uploadDropZone').style.display = 'flex';
+}
 
 /* ===== STICKER GRID ===== */
 var STICKERS = ['😊','😎','🥳','🤩','😍','🫶','🙌','✨','🔥','💫','🌟','🎉','🐼','🦊','🐱','🐸','🌸','🍀','🎵','🎮','📚','✈️','🍜','🧋','💖','🦋','🌺','🍓'];
@@ -48,11 +77,16 @@ function showPage(page) {
 
 function setPhotoMode(mode) {
   photoMode = mode;
-  ['link','stiker','none'].forEach(function(m) {
-    document.getElementById('btn-' + m).classList.toggle('selected', m === mode);
+  ['upload','stiker','none'].forEach(function(m) {
+    var btn = document.getElementById('btn-' + m);
+    if (btn) btn.classList.toggle('selected', m === mode);
     var area = document.getElementById('area-' + m);
     if (area) area.classList.toggle('show', m === mode);
   });
+  // Reset upload state when switching away
+  if (mode !== 'upload') {
+    uploadedPhotoBase64 = '';
+  }
 }
 
 function pickMemberLabel(el) {
@@ -95,21 +129,24 @@ function submitIntro() {
   if (!nama || !umur || !asal || !gender || !hobi) {
     alert('⚠️ Lengkapi semua data diri dulu ya!'); return;
   }
+
   var visual = { type: 'none', value: '' };
-  if (photoMode === 'link') {
-    var link = document.getElementById('fotoLink').value.trim();
-    if (link) visual = { type: 'link', value: link };
+  if (photoMode === 'upload') {
+    if (uploadedPhotoBase64) {
+      visual = { type: 'base64', value: uploadedPhotoBase64 };
+    }
   } else if (photoMode === 'stiker') {
     if (!pickedSticker) { alert('Pilih stiker dulu ya! 😊'); return; }
     visual = { type: 'stiker', value: pickedSticker };
   }
+
   if (!window.fbSubmitIntro) { alert('⚠️ Database belum siap, tunggu sebentar ya!'); return; }
   window.fbSubmitIntro({ nama:nama, umur:umur, asal:asal, gender:gender, hobi:hobi, visual:visual, label:memberLabel });
 }
 
 /* ===== RESET FORM ===== */
 function resetForm() {
-  ['nama','umur','asal','hobi','fotoLink'].forEach(function(id) {
+  ['nama','umur','asal','hobi'].forEach(function(id) {
     var el = document.getElementById(id); if (el) el.value = '';
   });
   document.getElementById('gender').value = '';
@@ -120,7 +157,15 @@ function resetForm() {
   if (def) def.classList.add('active');
   pickedSticker = '';
   document.querySelectorAll('.sticker-opt').forEach(function(d) { d.classList.remove('picked'); });
-  setPhotoMode('link');
+  uploadedPhotoBase64 = '';
+  // Reset upload UI
+  var fi = document.getElementById('fotoFile');
+  if (fi) fi.value = '';
+  var prev = document.getElementById('uploadPreview');
+  if (prev) prev.style.display = 'none';
+  var dz = document.getElementById('uploadDropZone');
+  if (dz) dz.style.display = 'flex';
+  setPhotoMode('upload');
 }
 
 function closePopup() { document.getElementById('successPopup').classList.remove('show'); }
@@ -156,7 +201,8 @@ function renderCards() {
     card.className = 'intro-card';
     card.style.animationDelay = (i * 0.07) + 's';
     var visualHTML = '';
-    if (d.visual && d.visual.type === 'link' && d.visual.value)
+    // support base64 (upload galeri) dan link (legacy)
+    if (d.visual && (d.visual.type === 'base64' || d.visual.type === 'link') && d.visual.value)
       visualHTML = '<img class="card-photo" src="' + esc(d.visual.value) + '" alt="' + esc(d.nama) + '" onerror="this.style.display=\'none\'"/>';
     else if (d.visual && d.visual.type === 'stiker' && d.visual.value)
       visualHTML = '<div class="card-sticker">' + d.visual.value + '</div>';
@@ -167,6 +213,21 @@ function renderCards() {
     var l = d.label || 'MEMBER';
     var lMap = {OWNER:'👑',ADMIN:'🌸',MEMBER:'💙',ANOMALI:'🌀'};
     var cMap = {OWNER:'#ffd700',ADMIN:'#f06292',MEMBER:'#4dd0e1',ANOMALI:'#b06ef5'};
+
+    // Admin comment bisa punya media (foto/video)
+    var commentHTML = '';
+    if (d.adminComment || d.adminCommentMedia) {
+      var mediaHTML = '';
+      if (d.adminCommentMedia && d.adminCommentMedia.type === 'photo' && d.adminCommentMedia.value) {
+        mediaHTML = '<div style="margin-top:6px;"><img src="' + esc(d.adminCommentMedia.value) + '" style="max-width:100%;border-radius:8px;max-height:160px;object-fit:cover;" onerror="this.style.display=\'none\'"/></div>';
+      } else if (d.adminCommentMedia && d.adminCommentMedia.type === 'video' && d.adminCommentMedia.value) {
+        mediaHTML = '<div style="margin-top:6px;"><video controls style="max-width:100%;border-radius:8px;max-height:160px;" src="' + esc(d.adminCommentMedia.value) + '"></video></div>';
+      }
+      commentHTML = '<div style="margin-top:10px;padding:8px 12px;background:rgba(240,98,146,0.07);border-radius:10px;border:1px solid rgba(240,98,146,0.15);font-size:0.78rem;color:var(--muted);">' +
+        (d.adminComment ? '<span style="font-weight:800;color:var(--accent);">💬 Admin:</span> ' + esc(d.adminComment) : '') +
+        mediaHTML + '</div>';
+    }
+
     card.innerHTML =
       '<div style="position:relative">' + visualHTML + '<div class="card-ribbon">' + esc(d.ts||'') + '</div></div>' +
       '<div class="card-body">' +
@@ -179,7 +240,7 @@ function renderCards() {
         '</div>' +
         '<div class="card-divider"></div>' +
         '<div class="card-hobi"><span class="hobi-label">🎯 Hobi</span>' + esc(d.hobi) + '</div>' +
-        (d.adminComment ? '<div style="margin-top:10px;padding:8px 12px;background:rgba(240,98,146,0.07);border-radius:10px;border:1px solid rgba(240,98,146,0.15);font-size:0.78rem;color:var(--muted);"><span style="font-weight:800;color:var(--accent);">💬 Admin:</span> ' + esc(d.adminComment) + '</div>' : '') +
+        commentHTML +
       '</div>';
     grid.appendChild(card);
   });
@@ -202,15 +263,25 @@ function isNew(ts) {
 function buildInfoCards(list) {
   if (!list.length) return '<div class="info-empty"><div class="ie-icon">📭</div><p>Belum ada info dari admin nih...<br>Pantau terus ya! 💕</p></div>';
   return '<div class="info-list">' + list.map(function(item, i) {
-    var hasPhoto = item.photoUrl && item.photoUrl.trim();
     var ts = item.createdAt && item.createdAt.seconds ? item.createdAt.seconds * 1000 : (item.createdAt || 0);
-    var photoHTML = hasPhoto ?
-      '<div class="info-card-photo-wrap"><img src="' + esc(item.photoUrl) + '" onerror="this.parentElement.style.display=\'none\'"/><div class="info-card-photo-overlay"></div><div class="info-card-photo-badge">' + typeBadge(item.type) + (isNew(ts) ? '<span class="new-badge">✨ BARU</span>' : '') + '</div></div>' : '';
+
+    // Media HTML — support foto (base64/url) dan video
+    var mediaHTML = '';
+    if (item.media && item.media.type === 'photo' && item.media.value) {
+      mediaHTML = '<div class="info-card-photo-wrap"><img src="' + esc(item.media.value) + '" onerror="this.parentElement.style.display=\'none\'"/><div class="info-card-photo-overlay"></div><div class="info-card-photo-badge">' + typeBadge(item.type) + (isNew(ts) ? '<span class="new-badge">✨ BARU</span>' : '') + '</div></div>';
+    } else if (item.media && item.media.type === 'video' && item.media.value) {
+      mediaHTML = '<div class="info-card-video-wrap"><video controls src="' + esc(item.media.value) + '" style="width:100%;border-radius:10px 10px 0 0;max-height:220px;object-fit:cover;display:block;"></video></div>';
+    } else if (item.photoUrl && item.photoUrl.trim()) {
+      // backward compat: legacy photoUrl field
+      mediaHTML = '<div class="info-card-photo-wrap"><img src="' + esc(item.photoUrl) + '" onerror="this.parentElement.style.display=\'none\'"/><div class="info-card-photo-overlay"></div><div class="info-card-photo-badge">' + typeBadge(item.type) + (isNew(ts) ? '<span class="new-badge">✨ BARU</span>' : '') + '</div></div>';
+    }
+
+    var hasMedia = !!mediaHTML;
     return '<div class="info-card" style="animation-delay:' + (i*0.07) + 's">' +
       '<div class="info-card-accent ' + typeAccent(item.type) + '"></div>' +
       '<div class="info-card-body">' +
-        photoHTML +
-        (!hasPhoto ? '<div class="info-card-top"><div class="info-card-badges">' + typeBadge(item.type) + (isNew(ts) ? '<span class="new-badge">✨ BARU</span>' : '') + '</div><span class="info-date">📅 ' + esc(item.date||'') + '</span></div>' : '<div style="text-align:right;margin-bottom:8px;"><span class="info-date">📅 ' + esc(item.date||'') + '</span></div>') +
+        mediaHTML +
+        (!hasMedia ? '<div class="info-card-top"><div class="info-card-badges">' + typeBadge(item.type) + (isNew(ts) ? '<span class="new-badge">✨ BARU</span>' : '') + '</div><span class="info-date">📅 ' + esc(item.date||'') + '</span></div>' : '<div style="text-align:right;margin:8px 0 4px;"><span class="info-date">📅 ' + esc(item.date||'') + '</span></div>') +
         '<div class="info-card-title">' + esc(item.title) + '</div>' +
         '<div class="info-card-content">' + esc(item.content||'').replace(/\n/g,'<br>') + '</div>' +
         '<div class="info-card-footer"><span class="info-from">📝 Dari <span>' + esc(item.author||'Admin') + '</span></span></div>' +
@@ -235,15 +306,11 @@ var _ENC_P = 'enQOA3wgMmYFdF4mBw0LEQZud1RkRRAd';
 
 function _decodeCredential(enc) {
   try {
-    // Base64 decode
     var step1 = atob(enc);
-    // XOR decode
     var step2 = step1.split('').map(function(c, i) {
       return String.fromCharCode(c.charCodeAt(0) ^ _SEC_KEY.charCodeAt(i % _SEC_KEY.length));
     }).join('');
-    // Reverse
     var step3 = step2.split('').reverse().join('');
-    // Double base64 decode
     var step4 = atob(step3);
     return atob(step4);
   } catch(e) {
@@ -294,16 +361,7 @@ function admDocToObj(doc) {
   Object.keys(fields).forEach(function(k) { obj[k] = admFromFSValue(fields[k]); });
   return obj;
 }
-function admObjToFields(obj) {
-  var fields = {};
-  Object.keys(obj).forEach(function(k) {
-    if (k === '_id') return;
-    fields[k] = admToFSValue(obj[k]);
-  });
-  return fields;
-}
 function admFbGet(col) {
-  // Pakai data realtime dari window yang sudah di-sync onSnapshot
   if (col === 'intros' && window.intros) return Promise.resolve(window.intros.slice());
   if (col === 'infos'  && window.infos)  return Promise.resolve(window.infos.slice());
   return Promise.resolve([]);
@@ -329,12 +387,146 @@ var admActiveId        = null;
 var admPickedLabel     = '';
 var admCurrentFilter   = 'ALL';
 
+/* ===== ADMIN MEDIA STATE ===== */
+var admInfoMediaMode    = 'none';  // 'none' | 'photo' | 'video'
+var admInfoMediaBase64  = '';
+var admInfoMediaMime    = '';
+
+var admCommentMediaMode   = 'none';
+var admCommentMediaBase64 = '';
+var admCommentMediaMime   = '';
+
+/* ===== ADMIN MEDIA — INFO ===== */
+function admSetInfoMedia(mode) {
+  admInfoMediaMode = mode;
+  admInfoMediaBase64 = '';
+  admInfoMediaMime = '';
+  ['none','photo','video'].forEach(function(m) {
+    var btn = document.getElementById('adm-info-btn-' + m);
+    if (btn) btn.classList.toggle('active', m === mode);
+  });
+  var prev = document.getElementById('adm-info-media-preview');
+  prev.style.display = 'none';
+  prev.innerHTML = '';
+  if (mode === 'photo') {
+    document.getElementById('adm-infoPhotoFile').click();
+  } else if (mode === 'video') {
+    document.getElementById('adm-infoVideoFile').click();
+  }
+}
+
+function admHandleInfoPhoto(input) {
+  var file = input.files && input.files[0];
+  if (!file) { admSetInfoMedia('none'); return; }
+  if (file.size > 10 * 1024 * 1024) { alert('⚠️ Foto maks 10MB!'); admSetInfoMedia('none'); return; }
+  var reader = new FileReader();
+  reader.onload = function(e) {
+    admInfoMediaBase64 = e.target.result;
+    admInfoMediaMime = 'photo';
+    var prev = document.getElementById('adm-info-media-preview');
+    prev.style.display = 'block';
+    prev.innerHTML = '<div class="adm-media-preview-box"><img src="' + admEsc(admInfoMediaBase64) + '" style="max-height:140px;max-width:100%;border-radius:8px;object-fit:cover;"/><button class="adm-media-remove-btn" onclick="admRemoveInfoMedia()">✕ Hapus</button></div>';
+  };
+  reader.readAsDataURL(file);
+}
+
+function admHandleInfoVideo(input) {
+  var file = input.files && input.files[0];
+  if (!file) { admSetInfoMedia('none'); return; }
+  if (file.size > 50 * 1024 * 1024) { alert('⚠️ Video maks 50MB!'); admSetInfoMedia('none'); return; }
+  var reader = new FileReader();
+  reader.onload = function(e) {
+    admInfoMediaBase64 = e.target.result;
+    admInfoMediaMime = 'video';
+    var prev = document.getElementById('adm-info-media-preview');
+    prev.style.display = 'block';
+    prev.innerHTML = '<div class="adm-media-preview-box"><video controls src="' + admEsc(admInfoMediaBase64) + '" style="max-height:140px;max-width:100%;border-radius:8px;"></video><button class="adm-media-remove-btn" onclick="admRemoveInfoMedia()">✕ Hapus</button></div>';
+  };
+  reader.readAsDataURL(file);
+}
+
+function admRemoveInfoMedia() {
+  admInfoMediaBase64 = '';
+  admInfoMediaMime = '';
+  admInfoMediaMode = 'none';
+  ['none','photo','video'].forEach(function(m) {
+    var btn = document.getElementById('adm-info-btn-' + m);
+    if (btn) btn.classList.toggle('active', m === 'none');
+  });
+  var prev = document.getElementById('adm-info-media-preview');
+  prev.style.display = 'none';
+  prev.innerHTML = '';
+  document.getElementById('adm-infoPhotoFile').value = '';
+  document.getElementById('adm-infoVideoFile').value = '';
+}
+
+/* ===== ADMIN MEDIA — COMMENT ===== */
+function admSetCommentMedia(mode) {
+  admCommentMediaMode = mode;
+  admCommentMediaBase64 = '';
+  admCommentMediaMime = '';
+  ['none','photo','video'].forEach(function(m) {
+    var btn = document.getElementById('adm-cmt-btn-' + m);
+    if (btn) btn.classList.toggle('active', m === mode);
+  });
+  var prev = document.getElementById('adm-comment-media-preview');
+  prev.style.display = 'none';
+  prev.innerHTML = '';
+  if (mode === 'photo') {
+    document.getElementById('adm-commentPhotoFile').click();
+  } else if (mode === 'video') {
+    document.getElementById('adm-commentVideoFile').click();
+  }
+}
+
+function admHandleCommentPhoto(input) {
+  var file = input.files && input.files[0];
+  if (!file) { admSetCommentMedia('none'); return; }
+  if (file.size > 10 * 1024 * 1024) { alert('⚠️ Foto maks 10MB!'); admSetCommentMedia('none'); return; }
+  var reader = new FileReader();
+  reader.onload = function(e) {
+    admCommentMediaBase64 = e.target.result;
+    admCommentMediaMime = 'photo';
+    var prev = document.getElementById('adm-comment-media-preview');
+    prev.style.display = 'block';
+    prev.innerHTML = '<div class="adm-media-preview-box"><img src="' + admEsc(admCommentMediaBase64) + '" style="max-height:120px;max-width:100%;border-radius:8px;object-fit:cover;"/><button class="adm-media-remove-btn" onclick="admRemoveCommentMedia()">✕ Hapus</button></div>';
+  };
+  reader.readAsDataURL(file);
+}
+
+function admHandleCommentVideo(input) {
+  var file = input.files && input.files[0];
+  if (!file) { admSetCommentMedia('none'); return; }
+  if (file.size > 50 * 1024 * 1024) { alert('⚠️ Video maks 50MB!'); admSetCommentMedia('none'); return; }
+  var reader = new FileReader();
+  reader.onload = function(e) {
+    admCommentMediaBase64 = e.target.result;
+    admCommentMediaMime = 'video';
+    var prev = document.getElementById('adm-comment-media-preview');
+    prev.style.display = 'block';
+    prev.innerHTML = '<div class="adm-media-preview-box"><video controls src="' + admEsc(admCommentMediaBase64) + '" style="max-height:120px;max-width:100%;border-radius:8px;"></video><button class="adm-media-remove-btn" onclick="admRemoveCommentMedia()">✕ Hapus</button></div>';
+  };
+  reader.readAsDataURL(file);
+}
+
+function admRemoveCommentMedia() {
+  admCommentMediaBase64 = '';
+  admCommentMediaMime = '';
+  admCommentMediaMode = 'none';
+  ['none','photo','video'].forEach(function(m) {
+    var btn = document.getElementById('adm-cmt-btn-' + m);
+    if (btn) btn.classList.toggle('active', m === 'none');
+  });
+  var prev = document.getElementById('adm-comment-media-preview');
+  prev.style.display = 'none';
+  prev.innerHTML = '';
+  document.getElementById('adm-commentPhotoFile').value = '';
+  document.getElementById('adm-commentVideoFile').value = '';
+}
+
 /* ===== AUTH ===== */
 function admDoLogin() {
-  // Rate limit check
-  if (window._secCheckLoginAttempt && !window._secCheckLoginAttempt()) {
-    return;
-  }
+  if (window._secCheckLoginAttempt && !window._secCheckLoginAttempt()) return;
   var u = document.getElementById('adm-loginUser').value.trim();
   var p = document.getElementById('adm-loginPass').value.trim();
   var expectedU = _decodeCredential(_ENC_U);
@@ -368,7 +560,6 @@ function admStopListeners() {
   if (admPollTimer) { clearInterval(admPollTimer); admPollTimer = null; }
 }
 function admPausePoll(ms) {
-  // Pause polling sementara supaya write tidak langsung di-overwrite
   admStopListeners();
   setTimeout(function() {
     if (document.getElementById('adm-panel').classList.contains('adm-show')) {
@@ -420,6 +611,7 @@ function admSetFilter(f, btn) {
   admRenderTable();
 }
 function admEsc(s) { return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+
 function admRenderTable() {
   var q = (document.getElementById('adm-searchBox').value||'').toLowerCase();
   var rows = admIntros.filter(function(i) {
@@ -435,7 +627,7 @@ function admRenderTable() {
     var lbl=d.label||'MEMBER';
     var lIcon={OWNER:'👑',ADMIN:'🌸',MEMBER:'💙',ANOMALI:'🌀',DEV:'⚙️'}[lbl]||'💙';
     var photoHTML='';
-    if (d.visual&&d.visual.type==='link'&&d.visual.value)
+    if (d.visual && (d.visual.type==='base64'||d.visual.type==='link') && d.visual.value)
       photoHTML='<img class="adm-photo-tiny" src="'+admEsc(d.visual.value)+'" onerror="this.style.display=\'none\'"/>';
     else if (d.visual&&d.visual.type==='stiker'&&d.visual.value)
       photoHTML='<span class="adm-sticker-tiny">'+d.visual.value+'</span>';
@@ -466,22 +658,39 @@ function admOpenComment(id) {
   var e=admIntros.find(function(i){return i._id===id;});
   document.getElementById('adm-modalCommentSub').textContent='Member: '+(e?e.nama:'');
   document.getElementById('adm-commentInput').value=e?(e.adminComment||''):'';
+  // Reset media state
+  admRemoveCommentMedia();
   document.getElementById('adm-modalComment').classList.add('show');
   setTimeout(function(){ document.getElementById('adm-commentInput').focus(); },100);
 }
+
 function admSaveComment() {
   if (!admActiveId) return;
   var val=document.getElementById('adm-commentInput').value.trim();
   var btn=document.getElementById('adm-commentConfirm');
   btn.disabled=true;
-  admIntros=admIntros.map(function(i){return i._id===admActiveId?Object.assign({},i,{adminComment:val}):i;});
+
+  // Build media object
+  var mediaObj = null;
+  if (admCommentMediaBase64 && admCommentMediaMime) {
+    mediaObj = { type: admCommentMediaMime, value: admCommentMediaBase64 };
+  }
+
+  var updateData = { adminComment: val };
+  if (mediaObj) updateData.adminCommentMedia = mediaObj;
+  else updateData.adminCommentMedia = null;
+
+  admIntros=admIntros.map(function(i){
+    return i._id===admActiveId ? Object.assign({},i,{adminComment:val,adminCommentMedia:mediaObj}) : i;
+  });
   admSaveIntros(); admRenderTable();
   admPausePoll(4000);
-  admFbUpdate('intros',admActiveId,{adminComment:val})
+  admFbUpdate('intros',admActiveId,updateData)
     .then(function(){admShowToast('💬 Komentar disimpan!');admCloseModal('adm-modalComment');})
     .catch(function(){admShowToast('❌ Gagal simpan komentar!');admCloseModal('adm-modalComment');})
     .finally(function(){btn.disabled=false;});
 }
+
 function admOpenLabel(id) {
   admActiveId=id;
   var e=admIntros.find(function(i){return i._id===id;});
@@ -538,32 +747,48 @@ function admPickInfoType(btn) {
   document.querySelectorAll('.adm-itype-btn').forEach(function(b){b.className='adm-itype-btn';});
   btn.classList.add('active-'+admCurrentInfoType);
 }
+
 function admAddInfo() {
   var title=document.getElementById('adm-infoTitle').value.trim();
   var content=document.getElementById('adm-infoContent').value.trim();
   var author=document.getElementById('adm-infoAuthor').value.trim()||'Admin';
-  var photoUrl=document.getElementById('adm-infoPhoto').value.trim();
   if (!title||!content){admShowToast('⚠️ Judul dan isi wajib diisi!');return;}
+
+  // Build media object
+  var mediaObj = null;
+  if (admInfoMediaBase64 && admInfoMediaMime) {
+    mediaObj = { type: admInfoMediaMime, value: admInfoMediaBase64 };
+  }
+
   var addBtn=document.getElementById('adm-addInfoBtn');
   addBtn.disabled=true; addBtn.textContent='⏳ Mengirim...';
-  var newInfo={type:admCurrentInfoType,title:title,content:content,author:author,photoUrl:photoUrl,date:new Date().toLocaleDateString('id-ID'),createdAt:new Date().toISOString()};
+
+  var newInfo={
+    type:admCurrentInfoType, title:title, content:content, author:author,
+    media: mediaObj,
+    photoUrl: '', // clear legacy field
+    date:new Date().toLocaleDateString('id-ID'),
+    createdAt:new Date().toISOString()
+  };
+
   admFbAdd('infos',newInfo).then(function(resp){
     var fid=resp.name?resp.name.split('/').pop():Date.now().toString();
     newInfo._id=fid;
     admInfos.unshift(newInfo); admSaveInfos(); admRenderInfoAdmin(); admUpdateStats();
     document.getElementById('adm-infoTitle').value='';
     document.getElementById('adm-infoContent').value='';
-    document.getElementById('adm-infoPhoto').value='';
+    admRemoveInfoMedia();
     admShowToast('📢 Info berhasil diposting!');
   }).catch(function(){
     newInfo._id=Date.now().toString();
     admInfos.unshift(newInfo); admSaveInfos(); admRenderInfoAdmin(); admUpdateStats();
     document.getElementById('adm-infoTitle').value='';
     document.getElementById('adm-infoContent').value='';
-    document.getElementById('adm-infoPhoto').value='';
+    admRemoveInfoMedia();
     admShowToast('📢 Tersimpan lokal (offline)');
   }).finally(function(){addBtn.disabled=false;addBtn.textContent='📢 Posting Info';});
 }
+
 function admDeleteInfo(id) {
   if (!confirm('Hapus info ini?')) return;
   admDeletedInfoIds[id]=true;
@@ -574,6 +799,7 @@ function admDeleteInfo(id) {
     .then(function(){admShowToast('🗑️ Info dihapus!');})
     .catch(function(){admShowToast('❌ Gagal hapus dari server!');});
 }
+
 function admRenderInfoAdmin() {
   var el=document.getElementById('adm-infoAdminList');
   if (!admInfos.length){el.innerHTML='<div class="adm-info-empty-admin">Belum ada info yang diposting.</div>';return;}
@@ -585,12 +811,22 @@ function admRenderInfoAdmin() {
     dev:   '<span class="adm-iac-badge adm-iac-badge-dev">⚙️ Dev</span>'
   };
   el.innerHTML='<div class="adm-info-admin-list">'+admInfos.map(function(item){
+    // Render media (foto atau video)
+    var mediaPreview = '';
+    if (item.media && item.media.type === 'photo' && item.media.value) {
+      mediaPreview = '<img src="'+admEsc(item.media.value)+'" style="width:100%;max-height:140px;object-fit:cover;border-radius:10px;margin-bottom:10px;border:1px solid rgba(240,98,146,0.2);" onerror="this.style.display=\'none\'"/>';
+    } else if (item.media && item.media.type === 'video' && item.media.value) {
+      mediaPreview = '<video controls src="'+admEsc(item.media.value)+'" style="width:100%;max-height:140px;border-radius:10px;margin-bottom:10px;"></video>';
+    } else if (item.photoUrl) {
+      // legacy
+      mediaPreview = '<img src="'+admEsc(item.photoUrl)+'" style="width:100%;max-height:140px;object-fit:cover;border-radius:10px;margin-bottom:10px;border:1px solid rgba(240,98,146,0.2);" onerror="this.style.display=\'none\'"/>';
+    }
     return '<div class="adm-info-admin-card adm-iac-'+item.type+'">'+
       '<div class="adm-iac-accent"></div>'+
       '<div class="adm-iac-body">'+
         '<div class="adm-iac-top"><div class="adm-iac-title">'+admEsc(item.title)+'</div>'+
         '<button class="adm-iac-del" onclick="admDeleteInfo(\''+item._id+'\')">🗑️ Hapus</button></div>'+
-        (item.photoUrl?'<img src="'+admEsc(item.photoUrl)+'" style="width:100%;max-height:140px;object-fit:cover;border-radius:10px;margin-bottom:10px;border:1px solid rgba(240,98,146,0.2);" onerror="this.style.display=\'none\'"/>':'')+''+
+        mediaPreview+
         '<div class="adm-iac-content">'+admEsc(item.content||'').replace(/\n/g,'<br>')+'</div>'+
         '<div class="adm-iac-meta">'+(bm[item.type]||bm.umum)+'<span class="adm-iac-date">📅 '+admEsc(item.date||'')+' · ✍️ '+admEsc(item.author||'Admin')+'</span></div>'+
       '</div></div>';
@@ -607,18 +843,15 @@ function admShowToast(msg) {
 
 /* ===== BIND EVENTS (after DOM ready) ===== */
 document.addEventListener('DOMContentLoaded', function() {
-  // Admin access button
   var adminBtn = document.getElementById('adminAccessBtn');
   if (adminBtn) adminBtn.addEventListener('click', openAdminOverlay);
 
-  // Admin login
   document.getElementById('adm-loginBtn').addEventListener('click', admDoLogin);
   document.getElementById('adm-loginPass').addEventListener('keydown',function(e){if(e.key==='Enter')admDoLogin();});
   document.getElementById('adm-loginUser').addEventListener('keydown',function(e){if(e.key==='Enter')admDoLogin();});
   document.getElementById('adm-logoutBtn').addEventListener('click', admDoLogout);
   document.getElementById('adm-searchBox').addEventListener('input', admRenderTable);
 
-  // Filters
   document.querySelectorAll('.adm-filter-btn').forEach(function(btn){
     btn.addEventListener('click',function(){admSetFilter(btn.dataset.admfilter,btn);});
   });
@@ -626,10 +859,8 @@ document.addEventListener('DOMContentLoaded', function() {
     btn.addEventListener('click',function(){admPickInfoType(btn);});
   });
 
-  // Info
   document.getElementById('adm-addInfoBtn').addEventListener('click', admAddInfo);
 
-  // Modals
   document.getElementById('adm-commentCancel').addEventListener('click',function(){admCloseModal('adm-modalComment');});
   document.getElementById('adm-commentConfirm').addEventListener('click', admSaveComment);
   document.getElementById('adm-labelCancel').addEventListener('click',function(){admCloseModal('adm-modalLabel');});

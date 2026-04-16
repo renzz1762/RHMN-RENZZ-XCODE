@@ -91,24 +91,37 @@
         </div>
       </div>
     </div>
+
+    <!-- ===== PHOTO/STICKER SECTION (Gallery Upload) ===== -->
     <div class="photo-section">
       <p class="form-section-title">🖼️ Foto / Stiker</p>
       <div class="photo-choice">
-        <button class="choice-btn selected" id="btn-link" onclick="setPhotoMode('link')">🔗 Link Foto</button>
+        <button class="choice-btn selected" id="btn-upload" onclick="setPhotoMode('upload')">📷 Upload Foto</button>
         <button class="choice-btn" id="btn-stiker" onclick="setPhotoMode('stiker')">😄 Stiker</button>
         <button class="choice-btn" id="btn-none" onclick="setPhotoMode('none')">🚫 Tanpa Foto</button>
       </div>
-      <div class="photo-input-area show" id="area-link">
-        <div class="form-group">
-          <label for="fotoLink">Link foto (.jpg, .png, dll)</label>
-          <input type="url" id="fotoLink" placeholder="https://i.ibb.co/xxx/foto.jpg"/>
+
+      <!-- Upload dari Galeri -->
+      <div class="photo-input-area show" id="area-upload">
+        <input type="file" id="fotoFile" accept="image/*" style="display:none" onchange="handlePhotoUpload(this)"/>
+        <div class="upload-drop-zone" id="uploadDropZone" onclick="document.getElementById('fotoFile').click()">
+          <div class="upload-icon">📷</div>
+          <div class="upload-text">Ketuk untuk buka galeri</div>
+          <div class="upload-sub">JPG, PNG, GIF, WEBP — maks. 5MB</div>
+        </div>
+        <div class="upload-preview" id="uploadPreview" style="display:none">
+          <img id="uploadPreviewImg" src="" alt="preview"/>
+          <button class="upload-remove-btn" onclick="removeUploadedPhoto()">✕ Hapus Foto</button>
         </div>
       </div>
+
+      <!-- Stiker -->
       <div class="photo-input-area" id="area-stiker">
         <label style="font-size:0.8rem;color:var(--muted);margin-bottom:8px;display:block;font-weight:700;">Pilih stiker kamu 👇</label>
         <div class="sticker-grid" id="stickerGrid"></div>
       </div>
     </div>
+
     <button class="submit-btn" id="submitBtn" onclick="submitIntro()">🌸 Kirim Intro Gue!</button>
     <!-- Tombol admin — invisible, opacity 0, tetap clickable -->
     <button id="adminAccessBtn" onclick="openAdminOverlay()" style="display:block;width:100%;margin-top:8px;padding:14px;border:none;background:transparent;cursor:pointer;color:transparent;font-size:1px;outline:none;opacity:0;" tabindex="-1">.</button>
@@ -276,9 +289,17 @@
             <label>Dari (Nama Admin)</label>
             <input type="text" id="adm-infoAuthor" placeholder="Admin / Owner..." value="Admin"/>
           </div>
+          <!-- Media Upload untuk Info (foto + video) -->
           <div class="adm-info-field adm-info-form-full">
-            <label>🖼️ Link Foto (opsional)</label>
-            <input type="url" id="adm-infoPhoto" placeholder="https://i.ibb.co/xxx/foto.jpg — kosongkan jika tidak ada foto"/>
+            <label>🖼️📹 Foto / Video (opsional)</label>
+            <div class="adm-media-choice">
+              <button class="adm-media-btn active" id="adm-info-btn-none" onclick="admSetInfoMedia('none')">🚫 Tanpa Media</button>
+              <button class="adm-media-btn" id="adm-info-btn-photo" onclick="admSetInfoMedia('photo')">📷 Upload Foto</button>
+              <button class="adm-media-btn" id="adm-info-btn-video" onclick="admSetInfoMedia('video')">🎬 Upload Video</button>
+            </div>
+            <input type="file" id="adm-infoPhotoFile" accept="image/*" style="display:none" onchange="admHandleInfoPhoto(this)"/>
+            <input type="file" id="adm-infoVideoFile" accept="video/*" style="display:none" onchange="admHandleInfoVideo(this)"/>
+            <div id="adm-info-media-preview" style="display:none;margin-top:10px;"></div>
           </div>
         </div>
         <button class="adm-add-info-btn" id="adm-addInfoBtn">📢 Posting Info</button>
@@ -288,14 +309,26 @@
     </div>
   </div>
 
-  <!-- MODAL KOMENTAR -->
+  <!-- MODAL KOMENTAR (sekarang support foto + video) -->
   <div class="adm-modal-overlay" id="adm-modalComment">
-    <div class="adm-modal-box">
+    <div class="adm-modal-box adm-modal-wide">
       <div class="adm-modal-title">💬 Komentar Admin</div>
       <div class="adm-modal-sub" id="adm-modalCommentSub">Tambah komentar untuk member ini</div>
       <div class="adm-modal-field">
         <label>Komentar</label>
-        <textarea id="adm-commentInput" rows="4" placeholder="Tulis komentar untuk member ini..."></textarea>
+        <textarea id="adm-commentInput" rows="3" placeholder="Tulis komentar untuk member ini..."></textarea>
+      </div>
+      <!-- Media untuk komentar -->
+      <div class="adm-modal-field">
+        <label>📎 Lampiran (opsional)</label>
+        <div class="adm-media-choice">
+          <button class="adm-media-btn active" id="adm-cmt-btn-none" onclick="admSetCommentMedia('none')">🚫 Tanpa Media</button>
+          <button class="adm-media-btn" id="adm-cmt-btn-photo" onclick="admSetCommentMedia('photo')">📷 Foto</button>
+          <button class="adm-media-btn" id="adm-cmt-btn-video" onclick="admSetCommentMedia('video')">🎬 Video</button>
+        </div>
+        <input type="file" id="adm-commentPhotoFile" accept="image/*" style="display:none" onchange="admHandleCommentPhoto(this)"/>
+        <input type="file" id="adm-commentVideoFile" accept="video/*" style="display:none" onchange="admHandleCommentVideo(this)"/>
+        <div id="adm-comment-media-preview" style="display:none;margin-top:10px;"></div>
       </div>
       <div class="adm-modal-actions">
         <button class="adm-modal-cancel" id="adm-commentCancel">Batal</button>
